@@ -536,14 +536,14 @@ boss_1_move_6=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_
 boss_1_move_7=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Run\run_7.png")
 boss_1_move_8=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Run\run_8.png")
 
-boss_1_move_1=pygame.transform.scale(boss_1_move_1,(55,75))
-boss_1_move_2=pygame.transform.scale(boss_1_move_2,(55,75))
-boss_1_move_3=pygame.transform.scale(boss_1_move_3,(55,75))
-boss_1_move_4=pygame.transform.scale(boss_1_move_4,(55,75))
-boss_1_move_5=pygame.transform.scale(boss_1_move_5,(55,75))
-boss_1_move_6=pygame.transform.scale(boss_1_move_6,(55,75))
-boss_1_move_7=pygame.transform.scale(boss_1_move_7,(55,75))
-boss_1_move_8=pygame.transform.scale(boss_1_move_8,(55,75))
+boss_1_move_1=pygame.transform.scale(boss_1_move_1,(65,85))
+boss_1_move_2=pygame.transform.scale(boss_1_move_2,(65,85))
+boss_1_move_3=pygame.transform.scale(boss_1_move_3,(65,85))
+boss_1_move_4=pygame.transform.scale(boss_1_move_4,(65,85))
+boss_1_move_5=pygame.transform.scale(boss_1_move_5,(65,85))
+boss_1_move_6=pygame.transform.scale(boss_1_move_6,(65,85))
+boss_1_move_7=pygame.transform.scale(boss_1_move_7,(65,85))
+boss_1_move_8=pygame.transform.scale(boss_1_move_8,(65,85))
 
 boss_1_move_flip_1=pygame.transform.flip(boss_1_move_1,True,False)
 boss_1_move_flip_2=pygame.transform.flip(boss_1_move_2,True,False)
@@ -614,7 +614,7 @@ boss_1_icon=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\
 boss_1_icon=pygame.transform.scale(boss_1_icon,(120,100))
 
 boss_1_idle_number=[0] ; boss_1_move_number=[0] ; boss_1_attack_number=[0] ; boss_1_fall_number=[0] ;  boss_1_level_2_part_2_x=[5600] ; boss_1_level_2_part_2_y=[480]
-boss_1_x_movement=[0] ; boss_1_y_movement=[0]
+boss_1_x_movement=[0] ; boss_1_y_movement=[0] 
 boss_1_rect=pygame.Rect(boss_1_level_2_part_2_x[0],boss_1_level_2_part_2_y[0],55,75)
 
 class Menu:
@@ -1701,7 +1701,6 @@ class GeneralBoss(Player):
                 level_2_dialogue_part_one=True
                 
 class BossOne(Player):
-    #here
     def __init__(self,boss_1_rect,boss_1_level_2_part_2_x,boss_1_level_2_part_2_y,boss_1_x_movement,boss_1_y_movement):
         super().__init__(player_x_movement,player_y_movement,player_rect,player_current_health)
         self.camera_x_y=camera_x_y ; self.boss_1_rect=boss_1_rect ; self.boss_1_level_2_part_2_x=boss_1_level_2_part_2_x ; self.boss_1_level_2_part_2_y=boss_1_level_2_part_2_y
@@ -1720,10 +1719,22 @@ class BossOne(Player):
                     
     def move(self):
         global level_2_part_2, level_2_dialogue_part_two_once
+        self.boss_1_move=boss_1_move ; self.boss_1_move_flip=boss_1_move_flip ; self.boss_1_move_number=boss_1_move_number
         if level_2_dialogue_part_two_once:
             self.player_boss_1_distance=math.sqrt(math.pow(self.player_rect.x-self.boss_1_rect.x,2)+math.pow(self.player_rect.x-self.boss_1_rect.x,2))
-            if self.player_boss_1_distance<200:
-                print(self.player_boss_1_distance)
+            if self.player_boss_1_distance>100:
+                if self.player_rect.x>=self.boss_1_rect.x:
+                    SCREEN.blit(self.boss_1_move[int(self.boss_1_move_number[0])//2],(self.boss_1_rect.x-self.camera_x_y[0]-5,self.boss_1_rect.y-self.camera_x_y[1]-5))
+                    self.boss_1_x_movement[0]=2
+                if self.player_rect.x<self.boss_1_rect.x:
+                    SCREEN.blit(self.boss_1_move_flip[int(self.boss_1_move_number[0])//2],(self.boss_1_rect.x-self.camera_x_y[0]-5,self.boss_1_rect.y-self.camera_x_y[1]-5))
+                    self.boss_1_x_movement[0]=-2
+                self.boss_1_move_number[0]+=0.50
+                if self.boss_1_move_number[0]>10:
+                    self.boss_1_move_number[0]=0   
+
+    def attack(self):
+        pass
                 
     def collision_with_object(self,tile_level_2):
         if level_2_part_2:
@@ -1806,6 +1817,7 @@ while run:
     boss_one=BossOne(boss_1_rect,boss_1_level_2_part_2_x,boss_1_level_2_part_2_y,boss_1_x_movement,boss_1_y_movement)
     boss_one.idle()
     boss_one.move()
+    boss_one.attack()
     boss_one.collision_with_object(tile_level_2)
     boss_one.collision_with_object_logic(tile_level_2)
     
