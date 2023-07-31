@@ -1,3 +1,5 @@
+import Data
+
 class Game:
     def __init__(self,level_1_bg,tile_level_1,camera_x_y,tile_level_1_rect,tile_level_2,tile_level_2_rect):
         self.level_1_bg=level_1_bg ; self.tile_level_1=tile_level_1 ; self.camera_x_y=camera_x_y ; self.tile_level_1_rect=tile_level_1_rect

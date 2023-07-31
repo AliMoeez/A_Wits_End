@@ -1,4 +1,4 @@
-class EnemyTwo(Player):
+class EnemyTwo(player.Player):
     def __init__(self,enemy_two_level_1_rect,enemy_two_x_movement,enemy_two_y_movement,enemy_two_rect_list,enemy_two_distance_list,enemy_two_health):
         self.enemy_two_level_1_rect=enemy_two_level_1_rect ; self.enemy_two_x_movement=enemy_two_x_movement ; self.enemy_two_y_movement=enemy_two_y_movement ; self.enemy_two_rect_list=enemy_two_rect_list
         self.enemy_two_distance_list=enemy_two_distance_list ; self.enemy_two_health=enemy_two_health

@@ -1,4 +1,6 @@
-class Player(Game):
+import game
+
+class Player(game.Game):
     def __init__(self,player_x_movement,player_y_movement,player_rect,player_current_health):
         self.player_x_movement=player_x_movement ; self.player_y_movement=player_y_movement ; self.player_current_health=player_current_health
         self.player_rect=player_rect
