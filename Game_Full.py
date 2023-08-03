@@ -1713,7 +1713,8 @@ class BossOne(Player):
         self.boss_1_attack_timer=boss_1_attack_timer ; self.boss_1_idle=boss_1_idle
         if level_2_part_2:
             self.boss_1_y_movement[0]=10
-            if not level_2_dialogue_part_two_once or self.boss_1_attack_timer[0]<=0:
+            self.player_boss_1_distance=math.sqrt(math.pow(self.player_rect.x-self.boss_1_rect.x,2)+math.pow(self.player_rect.x-self.boss_1_rect.x,2))
+            if not level_2_dialogue_part_two_once or self.boss_1_attack_timer[0]<=0 and self.player_boss_1_distance<=100:
                 if self.boss_1_attack_timer[0]<=0:
                     self.boss_1_rest_time[0]+=0.50
                 if self.player_rect.x<self.boss_1_rect.x:
@@ -1723,15 +1724,13 @@ class BossOne(Player):
                 self.boss_1_idle_number[0]+=0.50
                 if self.boss_1_idle_number[0]>9: self.boss_1_idle_number[0]=0
                 if self.boss_1_rest_time[0]>40:
-                    self.boss_1_attack_timer[0]=200
-                    self.boss_1_rest_time[0]=0
+                    self.boss_1_attack_timer[0]=200 ; self.boss_1_rest_time[0]=0
 
                     
     def move(self):
         global level_2_part_2, level_2_dialogue_part_two_once
         self.boss_1_move=boss_1_move ; self.boss_1_move_flip=boss_1_move_flip ; self.boss_1_move_number=boss_1_move_number ; self.boss_1_attack_timer=boss_1_attack_timer
         if level_2_dialogue_part_two_once:
-            self.player_boss_1_distance=math.sqrt(math.pow(self.player_rect.x-self.boss_1_rect.x,2)+math.pow(self.player_rect.x-self.boss_1_rect.x,2))
             if self.player_boss_1_distance>100:
                 if self.player_rect.x>=self.boss_1_rect.x:
                     SCREEN.blit(self.boss_1_move[int(self.boss_1_move_number[0])//2],(self.boss_1_rect.x-self.camera_x_y[0]-5,self.boss_1_rect.y-self.camera_x_y[1]-5))
