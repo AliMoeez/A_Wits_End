@@ -1712,26 +1712,30 @@ class BossOne(Player):
         self.boss_1_idle_flip=boss_1_idle_flip ; self.boss_1_idle_number=boss_1_idle_number ; self.boss_1_level_2_part_2_x=boss_1_level_2_part_2_x ; self.boss_1_level_2_part_2_y=boss_1_level_2_part_2_y
         self.boss_1_attack_timer=boss_1_attack_timer ; self.boss_1_idle=boss_1_idle
         if level_2_part_2:
-            self.boss_1_y_movement[0]=10
+            if self.boss_1_attack_timer[0]<=0:
+                self.boss_1_y_movement[0]=-1
+                if self.boss_1_rest_time[0]>40:
+                    self.boss_1_attack_timer[0]=200 ; self.boss_1_rest_time[0]=0
+                self.boss_1_rest_time[0]+=0.50
+            if self.boss_1_attack_timer[0]>0:
+                self.boss_1_y_movement[0]=4
             self.player_boss_1_distance=math.sqrt(math.pow(self.player_rect.x-self.boss_1_rect.x,2)+math.pow(self.player_rect.x-self.boss_1_rect.x,2))
-            if not level_2_dialogue_part_two_once or self.boss_1_attack_timer[0]<=0 and self.player_boss_1_distance<=100:
-                if self.boss_1_attack_timer[0]<=0:
-                    self.boss_1_rest_time[0]+=0.50
+            if not level_2_dialogue_part_two_once or self.boss_1_attack_timer[0]<=0 and self.player_boss_1_distance<=50:
                 if self.player_rect.x<self.boss_1_rect.x:
                     SCREEN.blit(self.boss_1_idle_flip[int(self.boss_1_idle_number[0])//2],(self.boss_1_rect.x-self.camera_x_y[0]-5,self.boss_1_rect.y-self.camera_x_y[1]-5))
                 if self.player_rect.x>=self.boss_1_rect.x:
                     SCREEN.blit(self.boss_1_idle[int(self.boss_1_idle_number[0])//2],(self.boss_1_rect.x-self.camera_x_y[0]-5,self.boss_1_rect.y-self.camera_x_y[1]-5))
                 self.boss_1_idle_number[0]+=0.50
                 if self.boss_1_idle_number[0]>9: self.boss_1_idle_number[0]=0
-                if self.boss_1_rest_time[0]>40:
-                    self.boss_1_attack_timer[0]=200 ; self.boss_1_rest_time[0]=0
+               # if self.boss_1_rest_time[0]>40:
+               #     self.boss_1_attack_timer[0]=200 ; self.boss_1_rest_time[0]=0
 
                     
     def move(self):
         global level_2_part_2, level_2_dialogue_part_two_once
         self.boss_1_move=boss_1_move ; self.boss_1_move_flip=boss_1_move_flip ; self.boss_1_move_number=boss_1_move_number ; self.boss_1_attack_timer=boss_1_attack_timer
         if level_2_dialogue_part_two_once:
-            if self.player_boss_1_distance>100:
+            if self.player_boss_1_distance>50:
                 if self.player_rect.x>=self.boss_1_rect.x:
                     SCREEN.blit(self.boss_1_move[int(self.boss_1_move_number[0])//2],(self.boss_1_rect.x-self.camera_x_y[0]-5,self.boss_1_rect.y-self.camera_x_y[1]-5))
                     self.boss_1_x_movement[0]=2
@@ -1746,14 +1750,15 @@ class BossOne(Player):
         global level_2_dialogue_part_two_once
         self.boss_1_attack=boss_1_attack ; self.boss_1_attack_flip=boss_1_attack_flip ; self.boss_1_attack_number=boss_1_attack_number ; self.boss_1_attack_timer=boss_1_attack_timer
         if level_2_dialogue_part_two_once:
-            if self.player_boss_1_distance<=100 and self.boss_1_attack_timer[0]>0:
+            if self.player_boss_1_distance<=50 and self.boss_1_attack_timer[0]>0:
                 self.boss_1_x_movement[0]=0
                 if self.player_rect.x>=self.boss_1_rect.x:
                     SCREEN.blit(self.boss_1_attack[int(self.boss_1_attack_number[0])//2],(self.boss_1_rect.x-self.camera_x_y[0]-5,self.boss_1_rect.y-self.camera_x_y[1]-5))
                 if self.player_rect.x<self.boss_1_rect.x:
                     SCREEN.blit(self.boss_1_attack_flip[int(self.boss_1_attack_number[0])//2],(self.boss_1_rect.x-self.camera_x_y[0]-5,self.boss_1_rect.y-self.camera_x_y[1]-5))
                 self.boss_1_attack_timer[0]-=2 ; self.boss_1_attack_number[0]+=0.50
-                if self.boss_1_attack_number[0]>9: self.boss_1_attack_number[0]=0       
+                if self.boss_1_attack_number[0]>9: self.boss_1_attack_number[0]=0  
+                self.player_current_health[0]-=2  
 
     def collision_with_object(self,tile_level_2):
         if level_2_part_2:
