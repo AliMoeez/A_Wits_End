@@ -615,7 +615,7 @@ boss_1_icon=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\
 boss_1_icon=pygame.transform.scale(boss_1_icon,(120,100))
 
 boss_1_idle_number=[0] ; boss_1_move_number=[0] ; boss_1_attack_number=[0] ; boss_1_fall_number=[0] ;  boss_1_level_2_part_2_x=[5600] ; boss_1_level_2_part_2_y=[480]
-boss_1_x_movement=[0] ; boss_1_y_movement=[0] ; boss_1_attack_timer=[200] ; boss_1_rest_time=[0]
+boss_1_x_movement=[0] ; boss_1_y_movement=[0] ; boss_1_attack_timer=[200] ; boss_1_rest_time=[0] ; boss_1_health=[1000]
 boss_1_rect=pygame.Rect(boss_1_level_2_part_2_x[0],boss_1_level_2_part_2_y[0],55,75)
 
 class Menu:
@@ -1623,7 +1623,7 @@ class EnemyTwo(Player):
             return self.enemy_two_rect_list        
 
 class MainBoss(Player):
-    def __init__(self,main_boss_rect_level_1,main_boss_x_movement,main_boss_y_movement):
+    def __init__(self,main_boss_rect_level_1,main_boss_x_movement,main_boss_y_movement,):
         super().__init__(player_x_movement,player_y_movement,player_rect,player_current_health)
         self.main_boss_rect_level_1=main_boss_rect_level_1 ; self.main_boss_x_movement=main_boss_x_movement ; self.main_boss_y_movement=main_boss_y_movement
         
@@ -1702,16 +1702,18 @@ class GeneralBoss(Player):
                 level_2_dialogue_part_one=True
                 
 class BossOne(Player):
-    def __init__(self,boss_1_rect,boss_1_level_2_part_2_x,boss_1_level_2_part_2_y,boss_1_x_movement,boss_1_y_movement):
+    def __init__(self,boss_1_rect,boss_1_level_2_part_2_x,boss_1_level_2_part_2_y,boss_1_x_movement,boss_1_y_movement,boss_1_health):
         super().__init__(player_x_movement,player_y_movement,player_rect,player_current_health)
         self.camera_x_y=camera_x_y ; self.boss_1_rect=boss_1_rect ; self.boss_1_level_2_part_2_x=boss_1_level_2_part_2_x ; self.boss_1_level_2_part_2_y=boss_1_level_2_part_2_y
-        self.boss_1_x_movement=boss_1_x_movement ; self.boss_1_y_movement=boss_1_y_movement ; self.boss_1_rest_time=boss_1_rest_time
+        self.boss_1_x_movement=boss_1_x_movement ; self.boss_1_y_movement=boss_1_y_movement ; self.boss_1_rest_time=boss_1_rest_time ; self.boss_1_health=boss_1_health
     
     def idle(self):
         global level_2_part_2
         self.boss_1_idle_flip=boss_1_idle_flip ; self.boss_1_idle_number=boss_1_idle_number ; self.boss_1_level_2_part_2_x=boss_1_level_2_part_2_x ; self.boss_1_level_2_part_2_y=boss_1_level_2_part_2_y
         self.boss_1_attack_timer=boss_1_attack_timer ; self.boss_1_idle=boss_1_idle
         if level_2_part_2:
+            self.player_boss_1_distance=math.sqrt(math.pow(self.player_rect.x-self.boss_1_rect.x,2)+math.pow(self.player_rect.x-self.boss_1_rect.x,2))
+        if level_2_part_2 and self.boss_1_health[0]>0:
             if self.boss_1_attack_timer[0]<=0:
                 self.boss_1_y_movement[0]=-1
                 if self.boss_1_rest_time[0]>40:
@@ -1719,7 +1721,6 @@ class BossOne(Player):
                 self.boss_1_rest_time[0]+=0.50
             if self.boss_1_attack_timer[0]>0:
                 self.boss_1_y_movement[0]=4
-            self.player_boss_1_distance=math.sqrt(math.pow(self.player_rect.x-self.boss_1_rect.x,2)+math.pow(self.player_rect.x-self.boss_1_rect.x,2))
             if not level_2_dialogue_part_two_once or self.boss_1_attack_timer[0]<=0 and self.player_boss_1_distance<=50:
                 if self.player_rect.x<self.boss_1_rect.x:
                     SCREEN.blit(self.boss_1_idle_flip[int(self.boss_1_idle_number[0])//2],(self.boss_1_rect.x-self.camera_x_y[0]-5,self.boss_1_rect.y-self.camera_x_y[1]-5))
@@ -1734,7 +1735,7 @@ class BossOne(Player):
     def move(self):
         global level_2_part_2, level_2_dialogue_part_two_once
         self.boss_1_move=boss_1_move ; self.boss_1_move_flip=boss_1_move_flip ; self.boss_1_move_number=boss_1_move_number ; self.boss_1_attack_timer=boss_1_attack_timer
-        if level_2_dialogue_part_two_once:
+        if level_2_dialogue_part_two_once and self.boss_1_health[0]>0:
             if self.player_boss_1_distance>50:
                 if self.player_rect.x>=self.boss_1_rect.x:
                     SCREEN.blit(self.boss_1_move[int(self.boss_1_move_number[0])//2],(self.boss_1_rect.x-self.camera_x_y[0]-5,self.boss_1_rect.y-self.camera_x_y[1]-5))
@@ -1749,7 +1750,7 @@ class BossOne(Player):
     def attack(self):
         global level_2_dialogue_part_two_once
         self.boss_1_attack=boss_1_attack ; self.boss_1_attack_flip=boss_1_attack_flip ; self.boss_1_attack_number=boss_1_attack_number ; self.boss_1_attack_timer=boss_1_attack_timer
-        if level_2_dialogue_part_two_once:
+        if level_2_dialogue_part_two_once and self.boss_1_health[0]>0:
             if self.player_boss_1_distance<=50 and self.boss_1_attack_timer[0]>0:
                 self.boss_1_x_movement[0]=0
                 if self.player_rect.x>=self.boss_1_rect.x:
@@ -1758,7 +1759,21 @@ class BossOne(Player):
                     SCREEN.blit(self.boss_1_attack_flip[int(self.boss_1_attack_number[0])//2],(self.boss_1_rect.x-self.camera_x_y[0]-5,self.boss_1_rect.y-self.camera_x_y[1]-5))
                 self.boss_1_attack_timer[0]-=2 ; self.boss_1_attack_number[0]+=0.50
                 if self.boss_1_attack_number[0]>9: self.boss_1_attack_number[0]=0  
-                self.player_current_health[0]-=2  
+                self.player_current_health[0]-=2
+
+    def health(self):
+        global attack, level_2_dialogue_part_two_once, player_idle_right, player_idle_left
+        self.health_bar_length=500 ; self.maximum_health=1000 ; self.health_bar_ratio=self.maximum_health/self.health_bar_length ; self.health_icon=health_icon
+        if level_2_dialogue_part_two_once:
+            health_icons=pygame.draw.rect(SCREEN,(172,144,32),pygame.Rect(590,10,self.boss_1_health[0]/self.health_bar_ratio,25))
+            SCREEN.blit(self.health_icon,(605,12))
+            health_border=pygame.draw.rect(SCREEN,(220,220,220),pygame.Rect(590,10,self.health_bar_length,25),4) 
+            if attack and self.player_boss_1_distance<100 and self.boss_1_attack_timer[0]>0:
+                if player_idle_right and self.player_rect.x<self.boss_1_rect.x or player_idle_left and self.player_rect.x>=self.boss_1_rect.x:
+                    self.boss_1_health[0]-=5
+            if boss_1_attack_timer[0]<=0:
+                self.boss_1_health[0]+=1
+
 
     def collision_with_object(self,tile_level_2):
         if level_2_part_2:
@@ -1837,10 +1852,11 @@ while run:
     general_boss=GeneralBoss()
     general_boss.idle()
                         
-    boss_one=BossOne(boss_1_rect,boss_1_level_2_part_2_x,boss_1_level_2_part_2_y,boss_1_x_movement,boss_1_y_movement)
+    boss_one=BossOne(boss_1_rect,boss_1_level_2_part_2_x,boss_1_level_2_part_2_y,boss_1_x_movement,boss_1_y_movement,boss_1_health)
     boss_one.idle()
     boss_one.move()
     boss_one.attack()
+    boss_one.health()
     boss_one.collision_with_object(tile_level_2)
     boss_one.collision_with_object_logic(tile_level_2)
     
