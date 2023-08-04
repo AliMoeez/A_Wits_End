@@ -597,9 +597,9 @@ boss_1_fall_5=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_
 
 boss_1_fall_1=pygame.transform.scale(boss_1_fall_1,(55,75))
 boss_1_fall_2=pygame.transform.scale(boss_1_fall_2,(55,75))
-boss_1_fall_3=pygame.transform.scale(boss_1_fall_3,(55,75))
-boss_1_fall_4=pygame.transform.scale(boss_1_fall_4,(55,75))
-boss_1_fall_5=pygame.transform.scale(boss_1_fall_5,(55,75))
+boss_1_fall_3=pygame.transform.scale(boss_1_fall_3,(45,60))
+boss_1_fall_4=pygame.transform.scale(boss_1_fall_4,(45,60))
+boss_1_fall_5=pygame.transform.scale(boss_1_fall_5,(45,60))
 
 
 boss_1_fall_flip_1=pygame.transform.flip(boss_1_fall_1,True,False)
@@ -615,7 +615,7 @@ boss_1_icon=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\
 boss_1_icon=pygame.transform.scale(boss_1_icon,(120,100))
 
 boss_1_idle_number=[0] ; boss_1_move_number=[0] ; boss_1_attack_number=[0] ; boss_1_fall_number=[0] ;  boss_1_level_2_part_2_x=[5600] ; boss_1_level_2_part_2_y=[480]
-boss_1_x_movement=[0] ; boss_1_y_movement=[0] ; boss_1_attack_timer=[200] ; boss_1_rest_time=[0] ; boss_1_health=[1000]
+boss_1_x_movement=[0] ; boss_1_y_movement=[0] ; boss_1_attack_timer=[200] ; boss_1_rest_time=[0] ; boss_1_health=[1000] ; boss_fall_right=False ; boss_Fall_left=False
 boss_1_rect=pygame.Rect(boss_1_level_2_part_2_x[0],boss_1_level_2_part_2_y[0],55,75)
 
 class Menu:
@@ -932,7 +932,8 @@ class Game:
         global level_2, level_2_part_2, level_2_dialogue_part_one,dialogue_move_condition,change_dialogue_cond_1,change_dialogue,end_dialogue,level_2_dialogue_part_one_once
         global level_2_dialogue_part_two,level_2_dialogue_once_two,level_2_part_2_boss_dialogue, level_2_dialogue_part_two_once
         self.general_boss_icon=general_boss_icon ; self.level_2_dialogue_list_part_1_length=level_2_dialogue_list_part_1_length ; self.player_icon=player_icon ; self.enemy_one_icon=enemy_one_icon
-        self.level_2_blur_list_2=level_2_blur_list_2 ; self.boss_1_icon=boss_1_icon
+        self.level_2_blur_list_2=level_2_blur_list_2 ; self.boss_1_icon=boss_1_icon ; self.player_current_health=player_current_health ; self.boss_1_health=boss_1_health
+
         self.level_2_dialogue_list_part_1=[
         ("I don't want to have to do this!","You",self.player_icon),
         ("Do what? I have heard of your defection and arrest! I stand with you!","General Lopen",self.general_boss_icon),
@@ -953,21 +954,33 @@ class Game:
         self.level_2_dialogue_list_3=[
         ("HehHAHAAHA, YOu've aRrived!!!","???",self.boss_1_icon),
         ("Are you ok? Who are you? Where is Kornos!?","You",self.player_icon),
-        ("iM Fine, ThANK yoU fOr asKINg...My nAmE is HIgH LoRD STepHeN.. SaME mE!","High Lord Stephen",self.boss_1_icon),
+        ("iM Fine, ThANK yoU fOr asKINg...My nAmE is HIgH LoRD STepHeN......","High Lord Stephen",self.boss_1_icon),
         ("Why are you like this? Did Kornos do this to you?","You",self.player_icon),
         ("He GaVE mE pOWerS onE caNNOT ImagINE, lOOK aT thE pOTionS aROUnd hERE, yoU FOOL!!","High Lord Stephen",self.boss_1_icon),
-        ("I assume you want me to surrder right?","You",self.player_icon),
+        ("I assume you want me to surrender right?","You",self.player_icon),
         ("YeS, YES, yES, YES!!!!! IT is EaSiER tHAt wAY, oR I wILL FORcE yOU tO SURrenDER!","High Lord Stephen",self.boss_1_icon),
         ("Force me then.....","You",self.player_icon)
         ]
-        
-        if level_2_dialogue_part_one or level_2_dialogue_part_two and self.level_2_blur_list_2[0]<=0 or level_2_part_2_boss_dialogue:
+
+        self.level_2_dialogue_list_lose=[
+        ("YoU'RE tO wEAK tO UnDERstAnD ReAL POWER!!!!!!!!",self.boss_1_icon)
+        ]
+
+        self.level_2_dialogue_list_win=[
+        ("NOOO, WHAT HAVE YOU DONE TO ME!!!! NOOOOOOOOOOOOOOOOOOOOOOOO!!!!!!!!!!!!!!!",self.boss_1_icon)
+        ]
+
+        if level_2_dialogue_part_one or level_2_dialogue_part_two and self.level_2_blur_list_2[0]<=0 or level_2_part_2_boss_dialogue or level_2_dialogue_part_two_once:
             if level_2_dialogue_part_one:
                 level_2_dialogue=self.level_2_dialogue_list_part_1 ; colour_box=(1,50,32) ; colour_font=(1,150,71)
             if level_2_dialogue_part_two:
                 level_2_dialogue=self.level_2_dialogue_list_part_2 ; colour_box=(128,128,128) ; colour_font=(192,192,192)
             if level_2_part_2_boss_dialogue:
                 level_2_dialogue=self.level_2_dialogue_list_3 ; colour_box=(128,128,128) ; colour_font=(192,192,192)
+            if level_2_dialogue_part_two_once and self.player_current_health[0]<=0:
+                level_2_dialogue=self.level_2_dialogue_list_lose ; colour_box=(128,128,128) ; colour_font=(192,192,192)
+            if level_2_dialogue_part_two_once and self.boss_1_health[0]<=0:
+                level_2_dialogue=self.level_2_dialogue_list_win ; colour_box=(128,128,128) ; colour_font=(192,192,192)
             dialogue_move_condition=True ; rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  ; rectangle_blur.set_alpha(100) ; rectangle_blur.fill((0,0,0))  ; SCREEN.blit(rectangle_blur,(0,0)) 
             rectangle_box_1=pygame.Surface((SCREEN_WIDTH,200))  ; rectangle_box_1.fill(colour_box)  ; rectangle_box_1.set_alpha(75)  ; SCREEN.blit(rectangle_box_1,(0,500))
             for idx, number in enumerate(level_2_dialogue):
@@ -1728,10 +1741,7 @@ class BossOne(Player):
                     SCREEN.blit(self.boss_1_idle[int(self.boss_1_idle_number[0])//2],(self.boss_1_rect.x-self.camera_x_y[0]-5,self.boss_1_rect.y-self.camera_x_y[1]-5))
                 self.boss_1_idle_number[0]+=0.50
                 if self.boss_1_idle_number[0]>9: self.boss_1_idle_number[0]=0
-               # if self.boss_1_rest_time[0]>40:
-               #     self.boss_1_attack_timer[0]=200 ; self.boss_1_rest_time[0]=0
-
-                    
+             
     def move(self):
         global level_2_part_2, level_2_dialogue_part_two_once
         self.boss_1_move=boss_1_move ; self.boss_1_move_flip=boss_1_move_flip ; self.boss_1_move_number=boss_1_move_number ; self.boss_1_attack_timer=boss_1_attack_timer
@@ -1759,7 +1769,7 @@ class BossOne(Player):
                     SCREEN.blit(self.boss_1_attack_flip[int(self.boss_1_attack_number[0])//2],(self.boss_1_rect.x-self.camera_x_y[0]-5,self.boss_1_rect.y-self.camera_x_y[1]-5))
                 self.boss_1_attack_timer[0]-=2 ; self.boss_1_attack_number[0]+=0.50
                 if self.boss_1_attack_number[0]>9: self.boss_1_attack_number[0]=0  
-                self.player_current_health[0]-=2
+                self.player_current_health[0]-=2  
 
     def health(self):
         global attack, level_2_dialogue_part_two_once, player_idle_right, player_idle_left
@@ -1770,10 +1780,31 @@ class BossOne(Player):
             health_border=pygame.draw.rect(SCREEN,(220,220,220),pygame.Rect(590,10,self.health_bar_length,25),4) 
             if attack and self.player_boss_1_distance<100 and self.boss_1_attack_timer[0]>0:
                 if player_idle_right and self.player_rect.x<self.boss_1_rect.x or player_idle_left and self.player_rect.x>=self.boss_1_rect.x:
-                    self.boss_1_health[0]-=5
+                    self.boss_1_health[0]-=500    #5
             if boss_1_attack_timer[0]<=0:
-                self.boss_1_health[0]+=1
+                self.boss_1_health[0]+=1  
+            if self.boss_1_health[0]>1000:
+                self.boss_1_health[0]=1000
 
+    def fall(self):
+        global level_2_dialogue_part_two_once,boss_fall_right,boss_fall_left
+        self.boss_1_fall=boss_1_fall ; self.boss_1_fall_flip=boss_1_fall_flip ; self.boss_1_fall_number=boss_1_fall_number
+        if level_2_dialogue_part_two_once:
+            if self.boss_1_health[0]<=0:
+                self.boss_1_x_movement[0]=0
+                if self.player_rect.x>self.boss_1_rect.x and self.boss_1_fall_number[0]<6:
+                    SCREEN.blit(self.boss_1_fall[int(self.boss_1_fall_number[0])//2],(self.boss_1_rect.x-self.camera_x_y[0]-5,self.boss_1_rect.y-self.camera_x_y[1]+30))
+                    boss_fall_right=True ; boss_fall_left=False
+                if self.player_rect.x<=self.boss_1_rect.x:
+                    SCREEN.blit(self.boss_1_fall_flip[int(self.boss_1_fall_number[0])//2],(self.boss_1_rect.x-self.camera_x_y[0]-5,self.boss_1_rect.y-self.camera_x_y[1]+30))
+                    boss_fall_left=True ; boss_fall_right=False
+                self.boss_1_fall_number[0]+=0.50
+                if self.boss_1_fall_number[0]>=6:
+                    self.boss_1_fall_number[0]=6
+                    if boss_fall_right:
+                        SCREEN.blit(self.boss_1_fall[int(self.boss_1_fall_number[0])//2],(self.boss_1_rect.x-self.camera_x_y[0]-5,self.boss_1_rect.y-self.camera_x_y[1]+30))
+                    if boss_fall_left:
+                        SCREEN.blit(self.boss_1_fall_flip[int(self.boss_1_fall_number[0])//2],(self.boss_1_rect.x-self.camera_x_y[0]-5,self.boss_1_rect.y-self.camera_x_y[1]+30))
 
     def collision_with_object(self,tile_level_2):
         if level_2_part_2:
@@ -1857,6 +1888,7 @@ while run:
     boss_one.move()
     boss_one.attack()
     boss_one.health()
+    boss_one.fall()
     boss_one.collision_with_object(tile_level_2)
     boss_one.collision_with_object_logic(tile_level_2)
     
