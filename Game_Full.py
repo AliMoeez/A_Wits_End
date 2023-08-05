@@ -825,7 +825,7 @@ class Game:
         self.level_2_table=level_2_table ; self.level_2_crate=level_2_crate ; self.level_2_crate_damage=level_2_crate_damage ; self.level_2_bag=level_2_bag ; self.level_2_books=level_2_books
         self.level_2_flag=level_2_flag ; self.level_2_potion_1=level_2_potion_1 ; self.level_2_potion_2=level_2_potion_2 ; self.level_2_torch=level_2_torch ; self.level_2_fixture=level_2_fixture
         self.level_2_candle=level_2_candle ; self.level_2_dec_number=level_2_dec_number ; self.level_2_animated_item_list=level_2_animated_item_list ; self.level_2_torch_1_bg=level_2_torch_1_bg; self.level_2_bag_2=level_2_bag_2
-        self.level_2_tile_index=level_2_tile_index
+        self.level_2_tile_index=level_2_tile_index ; self.player_current_health=player_current_health
         
 
         if level_2:
@@ -876,11 +876,15 @@ class Game:
                             self.player_rect.y=500 #500
                             level_2_part_2=True
                         
-            if level_2_part_2:
+            if level_2_part_2:d
                 if self.player_rect.x<210:
                     self.player_rect.x=210
                 if self.player_rect.x>=210 and self.player_rect.x<=5300:
                     self.camera_x_y[0]+=self.player_rect.x-self.camera_x_y[0]-210
+                if self.player_rect.y>800:
+                    self.player_current_health[0]-=100
+                    if self.player_current_health[0]<0:
+                        self.player_rect.y=795
                 SCREEN.blit(self.level_1_bg,(0,0))
                 self.level_2_blur_list_2[0]-=10 #50
                 if self.level_2_blur_list_2[0]<0:
@@ -1180,6 +1184,7 @@ class Player(Game):
             if level_2_part_2 and reset_enemy_position:
                 self.player_rect.x=210
                 self.player_rect.y=500
+                self.player_current_health[0]=1000
 
     def collision_with_object(self,tile_level_1_rect,tile_level_2_rect):
         global level_2_part_2
@@ -1422,13 +1427,12 @@ class EnemyOne(Player):
                     self.enemy_one_fall_number[idx]+=0.50
     
     def reset_position(self):
-        global reset_enemy_position,level_2_part_2,level_1
+        global reset_enemy_position,level_2_part_2,level_1,level_2_part_2
         self.enemy_1_level_1_x=enemy_1_level_1_x ; self.enemy_1_level_1_x_idle=enemy_1_level_1_x_idle ; self.enemy_1_level_2_x=enemy_1_level_2_x
         #here
         if reset_enemy_position:
             self.enemy_1_distance_list.clear() ; self.enemy_one_fall_number.clear() ; self.enemy_one_fall_direction_set.clear() ; self.enemy_1_x_movement.clear() ; self.enemy_1_attack_length.clear() ; self.enemy_1_health_list.clear()
             if level_1:
-                print("here")
                 for idx,knight in enumerate(self.enemy_1_level_1_rect):
                     self.enemy_1_level_1_rect[idx].x=self.enemy_1_level_1_x[idx]
                 for idx,knight in enumerate(self.enemy_1_level_1_rect_idle):
@@ -1440,7 +1444,6 @@ class EnemyOne(Player):
                     self.enemy_1_level_2_rect[idx].x=self.enemy_1_level_2_x[idx]
                 for idx,knight in enumerate(self.enemy_1_health_list):
                     self.enemy_1_health_list[idx]=100
-                reset_enemy_position=False
                 
     def collision_with_object(self,tile_level_1,tile_level_2):
         self.level_2_tile_index=level_2_tile_index ; self.npc_direction_choice=npc_direction_choice
@@ -1457,10 +1460,8 @@ class EnemyOne(Player):
                     for index,number in enumerate(tile_level):
                         if enemy_knight.colliderect(number):
                             if self.level_2_tile_index[index]=="14":
-          #                      print("this")
                                 self.npc_direction_choice[idx]=1
                             if self.level_2_tile_index[index]=="17":
-         #                       print("tihs is")
                                 self.npc_direction_choice[idx]=2 
             return hit_tile
         
@@ -1469,20 +1470,11 @@ class EnemyOne(Player):
         if level_1 or level_2_part_2:
             if level_1: enemy_1_rect=self.enemy_level_1_rect ; enemy_list=self.enemy_list_level_1
             if level_2_part_2 : enemy_1_rect=self.enemy_1_level_2_rect ; enemy_list=self.enemy_list_level_2
-         #   if not level_1_enemy_fight_condition:
             for idx,enemy_knight in enumerate(enemy_1_rect):
                 try:
                     enemy_knight.x+=self.enemy_1_x_movement[idx]
                 except IndexError : pass
-         #       for idx,enemy_knight in enumerate(enemy_1_rect):
-          #          enemy_knight.x+=self.enemy_1_x_movement[idx]
             collision=EnemyOne.collision_with_object(self,tile_level_1,tile_level_2)
-          #  for tile in collision:
-          #      for idx,enemy_knight in enumerate(enemy_1_rect):
-             #       if self.enemy_1_x_movement[0]>0:
-             #           enemy_knight.right=tile.left
-             #       if self.enemy_1_x_movement[0]<0:
-             #           enemy_knight.left=tile.right
             for idx,enemy_knight in enumerate(enemy_1_rect):
                 enemy_knight.y+=self.enemy_1_y_movement[0]
             collision=EnemyOne.collision_with_object(self,tile_level_1,tile_level_2)
@@ -1821,6 +1813,14 @@ class BossOne(Player):
                     if boss_fall_left:
                         SCREEN.blit(self.boss_1_fall_flip[int(self.boss_1_fall_number[0])//2],(self.boss_1_rect.x-self.camera_x_y[0]-5,self.boss_1_rect.y-self.camera_x_y[1]+30))
 
+    def reset_position(self):
+        global level_2_part_2, reset_enemy_position
+        self.boss_1_level_2_part_2_x=boss_1_level_2_part_2_x; self.boss_1_level_2_part_2_y=boss_1_level_2_part_2_y
+        if level_2_part_2 and reset_enemy_position:
+            self.boss_1_rect.x=self.boss_1_level_2_part_2_x[0]
+            self.boss_1_rect.y=self.boss_1_level_2_part_2_y[0]
+            reset_enemy_position=False
+
     def collision_with_object(self,tile_level_2):
         if level_2_part_2:
             hit_tile=[]
@@ -1904,6 +1904,7 @@ while run:
     boss_one.attack()
     boss_one.health()
     boss_one.fall()
+    boss_one.reset_position()
     boss_one.collision_with_object(tile_level_2)
     boss_one.collision_with_object_logic(tile_level_2)
     
