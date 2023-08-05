@@ -208,6 +208,7 @@ camera_x_y_bg=[0,0] ; camera_x_y=[100,0]
 level_screen=False ; level_1=False ; level_2=False ; level_3=False ; level_4=False ; change_dialogue=False ; dialogue_start_condition=False ; change_dialogue_cond_1=False ;  end_dialogue=False
 level_1_dialogue_part_two=False ; level_one_x_border=False ; dialogue_move_condition=False ; level_one_dialogue_part_three=False ; end_level_1_dialogue=False ; level_win=False ; win_blur=[0]
 level_2_dialogue_part_one=False ; level_2_dialogue_part_two=False ; level_2_dialogue_once_two=False ; level_2_tile_index=[] ; level_2_part_2_boss_dialogue=False; level_2_dialogue_part_two_once=False
+level_2_dialogue_part_three_once=False ; level_2_dialogue_part_four_once=False ; level_2_part_win_boss_dialogue=False ; level_2_part_lose_boss_dialogue=False
 
 player_x=[100] ; player_x_movement=[0]
 player_y=[600] ; player_y_movement=[0] #585
@@ -642,7 +643,7 @@ class Menu:
 
     def level_selection(self):
         self.camera_x_y=camera_x_y ; self.player_rect=player_rect
-        global level_screen, level_1, level_2, level_3, level_4 ; 
+        global level_screen, level_1, level_2, level_2_part_2, level_3, level_4 ; 
         if level_screen:
             self.player_rect.x=0
             self.player_rect.y=585
@@ -661,10 +662,10 @@ class Menu:
             level_screen=False
             if key[pygame.K_r]:
                 level_1=False ; level_screen=True ; level_2=False ; reset_enemy_position=True
-        if level_2:
+        if level_2 or level_2_part_2:
             level_screen=False
             if key[pygame.K_r]:
-                level_2=False ; level_screen=True ; level_1=False ; reset_enemy_position=True
+                level_2=False ; level_2_part_2=False ; level_screen=True ; level_1=False ; reset_enemy_position=True
                 
 class Game:
     def __init__(self,level_1_bg,tile_level_1,camera_x_y,tile_level_1_rect,tile_level_2,tile_level_2_rect):
@@ -930,32 +931,33 @@ class Game:
     def level_two_dialogue(self):
         #here
         global level_2, level_2_part_2, level_2_dialogue_part_one,dialogue_move_condition,change_dialogue_cond_1,change_dialogue,end_dialogue,level_2_dialogue_part_one_once
-        global level_2_dialogue_part_two,level_2_dialogue_once_two,level_2_part_2_boss_dialogue, level_2_dialogue_part_two_once
+        global level_2_dialogue_part_two,level_2_dialogue_once_two,level_2_part_2_boss_dialogue, level_2_dialogue_part_two_once,level_2_dialogue_part_three_once,level_2_dialogue_part_four_once
+        global level_2_part_win_boss_dialogue, level_2_part_lose_boss_dialogue
         self.general_boss_icon=general_boss_icon ; self.level_2_dialogue_list_part_1_length=level_2_dialogue_list_part_1_length ; self.player_icon=player_icon ; self.enemy_one_icon=enemy_one_icon
         self.level_2_blur_list_2=level_2_blur_list_2 ; self.boss_1_icon=boss_1_icon ; self.player_current_health=player_current_health ; self.boss_1_health=boss_1_health
 
         self.level_2_dialogue_list_part_1=[
         ("I don't want to have to do this!","You",self.player_icon),
-        ("Do what? I have heard of your defection and arrest! I stand with you!","General Lopen",self.general_boss_icon),
+        ("Do what? I have heard of your defection and the warrant for your arrest! I stand with you!","General Lopen",self.general_boss_icon),
         ("What? Are you against Kornos now?","You",self.player_icon),
         ("Yes, I have made a clear order for my men to stage a coup against him! Do you want to help?","General Lopen",self.general_boss_icon),
         ("What is your request?","You",self.player_icon),
         ("I know Kornos's location. If you are intrested, are you willing to deal with him?","General Lopen",self.general_boss_icon),
         ("Yes, I want to end this tyrants regin! Where is he located?","You",self.player_icon),
-        ("He is located at the District 10 Fortress. It is a good area to hide, so he wont expect it.","General Lopen",self.general_boss_icon),
-        ("I will deal with him and return here in a days time to discuss how it went.","You",self.player_icon)
+        ("He is located at the District 10 Fortress. It is a good area to hide, so he wont expect you there!.","General Lopen",self.general_boss_icon),
+        ("I will deal with him in the same way he dealt with Onis....","You",self.player_icon)
         ]
         
         self.level_2_dialogue_list_part_2=[
-        ("He's fell for it! Get him!!!","Knight",self.enemy_one_icon),
+        ("He fell for it! Get him!!!","Knight",self.enemy_one_icon),
         ("Wait what!?","You",self.player_icon)
         ]
         
         self.level_2_dialogue_list_3=[
         ("HehHAHAAHA, YOu've aRrived!!!","???",self.boss_1_icon),
         ("Are you ok? Who are you? Where is Kornos!?","You",self.player_icon),
-        ("iM Fine, ThANK yoU fOr asKINg...My nAmE is HIgH LoRD STepHeN......","High Lord Stephen",self.boss_1_icon),
-        ("Why are you like this? Did Kornos do this to you?","You",self.player_icon),
+        ("iM Fine, ThANK yoU fOr asKINg...My nAmE is HIgH LoRD STepHeN...... He IS noT HERE!!","High Lord Stephen",self.boss_1_icon),
+        ("Did Kornos do this to you?","You",self.player_icon),
         ("He GaVE mE pOWerS onE caNNOT ImagINE, lOOK aT thE pOTionS aROUnd hERE, yoU FOOL!!","High Lord Stephen",self.boss_1_icon),
         ("I assume you want me to surrender right?","You",self.player_icon),
         ("YeS, YES, yES, YES!!!!! IT is EaSiER tHAt wAY, oR I wILL FORcE yOU tO SURrenDER!","High Lord Stephen",self.boss_1_icon),
@@ -963,27 +965,32 @@ class Game:
         ]
 
         self.level_2_dialogue_list_lose=[
-        ("YoU'RE tO wEAK tO UnDERstAnD ReAL POWER!!!!!!!!",self.boss_1_icon)
+        ("YoU'RE tO wEAK tO UnDERstAnD ReAL POWER!!!!!!!!","High Lord Stephen",self.boss_1_icon)
         ]
 
         self.level_2_dialogue_list_win=[
-        ("NOOO, WHAT HAVE YOU DONE TO ME!!!! NOOOOOOOOOOOOOOOOOOOOOOOO!!!!!!!!!!!!!!!",self.boss_1_icon)
+        ("NOOO, WHAT HAVE YOU DONE TO ME!!!! NOOOOOOOOOOOOOOOOOOOOOOOO!!!!!!!!!!!!!!!","High Lord Stephen",self.boss_1_icon)
         ]
 
-        if level_2_dialogue_part_one or level_2_dialogue_part_two and self.level_2_blur_list_2[0]<=0 or level_2_part_2_boss_dialogue or level_2_dialogue_part_two_once:
+        if level_2_dialogue_part_one or level_2_dialogue_part_two and self.level_2_blur_list_2[0]<=0 or level_2_part_2_boss_dialogue or level_2_part_lose_boss_dialogue or level_2_part_win_boss_dialogue:
+            
+            
             if level_2_dialogue_part_one:
                 level_2_dialogue=self.level_2_dialogue_list_part_1 ; colour_box=(1,50,32) ; colour_font=(1,150,71)
             if level_2_dialogue_part_two:
                 level_2_dialogue=self.level_2_dialogue_list_part_2 ; colour_box=(128,128,128) ; colour_font=(192,192,192)
             if level_2_part_2_boss_dialogue:
                 level_2_dialogue=self.level_2_dialogue_list_3 ; colour_box=(128,128,128) ; colour_font=(192,192,192)
-            if level_2_dialogue_part_two_once and self.player_current_health[0]<=0:
+            if level_2_part_lose_boss_dialogue:
                 level_2_dialogue=self.level_2_dialogue_list_lose ; colour_box=(128,128,128) ; colour_font=(192,192,192)
-            if level_2_dialogue_part_two_once and self.boss_1_health[0]<=0:
+            if level_2_part_win_boss_dialogue:
                 level_2_dialogue=self.level_2_dialogue_list_win ; colour_box=(128,128,128) ; colour_font=(192,192,192)
             dialogue_move_condition=True ; rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  ; rectangle_blur.set_alpha(100) ; rectangle_blur.fill((0,0,0))  ; SCREEN.blit(rectangle_blur,(0,0)) 
             rectangle_box_1=pygame.Surface((SCREEN_WIDTH,200))  ; rectangle_box_1.fill(colour_box)  ; rectangle_box_1.set_alpha(75)  ; SCREEN.blit(rectangle_box_1,(0,500))
+            
             for idx, number in enumerate(level_2_dialogue):
+                
+                
                 if idx==self.level_2_dialogue_list_part_1_length[0]:
                     SCREEN.blit(level_2_dialogue[idx][2],(80,525))  ; font_game=pygame.font.SysFont("Impact",28) 
                     show_font_knight=font_game.render(level_2_dialogue[idx][1],1,colour_font) 
@@ -993,17 +1000,21 @@ class Game:
                     if level_2_dialogue[idx][1]=="???": SCREEN.blit(show_font_knight,(110,645)) 
                     if level_2_dialogue[idx][1]=="High Lord Stephen": SCREEN.blit(show_font_knight,(55,645)) 
                     font_game=pygame.font.SysFont("Impact",24) ; show_font_knight=font_game.render(level_2_dialogue[idx][0],1,colour_font) ; SCREEN.blit(show_font_knight,(200,545))
+                
+                
                 if self.level_2_dialogue_list_part_1_length[0]>=len(level_2_dialogue):
                     if level_2_dialogue_part_two: level_2_dialogue_once_two=True
                     if level_2_part_2_boss_dialogue:  level_2_dialogue_part_two_once=True
-                    level_2_dialogue_part_one=False ; level_2_dialogue_part_two=False ; level_2_part_2_boss_dialogue=False ; self.level_2_dialogue_list_part_1_length[0]=0 ;  
-                    dialogue_move_condition=False ;  level_2_dialogue_part_one_once=True
+                    if level_2_part_lose_boss_dialogue : level_2_dialogue_part_three_once=True
+                    if level_2_part_win_boss_dialogue: level_2_dialogue_part_four_once=True
+                    level_2_dialogue_part_one=False ; level_2_dialogue_part_two=False ; level_2_part_2_boss_dialogue=False ; level_2_part_lose_boss_dialogue=False ; level_2_part_win_boss_dialogue=False
+                    self.level_2_dialogue_list_part_1_length[0]=0 ;  dialogue_move_condition=False ;  level_2_dialogue_part_one_once=True
+            
             if event.type==pygame.MOUSEBUTTONDOWN:  change_dialogue_cond_1=True
             if event.type==pygame.MOUSEBUTTONUP and change_dialogue_cond_1:
                 change_dialogue_cond_1=False ; change_dialogue=True  
             if change_dialogue:
                 change_dialogue=False ; self.level_2_dialogue_list_part_1_length[0]+=1
-
 class Player(Game):
     def __init__(self,player_x_movement,player_y_movement,player_rect,player_current_health):
         self.player_x_movement=player_x_movement ; self.player_y_movement=player_y_movement ; self.player_current_health=player_current_health
@@ -1238,7 +1249,6 @@ class EnemyOne(Player):
                 
         if level_2_part_2:
             for idx,enemy_knight in enumerate(self.enemy_1_level_2_rect): self.enemy_list_level_2.append(pygame.Rect(enemy_knight.x,enemy_knight.y,45,55))
-        
         
         if level_1 and not level_1_enemy_fight_condition or level_2_part_2:
             if level_1: enemy_1_rect=self.enemy_1_level_1_rect
@@ -1769,10 +1779,11 @@ class BossOne(Player):
                     SCREEN.blit(self.boss_1_attack_flip[int(self.boss_1_attack_number[0])//2],(self.boss_1_rect.x-self.camera_x_y[0]-5,self.boss_1_rect.y-self.camera_x_y[1]-5))
                 self.boss_1_attack_timer[0]-=2 ; self.boss_1_attack_number[0]+=0.50
                 if self.boss_1_attack_number[0]>9: self.boss_1_attack_number[0]=0  
-                self.player_current_health[0]-=2  
+                self.player_current_health[0]-=250 #2  
 
     def health(self):
-        global attack, level_2_dialogue_part_two_once, player_idle_right, player_idle_left
+        global attack, level_2_dialogue_part_two_once, player_idle_right, player_idle_left,level_2_part_win_boss_dialogue,level_2_part_lose_boss_dialogue
+        global level_2_dialogue_part_three_once, level_2_dialogue_part_four_once
         self.health_bar_length=500 ; self.maximum_health=1000 ; self.health_bar_ratio=self.maximum_health/self.health_bar_length ; self.health_icon=health_icon
         if level_2_dialogue_part_two_once:
             health_icons=pygame.draw.rect(SCREEN,(172,144,32),pygame.Rect(590,10,self.boss_1_health[0]/self.health_bar_ratio,25))
@@ -1785,6 +1796,10 @@ class BossOne(Player):
                 self.boss_1_health[0]+=1  
             if self.boss_1_health[0]>1000:
                 self.boss_1_health[0]=1000
+            if self.boss_1_health[0]<=0 and not level_2_dialogue_part_four_once:
+                level_2_part_win_boss_dialogue=True
+            if self.player_current_health[0]<=0 and not level_2_dialogue_part_three_once:
+                level_2_part_lose_boss_dialogue=True
 
     def fall(self):
         global level_2_dialogue_part_two_once,boss_fall_right,boss_fall_left
