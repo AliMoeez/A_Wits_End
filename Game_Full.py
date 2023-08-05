@@ -800,11 +800,6 @@ class Game:
             
             if pygame.Rect.collidepoint(rectangle_retry,pygame.mouse.get_pos()) and event.type==pygame.MOUSEBUTTONDOWN:
                 level_1=False ; level_2=False ; level_3=False ; reset_enemy_position=True
-             #   if level_1:
-             #       level_1_enemy_fight_condition=False
-             #       level_1=False ; level_2=True ; level_3=False
-             #   if level_2:
-             #       level_1=False ; level_2=False ; level_3=True
                 self.player_current_health[0]=1000  ; level_1_enemy_fight_condition=False ; level_win=False
 
             if pygame.Rect.collidepoint(rectangle_main_menu,pygame.mouse.get_pos()) and event.type==pygame.MOUSEBUTTONDOWN:
@@ -876,7 +871,7 @@ class Game:
                             self.player_rect.y=500 #500
                             level_2_part_2=True
                         
-            if level_2_part_2:d
+            if level_2_part_2:
                 if self.player_rect.x<210:
                     self.player_rect.x=210
                 if self.player_rect.x>=210 and self.player_rect.x<=5300:
@@ -1272,7 +1267,6 @@ class EnemyOne(Player):
                     self.enemy_1_level_1_rect[idx].y=575
                 self.enemy_1_walk_length[0]+=0.20
                 if self.enemy_1_walk_length[0]>10: self.enemy_1_walk_length[0]=0
-                #for idx,length in enumerate(self.npc_walk_length): #############
                 if level_1 or level_2_part_2 and self.enemy_1_distance_list[idx]>200:
                     if self.npc_direction_choice[idx]==1:
                             self.enemy_1_x_movement[idx]=3.95
@@ -1783,7 +1777,7 @@ class BossOne(Player):
             health_border=pygame.draw.rect(SCREEN,(220,220,220),pygame.Rect(590,10,self.health_bar_length,25),4) 
             if attack and self.player_boss_1_distance<100 and self.boss_1_attack_timer[0]>0:
                 if player_idle_right and self.player_rect.x<self.boss_1_rect.x or player_idle_left and self.player_rect.x>=self.boss_1_rect.x:
-                    self.boss_1_health[0]-=500    #5
+                    self.boss_1_health[0]-=100    #5
             if boss_1_attack_timer[0]<=0:
                 self.boss_1_health[0]+=1  
             if self.boss_1_health[0]>1000:
@@ -1814,11 +1808,14 @@ class BossOne(Player):
                         SCREEN.blit(self.boss_1_fall_flip[int(self.boss_1_fall_number[0])//2],(self.boss_1_rect.x-self.camera_x_y[0]-5,self.boss_1_rect.y-self.camera_x_y[1]+30))
 
     def reset_position(self):
-        global level_2_part_2, reset_enemy_position
+        global level_2_part_2, reset_enemy_position,level_2_dialogue_part_two_once
         self.boss_1_level_2_part_2_x=boss_1_level_2_part_2_x; self.boss_1_level_2_part_2_y=boss_1_level_2_part_2_y
         if level_2_part_2 and reset_enemy_position:
             self.boss_1_rect.x=self.boss_1_level_2_part_2_x[0]
             self.boss_1_rect.y=self.boss_1_level_2_part_2_y[0]
+            self.boss_1_x_movement[0]=0
+            self.boss_1_health[0]=1000
+            level_2_dialogue_part_two_once=False
             reset_enemy_position=False
 
     def collision_with_object(self,tile_level_2):
