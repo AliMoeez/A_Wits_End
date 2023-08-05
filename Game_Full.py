@@ -459,36 +459,13 @@ main_boss_level_1_x=[2850] ; main_boss_level_1_y=[577] ; main_boss_x_movement=[0
 main_boss_rect_level_1=pygame.Rect(main_boss_level_1_x[0],main_boss_level_1_y[0],55,65)
 
 
-general_boss_idle_1=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level_2_General\Idle\sprite_1.png")
-general_boss_idle_2=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level_2_General\Idle\sprite_2.png")
-general_boss_idle_3=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level_2_General\Idle\sprite_3.png")
-general_boss_idle_4=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level_2_General\Idle\sprite_4.png")
-general_boss_idle_5=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level_2_General\Idle\sprite_5.png")
-general_boss_idle_6=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level_2_General\Idle\sprite_6.png")
-general_boss_idle_7=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level_2_General\Idle\sprite_7.png")
-general_boss_idle_8=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level_2_General\Idle\sprite_8.png")
-general_boss_idle_9=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level_2_General\Idle\sprite_9.png")
-
-general_boss_idle_1=pygame.transform.scale(general_boss_idle_1,(55,60))
-general_boss_idle_2=pygame.transform.scale(general_boss_idle_2,(55,60))
-general_boss_idle_3=pygame.transform.scale(general_boss_idle_3,(55,60))
-general_boss_idle_4=pygame.transform.scale(general_boss_idle_4,(55,60))
-general_boss_idle_5=pygame.transform.scale(general_boss_idle_5,(55,60))
-general_boss_idle_6=pygame.transform.scale(general_boss_idle_6,(55,60))
-general_boss_idle_7=pygame.transform.scale(general_boss_idle_7,(55,60))
-general_boss_idle_8=pygame.transform.scale(general_boss_idle_8,(55,60))
-general_boss_idle_9=pygame.transform.scale(general_boss_idle_9,(55,60))
-
-general_boss_idle_left_1=pygame.transform.flip(general_boss_idle_1,True,False)
-general_boss_idle_left_2=pygame.transform.flip(general_boss_idle_2,True,False)
-general_boss_idle_left_3=pygame.transform.flip(general_boss_idle_3,True,False)
-general_boss_idle_left_4=pygame.transform.flip(general_boss_idle_4,True,False)
-general_boss_idle_left_5=pygame.transform.flip(general_boss_idle_5,True,False)
-general_boss_idle_left_6=pygame.transform.flip(general_boss_idle_6,True,False)
-general_boss_idle_left_7=pygame.transform.flip(general_boss_idle_7,True,False)
-general_boss_idle_left_8=pygame.transform.flip(general_boss_idle_8,True,False)
-general_boss_idle_left_9=pygame.transform.flip(general_boss_idle_9,True,False)
-
+general_boss_idle_1=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level_2_General\Idle\sprite_1.png") ; general_boss_idle_2=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level_2_General\Idle\sprite_2.png") ; general_boss_idle_3=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level_2_General\Idle\sprite_3.png") ; general_boss_idle_4=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level_2_General\Idle\sprite_4.png")
+general_boss_idle_5=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level_2_General\Idle\sprite_5.png") ; general_boss_idle_6=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level_2_General\Idle\sprite_6.png") ; general_boss_idle_7=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level_2_General\Idle\sprite_7.png")
+general_boss_idle_8=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level_2_General\Idle\sprite_8.png") ; general_boss_idle_9=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level_2_General\Idle\sprite_9.png")
+general_boss_idle_1=pygame.transform.scale(general_boss_idle_1,(55,60)) ; general_boss_idle_2=pygame.transform.scale(general_boss_idle_2,(55,60)) ; general_boss_idle_3=pygame.transform.scale(general_boss_idle_3,(55,60)) ; general_boss_idle_4=pygame.transform.scale(general_boss_idle_4,(55,60))
+general_boss_idle_5=pygame.transform.scale(general_boss_idle_5,(55,60)) ; general_boss_idle_6=pygame.transform.scale(general_boss_idle_6,(55,60)) ; general_boss_idle_7=pygame.transform.scale(general_boss_idle_7,(55,60)) ; general_boss_idle_8=pygame.transform.scale(general_boss_idle_8,(55,60)) ; general_boss_idle_9=pygame.transform.scale(general_boss_idle_9,(55,60))
+general_boss_idle_left_1=pygame.transform.flip(general_boss_idle_1,True,False) ; general_boss_idle_left_2=pygame.transform.flip(general_boss_idle_2,True,False) ; general_boss_idle_left_3=pygame.transform.flip(general_boss_idle_3,True,False) ; general_boss_idle_left_4=pygame.transform.flip(general_boss_idle_4,True,False)
+general_boss_idle_left_5=pygame.transform.flip(general_boss_idle_5,True,False) ; general_boss_idle_left_6=pygame.transform.flip(general_boss_idle_6,True,False) ; general_boss_idle_left_7=pygame.transform.flip(general_boss_idle_7,True,False) ; general_boss_idle_left_8=pygame.transform.flip(general_boss_idle_8,True,False) ; general_boss_idle_left_9=pygame.transform.flip(general_boss_idle_9,True,False)
 general_boss_idle=[general_boss_idle_1,general_boss_idle_2,general_boss_idle_3,general_boss_idle_4,general_boss_idle_5,general_boss_idle_6,general_boss_idle_7,general_boss_idle_8,general_boss_idle_9]
 general_boss_idle_left=[general_boss_idle_left_1,general_boss_idle_left_2,general_boss_idle_left_3,general_boss_idle_left_4,general_boss_idle_left_5,general_boss_idle_left_6,general_boss_idle_left_7,general_boss_idle_left_8,general_boss_idle_left_9]
 
@@ -499,116 +476,37 @@ general_boss_idle_number=[0] ; general_boss_x=[1400] ; general_boss_y=[585]
 
 #here
 
-boss_1_idle_1=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Idle\idle_1.png").convert_alpha()
-boss_1_idle_2=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Idle\idle_2.png").convert_alpha()
-boss_1_idle_3=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Idle\idle_3.png").convert_alpha()
-boss_1_idle_4=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Idle\idle_4.png").convert_alpha()
-boss_1_idle_5=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Idle\idle_5.png").convert_alpha()
-boss_1_idle_6=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Idle\idle_6.png").convert_alpha()
-boss_1_idle_7=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Idle\idle_7.png").convert_alpha()
-boss_1_idle_8=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Idle\idle_8.png").convert_alpha()
-
-boss_1_idle_1=pygame.transform.scale(boss_1_idle_1,(55,75))
-boss_1_idle_2=pygame.transform.scale(boss_1_idle_2,(55,75))
-boss_1_idle_3=pygame.transform.scale(boss_1_idle_3,(55,75))
-boss_1_idle_4=pygame.transform.scale(boss_1_idle_4,(55,75))
-boss_1_idle_5=pygame.transform.scale(boss_1_idle_5,(55,75))
-boss_1_idle_6=pygame.transform.scale(boss_1_idle_6,(55,75))
-boss_1_idle_7=pygame.transform.scale(boss_1_idle_7,(55,75))
-boss_1_idle_8=pygame.transform.scale(boss_1_idle_8,(55,75))
-
-boss_1_idle_flip_1=pygame.transform.flip(boss_1_idle_1,True,False)
-boss_1_idle_flip_2=pygame.transform.flip(boss_1_idle_2,True,False)
-boss_1_idle_flip_3=pygame.transform.flip(boss_1_idle_3,True,False)
-boss_1_idle_flip_4=pygame.transform.flip(boss_1_idle_4,True,False)
-boss_1_idle_flip_5=pygame.transform.flip(boss_1_idle_5,True,False)
-boss_1_idle_flip_6=pygame.transform.flip(boss_1_idle_6,True,False)
-boss_1_idle_flip_7=pygame.transform.flip(boss_1_idle_7,True,False)
-boss_1_idle_flip_8=pygame.transform.flip(boss_1_idle_8,True,False)
-
+boss_1_idle_1=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Idle\idle_1.png").convert_alpha() ; boss_1_idle_2=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Idle\idle_2.png").convert_alpha() ; boss_1_idle_3=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Idle\idle_3.png").convert_alpha()
+boss_1_idle_4=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Idle\idle_4.png").convert_alpha() ; boss_1_idle_5=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Idle\idle_5.png").convert_alpha() ; boss_1_idle_6=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Idle\idle_6.png").convert_alpha()
+boss_1_idle_7=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Idle\idle_7.png").convert_alpha() ; boss_1_idle_8=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Idle\idle_8.png").convert_alpha()
+boss_1_idle_1=pygame.transform.scale(boss_1_idle_1,(55,75)) ; boss_1_idle_2=pygame.transform.scale(boss_1_idle_2,(55,75)) ; boss_1_idle_3=pygame.transform.scale(boss_1_idle_3,(55,75))  ; boss_1_idle_4=pygame.transform.scale(boss_1_idle_4,(55,75))
+boss_1_idle_5=pygame.transform.scale(boss_1_idle_5,(55,75)) ; boss_1_idle_6=pygame.transform.scale(boss_1_idle_6,(55,75)) ; boss_1_idle_7=pygame.transform.scale(boss_1_idle_7,(55,75)) ; boss_1_idle_8=pygame.transform.scale(boss_1_idle_8,(55,75))
+boss_1_idle_flip_1=pygame.transform.flip(boss_1_idle_1,True,False) ; boss_1_idle_flip_2=pygame.transform.flip(boss_1_idle_2,True,False) ; boss_1_idle_flip_3=pygame.transform.flip(boss_1_idle_3,True,False) ; boss_1_idle_flip_4=pygame.transform.flip(boss_1_idle_4,True,False)
+boss_1_idle_flip_5=pygame.transform.flip(boss_1_idle_5,True,False) ; boss_1_idle_flip_6=pygame.transform.flip(boss_1_idle_6,True,False) ; boss_1_idle_flip_7=pygame.transform.flip(boss_1_idle_7,True,False) ; boss_1_idle_flip_8=pygame.transform.flip(boss_1_idle_8,True,False)
 boss_1_idle=[boss_1_idle_1,boss_1_idle_2,boss_1_idle_3,boss_1_idle_4,boss_1_idle_5,boss_1_idle_6,boss_1_idle_7,boss_1_idle_8]
 boss_1_idle_flip=[boss_1_idle_flip_1,boss_1_idle_flip_2,boss_1_idle_flip_3,boss_1_idle_flip_4,boss_1_idle_flip_5,boss_1_idle_flip_6,boss_1_idle_flip_7,boss_1_idle_flip_8]
 
-boss_1_move_1=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Run\run_1.png")
-boss_1_move_2=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Run\run_2.png")
-boss_1_move_3=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Run\run_3.png")
-boss_1_move_4=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Run\run_4.png")
-boss_1_move_5=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Run\run_5.png")
-boss_1_move_6=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Run\run_6.png")
-boss_1_move_7=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Run\run_7.png")
-boss_1_move_8=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Run\run_8.png")
-
-boss_1_move_1=pygame.transform.scale(boss_1_move_1,(65,85))
-boss_1_move_2=pygame.transform.scale(boss_1_move_2,(65,85))
-boss_1_move_3=pygame.transform.scale(boss_1_move_3,(65,85))
-boss_1_move_4=pygame.transform.scale(boss_1_move_4,(65,85))
-boss_1_move_5=pygame.transform.scale(boss_1_move_5,(65,85))
-boss_1_move_6=pygame.transform.scale(boss_1_move_6,(65,85))
-boss_1_move_7=pygame.transform.scale(boss_1_move_7,(65,85))
-boss_1_move_8=pygame.transform.scale(boss_1_move_8,(65,85))
-
-boss_1_move_flip_1=pygame.transform.flip(boss_1_move_1,True,False)
-boss_1_move_flip_2=pygame.transform.flip(boss_1_move_2,True,False)
-boss_1_move_flip_3=pygame.transform.flip(boss_1_move_3,True,False)
-boss_1_move_flip_4=pygame.transform.flip(boss_1_move_4,True,False)
-boss_1_move_flip_5=pygame.transform.flip(boss_1_move_5,True,False)
-boss_1_move_flip_6=pygame.transform.flip(boss_1_move_6,True,False)
-boss_1_move_flip_7=pygame.transform.flip(boss_1_move_7,True,False)
-boss_1_move_flip_8=pygame.transform.flip(boss_1_move_8,True,False)
-
+boss_1_move_1=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Run\run_1.png") ; boss_1_move_2=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Run\run_2.png") ; boss_1_move_3=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Run\run_3.png") ; boss_1_move_4=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Run\run_4.png")
+boss_1_move_5=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Run\run_5.png") ; boss_1_move_6=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Run\run_6.png") ;  boss_1_move_7=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Run\run_7.png") ; boss_1_move_8=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Run\run_8.png")
+boss_1_move_1=pygame.transform.scale(boss_1_move_1,(65,85)) ; boss_1_move_2=pygame.transform.scale(boss_1_move_2,(65,85)) ; boss_1_move_3=pygame.transform.scale(boss_1_move_3,(65,85)) ; boss_1_move_4=pygame.transform.scale(boss_1_move_4,(65,85))
+boss_1_move_5=pygame.transform.scale(boss_1_move_5,(65,85)) ; boss_1_move_6=pygame.transform.scale(boss_1_move_6,(65,85)) ; boss_1_move_7=pygame.transform.scale(boss_1_move_7,(65,85)) ; boss_1_move_8=pygame.transform.scale(boss_1_move_8,(65,85))
+boss_1_move_flip_1=pygame.transform.flip(boss_1_move_1,True,False) ; boss_1_move_flip_2=pygame.transform.flip(boss_1_move_2,True,False) ; boss_1_move_flip_3=pygame.transform.flip(boss_1_move_3,True,False) ; boss_1_move_flip_4=pygame.transform.flip(boss_1_move_4,True,False)
+boss_1_move_flip_5=pygame.transform.flip(boss_1_move_5,True,False) ; boss_1_move_flip_6=pygame.transform.flip(boss_1_move_6,True,False) ; boss_1_move_flip_7=pygame.transform.flip(boss_1_move_7,True,False) ; boss_1_move_flip_8=pygame.transform.flip(boss_1_move_8,True,False)
 boss_1_move=[boss_1_move_1,boss_1_move_2,boss_1_move_3,boss_1_move_4,boss_1_move_5,boss_1_move_6,boss_1_move_7,boss_1_move_8]
 boss_1_move_flip=[boss_1_move_flip_1,boss_1_move_flip_2,boss_1_move_flip_3,boss_1_move_flip_4,boss_1_move_flip_5,boss_1_move_flip_6,boss_1_move_flip_7,boss_1_move_flip_8]
 
-boss_1_attack_1=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Attack\attack_1.png")
-boss_1_attack_2=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Attack\attack_2.png")
-boss_1_attack_3=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Attack\attack_3.png")
-boss_1_attack_4=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Attack\attack_4.png")
-boss_1_attack_5=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Attack\attack_5.png")
-boss_1_attack_6=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Attack\attack_6.png")
-boss_1_attack_7=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Attack\attack_7.png")
-boss_1_attack_8=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Attack\attack_8.png")
-
-boss_1_attack_1=pygame.transform.scale(boss_1_attack_1,(75,75))
-boss_1_attack_2=pygame.transform.scale(boss_1_attack_2,(75,75))
-boss_1_attack_3=pygame.transform.scale(boss_1_attack_3,(75,75))
-boss_1_attack_4=pygame.transform.scale(boss_1_attack_4,(75,75))
-boss_1_attack_5=pygame.transform.scale(boss_1_attack_5,(75,75))
-boss_1_attack_6=pygame.transform.scale(boss_1_attack_6,(75,75))
-boss_1_attack_7=pygame.transform.scale(boss_1_attack_7,(75,75))
-boss_1_attack_8=pygame.transform.scale(boss_1_attack_8,(75,75))
-
-boss_1_attack_flip_1=pygame.transform.flip(boss_1_attack_1,True,False)
-boss_1_attack_flip_2=pygame.transform.flip(boss_1_attack_2,True,False)
-boss_1_attack_flip_3=pygame.transform.flip(boss_1_attack_3,True,False)
-boss_1_attack_flip_4=pygame.transform.flip(boss_1_attack_4,True,False)
-boss_1_attack_flip_5=pygame.transform.flip(boss_1_attack_5,True,False)
-boss_1_attack_flip_6=pygame.transform.flip(boss_1_attack_6,True,False)
-boss_1_attack_flip_7=pygame.transform.flip(boss_1_attack_7,True,False)
-boss_1_attack_flip_8=pygame.transform.flip(boss_1_attack_8,True,False)
-
+boss_1_attack_1=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Attack\attack_1.png") ; boss_1_attack_2=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Attack\attack_2.png") ; boss_1_attack_3=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Attack\attack_3.png") ; boss_1_attack_4=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Attack\attack_4.png")
+boss_1_attack_5=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Attack\attack_5.png") ; boss_1_attack_6=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Attack\attack_6.png") ; boss_1_attack_7=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Attack\attack_7.png") ; boss_1_attack_8=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Attack\attack_8.png")
+boss_1_attack_1=pygame.transform.scale(boss_1_attack_1,(75,75)) ; boss_1_attack_2=pygame.transform.scale(boss_1_attack_2,(75,75)) ; boss_1_attack_3=pygame.transform.scale(boss_1_attack_3,(75,75)) ; boss_1_attack_4=pygame.transform.scale(boss_1_attack_4,(75,75)) ; boss_1_attack_5=pygame.transform.scale(boss_1_attack_5,(75,75))
+boss_1_attack_6=pygame.transform.scale(boss_1_attack_6,(75,75)) ; boss_1_attack_7=pygame.transform.scale(boss_1_attack_7,(75,75)) ; boss_1_attack_8=pygame.transform.scale(boss_1_attack_8,(75,75))
+boss_1_attack_flip_1=pygame.transform.flip(boss_1_attack_1,True,False) ; boss_1_attack_flip_2=pygame.transform.flip(boss_1_attack_2,True,False) ; boss_1_attack_flip_3=pygame.transform.flip(boss_1_attack_3,True,False) ; boss_1_attack_flip_4=pygame.transform.flip(boss_1_attack_4,True,False)
+boss_1_attack_flip_5=pygame.transform.flip(boss_1_attack_5,True,False) ; boss_1_attack_flip_6=pygame.transform.flip(boss_1_attack_6,True,False) ; boss_1_attack_flip_7=pygame.transform.flip(boss_1_attack_7,True,False) ;boss_1_attack_flip_8=pygame.transform.flip(boss_1_attack_8,True,False)
 boss_1_attack=[boss_1_attack_1,boss_1_attack_2,boss_1_attack_3,boss_1_attack_4,boss_1_attack_5,boss_1_attack_6,boss_1_attack_7,boss_1_attack_8]
 boss_1_attack_flip=[boss_1_attack_flip_1,boss_1_attack_flip_2,boss_1_attack_flip_3,boss_1_attack_flip_4,boss_1_attack_flip_5,boss_1_attack_flip_6,boss_1_attack_flip_7,boss_1_attack_flip_8]
 
-boss_1_fall_1=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Fall\fall_1.png")
-boss_1_fall_2=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Fall\fall_2.png")
-boss_1_fall_3=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Fall\fall_3.png")
-boss_1_fall_4=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Fall\fall_4.png")
-boss_1_fall_5=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Fall\fall_5.png")
-
-
-boss_1_fall_1=pygame.transform.scale(boss_1_fall_1,(55,75))
-boss_1_fall_2=pygame.transform.scale(boss_1_fall_2,(55,75))
-boss_1_fall_3=pygame.transform.scale(boss_1_fall_3,(45,60))
-boss_1_fall_4=pygame.transform.scale(boss_1_fall_4,(45,60))
-boss_1_fall_5=pygame.transform.scale(boss_1_fall_5,(45,60))
-
-
-boss_1_fall_flip_1=pygame.transform.flip(boss_1_fall_1,True,False)
-boss_1_fall_flip_2=pygame.transform.flip(boss_1_fall_2,True,False)
-boss_1_fall_flip_3=pygame.transform.flip(boss_1_fall_3,True,False)
-boss_1_fall_flip_4=pygame.transform.flip(boss_1_fall_4,True,False)
-boss_1_fall_flip_5=pygame.transform.flip(boss_1_fall_5,True,False)
-
+boss_1_fall_1=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Fall\fall_1.png") ; boss_1_fall_2=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Fall\fall_2.png") ; boss_1_fall_3=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Fall\fall_3.png") ; boss_1_fall_4=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Fall\fall_4.png") ; boss_1_fall_5=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Enemy_Boss_1\Fall\fall_5.png")
+boss_1_fall_1=pygame.transform.scale(boss_1_fall_1,(55,75)) ; boss_1_fall_2=pygame.transform.scale(boss_1_fall_2,(55,75)) ; boss_1_fall_3=pygame.transform.scale(boss_1_fall_3,(45,60)) ; boss_1_fall_4=pygame.transform.scale(boss_1_fall_4,(45,60)) ; boss_1_fall_5=pygame.transform.scale(boss_1_fall_5,(45,60))
+boss_1_fall_flip_1=pygame.transform.flip(boss_1_fall_1,True,False) ; boss_1_fall_flip_2=pygame.transform.flip(boss_1_fall_2,True,False) ; boss_1_fall_flip_3=pygame.transform.flip(boss_1_fall_3,True,False) ; boss_1_fall_flip_4=pygame.transform.flip(boss_1_fall_4,True,False) ; boss_1_fall_flip_5=pygame.transform.flip(boss_1_fall_5,True,False)
 boss_1_fall=[boss_1_fall_1,boss_1_fall_2,boss_1_fall_3,boss_1_fall_4,boss_1_fall_5]
 boss_1_fall_flip=[boss_1_fall_flip_1,boss_1_fall_flip_2,boss_1_fall_flip_3,boss_1_fall_flip_4,boss_1_fall_flip_5]
 
@@ -1912,4 +1810,3 @@ while run:
     player.defeat()
 
     pygame.display.update()
-    
