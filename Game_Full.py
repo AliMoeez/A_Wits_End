@@ -718,7 +718,7 @@ class Game:
         self.level_2_table=level_2_table ; self.level_2_crate=level_2_crate ; self.level_2_crate_damage=level_2_crate_damage ; self.level_2_bag=level_2_bag ; self.level_2_books=level_2_books
         self.level_2_flag=level_2_flag ; self.level_2_potion_1=level_2_potion_1 ; self.level_2_potion_2=level_2_potion_2 ; self.level_2_torch=level_2_torch ; self.level_2_fixture=level_2_fixture
         self.level_2_candle=level_2_candle ; self.level_2_dec_number=level_2_dec_number ; self.level_2_animated_item_list=level_2_animated_item_list ; self.level_2_torch_1_bg=level_2_torch_1_bg; self.level_2_bag_2=level_2_bag_2
-        self.level_2_tile_index=level_2_tile_index ; self.player_current_health=player_current_health
+        self.level_2_tile_index=level_2_tile_index ; self.player_current_health=player_current_health ; self.enemy_1_health_list=enemy_1_health_list
         
 
         if level_2:
@@ -817,7 +817,7 @@ class Game:
                 if self.player_rect.x>=6100:
                     self.player_rect.x=6100
                 
-                if self.player_rect.x>5300 and not level_2_dialogue_part_two_once:
+                if self.player_rect.x>5300 and not level_2_dialogue_part_two_once and any(idx<=0 for idx in self.enemy_1_health_list):
                     level_2_part_2_boss_dialogue=True
                     
             if level_2 or level_2_part_2:
@@ -1165,7 +1165,7 @@ class EnemyOne(Player):
                     self.enemy_1_level_1_rect[idx].y=575
                 self.enemy_1_walk_length[0]+=0.20
                 if self.enemy_1_walk_length[0]>10: self.enemy_1_walk_length[0]=0
-                if level_1 or level_2_part_2 and self.enemy_1_distance_list[idx]>200:
+                if level_1 or level_2_part_2 and self.enemy_1_distance_list[idx]>200 and self.enemy_1_health_list[idx]>0:
                     if self.npc_direction_choice[idx]==1:
                             self.enemy_1_x_movement[idx]=3.95
                             SCREEN.blit(self.enemy_1_walk[int(self.enemy_1_walk_length[0])//2],(enemy_1_rect[idx].x-self.camera_x_y[0],enemy_knight.y-self.camera_x_y[1]+10)) 
@@ -1189,7 +1189,7 @@ class EnemyOne(Player):
         
         if level_1 and level_1_enemy_fight_condition : 
             if level_1: enemy_1_rect=self.enemy_level_1_rect
-            if level_2_part_2 : enemy_1_rect=self.enemy_1_level_2_rect
+           # if level_2_part_2 : enemy_1_rect=self.enemy_1_level_2_rect
             for idx,knight in enumerate(enemy_1_rect):
                 if self.enemy_1_distance_list[idx]>=50 and self.enemy_1_health_list[idx]>0:
                     self.enemy_1_walk_length[0]+=0.20
@@ -1202,7 +1202,7 @@ class EnemyOne(Player):
                         SCREEN.blit(self.enemy_1_walk_flip[int(self.enemy_1_walk_length[0])//2],(enemy_1_rect[idx].x-self.camera_x_y[0],knight.y-self.camera_x_y[1]+10)) 
         
         for idx,knight in enumerate(self.enemy_1_level_2_rect):
-            if level_2_part_2 and self.enemy_1_distance_list[idx]<=200 and self.enemy_1_distance_list[idx]>50 : 
+            if level_2_part_2 and self.enemy_1_distance_list[idx]<=200 and self.enemy_1_distance_list[idx]>50: 
                 if level_2_part_2 : enemy_1_rect=self.enemy_1_level_2_rect
                 if self.enemy_1_distance_list[idx]>=50 and self.enemy_1_health_list[idx]>0:
                     self.enemy_1_walk_length[0]+=0.20
@@ -1286,14 +1286,16 @@ class EnemyOne(Player):
         if level_1 or level_2_part_2:
             if level_1: enemy_1_rect=self.enemy_level_1_rect
             if level_2_part_2 : enemy_1_rect=self.enemy_1_level_2_rect
-            if attack_done and level_1_enemy_fight_condition:
+            if attack_done and level_1_enemy_fight_condition or attack_done:
                 for idx,knight in enumerate(enemy_1_rect):
-                    if self.enemy_1_distance_list[idx]<50:
+                    if self.enemy_1_distance_list[idx]<100:
                         if player_idle_right and self.player_rect.x<=enemy_1_rect[idx].x:
                             self.enemy_1_health_list[idx]-=100 #25
                         if player_idle_left and self.player_rect.x>enemy_1_rect[idx].x:
                             self.enemy_1_health_list[idx]-=100
                         attack_done=False
+                    if self.enemy_1_health_list[idx]<0:
+                        self.enemy_1_x_movement[idx]=0
       
     def fall(self):
         global reset_enemy_position
@@ -1303,6 +1305,7 @@ class EnemyOne(Player):
             if level_2_part_2 : enemy_1_rect=self.enemy_1_level_2_rect
             for idx,knight in enumerate(enemy_1_rect):
                 if self.enemy_1_health_list[idx]<=0:
+                    self.enemy_1_x_movement[idx]=0
                     self.enemy_1_health_list[idx]=0
                     if self.enemy_one_fall_direction_set[idx]==1:
                         if self.enemy_one_fall_number[idx]<16:
@@ -1617,10 +1620,10 @@ class BossOne(Player):
     def idle(self):
         global level_2_part_2
         self.boss_1_idle_flip=boss_1_idle_flip ; self.boss_1_idle_number=boss_1_idle_number ; self.boss_1_level_2_part_2_x=boss_1_level_2_part_2_x ; self.boss_1_level_2_part_2_y=boss_1_level_2_part_2_y
-        self.boss_1_attack_timer=boss_1_attack_timer ; self.boss_1_idle=boss_1_idle
+        self.boss_1_attack_timer=boss_1_attack_timer ; self.boss_1_idle=boss_1_idle ; self.enemy_1_health_list=enemy_1_health_list
         if level_2_part_2:
             self.player_boss_1_distance=math.sqrt(math.pow(self.player_rect.x-self.boss_1_rect.x,2)+math.pow(self.player_rect.x-self.boss_1_rect.x,2))
-        if level_2_part_2 and self.boss_1_health[0]>0:
+        if level_2_part_2 and self.boss_1_health[0]>0 and any(idx<=0 for idx in self.enemy_1_health_list):
             if self.boss_1_attack_timer[0]<=0:
                 self.boss_1_y_movement[0]=-1
                 if self.boss_1_rest_time[0]>40:
