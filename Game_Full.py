@@ -614,8 +614,7 @@ class Game:
             health_icons=pygame.draw.rect(SCREEN,(165,42,42),pygame.Rect(10,10,self.player_current_health[0]/self.health_bar_ratio,25))
             SCREEN.blit(self.health_icon,(15,12))
             health_border=pygame.draw.rect(SCREEN,(220,220,220),pygame.Rect(10,10,self.health_bar_length,25),4) 
-            
-                
+                  
     def level_one_dialogue(self):
         global change_dialogue , dialogue_start_condition , end_dialogue ,change_dialogue_cond_1,level_1_enemy_fight_condition,level_1_dialogue_part_two, level_one_x_border, dialogue_move_condition,level_one_dialogue_part_three,end_level_1_dialogue
         self.main_boss_icon=main_boss_icon ; self.enemy_one_dialogue_list=enemy_one_dialogue_list ; self.player_icon=player_icon ; self.enemy_two_icon=enemy_two_icon ; self.player_current_health=player_current_health
@@ -683,13 +682,8 @@ class Game:
         self.enemy_1_health_list=enemy_1_health_list ; self.enemy_two_health=enemy_two_health ; self.win_blur=win_blur ; self.boss_1_health=boss_1_health
         self.enemy_1_x_movement=enemy_1_x_movement
         global level_1,level_win, level_2, level_3, reset_enemy_position,level_2_part_2,level_2_dialogue_part_two_once
-     #   if level_1:
-     #       if all(idx<=0 for idx in self.enemy_1_health_list):
-     #           print("TRUE FOR 1")
-     #       if all(idx<=0 for idx in self.enemy_two_health):
-     #           print("TRUE FOR 2")
         if level_1 and all(idx<=0 for idx in self.enemy_1_health_list) and all(idx<=0 for idx in self.enemy_two_health) and self.player_rect.x>=6050:
-            print("HERE") ; level_win=True
+            level_win=True
         if level_2_part_2 and self.boss_1_health[0]<=0 and self.player_rect.x>=6050:
             level_win=True
         if level_win:
@@ -920,6 +914,10 @@ class Game:
                 change_dialogue_cond_1=False ; change_dialogue=True  
             if change_dialogue:
                 change_dialogue=False ; self.level_2_dialogue_list_part_1_length[0]+=1
+
+    def level_three(self):
+        pass
+
 class Player(Game):
     def __init__(self,player_x_movement,player_y_movement,player_rect,player_current_health):
         self.player_x_movement=player_x_movement ; self.player_y_movement=player_y_movement ; self.player_current_health=player_current_health
@@ -1474,10 +1472,8 @@ class EnemyTwo(Player):
                     if self.enemy_two_distance_list[idx]<50:
                         if player_idle_right and self.player_rect.x<=self.enemy_two_level_1_rect[idx].x:
                             self.enemy_two_health[idx]-=25
-                            print(self.enemy_two_health)
                         if player_idle_left and self.player_rect.x>self.enemy_two_level_1_rect[idx].x:
                             self.enemy_two_health[idx]-=25
-                            print(self.enemy_two_health)
                         attack_done=False   
     def fall(self):
         global reset_enemy_position
