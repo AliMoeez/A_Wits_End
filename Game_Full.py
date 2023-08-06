@@ -1763,6 +1763,7 @@ while run:
     game=Game(level_1_bg,tile_level_1,camera_x_y,tile_level_1_rect,tile_level_2,tile_level_2_rect)
     game.level_one(tile_level_1_ground,tile_level_1_dirt)
     game.level_two()
+    game.level_three()
     
     player=Player(player_x_movement,player_y_movement,player_rect,player_current_health)
     player.movement(player_idle,player_idle_flip,player_run,player_run_flip,player_jump,player_jump_flip)
