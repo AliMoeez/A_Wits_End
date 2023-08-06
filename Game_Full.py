@@ -680,10 +680,18 @@ class Game:
                 end_level_1_dialogue=True
                 
     def level_one_win(self):
-        self.enemy_1_health_list=enemy_1_health_list ; self.enemy_two_health=enemy_two_health ; self.win_blur=win_blur
-        global level_1,level_win, level_2, level_3, reset_enemy_position
-        if level_1 and all(idx<=0 for idx in self.enemy_1_health_list) and all(idx<=0 for idx in self.enemy_two_health) and self.player_rect.x>6100:
-            print("here") ; level_win=True
+        self.enemy_1_health_list=enemy_1_health_list ; self.enemy_two_health=enemy_two_health ; self.win_blur=win_blur ; self.boss_1_health=boss_1_health
+        self.enemy_1_x_movement=enemy_1_x_movement
+        global level_1,level_win, level_2, level_3, reset_enemy_position,level_2_part_2,level_2_dialogue_part_two_once
+     #   if level_1:
+     #       if all(idx<=0 for idx in self.enemy_1_health_list):
+     #           print("TRUE FOR 1")
+     #       if all(idx<=0 for idx in self.enemy_two_health):
+     #           print("TRUE FOR 2")
+        if level_1 and all(idx<=0 for idx in self.enemy_1_health_list) and all(idx<=0 for idx in self.enemy_two_health) and self.player_rect.x>=6050:
+            print("HERE") ; level_win=True
+        if level_2_part_2 and self.boss_1_health[0]<=0 and self.player_rect.x>=6050:
+            level_win=True
         if level_win:
             self.win_blur[0]+=5
             rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT)) ; rectangle_blur.set_alpha(self.win_blur[0]) ; rectangle_blur.fill((0,0,0))  ; SCREEN.blit(rectangle_blur,(0,0))
@@ -697,13 +705,13 @@ class Game:
             dialogue_move_condition=False
             
             if pygame.Rect.collidepoint(rectangle_retry,pygame.mouse.get_pos()) and event.type==pygame.MOUSEBUTTONDOWN:
-                level_1=False ; level_2=False ; level_3=False ; reset_enemy_position=True
+                level_1=False ; level_2=False ; level_3=False ; reset_enemy_position=True ; level_2_part_2=False ; level_2_dialogue_part_two_once=False
                 self.player_current_health[0]=1000  ; level_1_enemy_fight_condition=False ; level_win=False
 
             if pygame.Rect.collidepoint(rectangle_main_menu,pygame.mouse.get_pos()) and event.type==pygame.MOUSEBUTTONDOWN:
                 level_selection=False ; level_1=False ; level_screen=False ; self.player_current_health[0]=1000 ; player_death=False ; reset_enemy_position=True
-                level_1_enemy_fight_condition=False          
-                level_2=False ; level_3=False 
+                level_1_enemy_fight_condition=False ; level_2_dialogue_part_two_once=False         
+                level_2=False ; level_3=False  ; level_2_part_2=False ; level_win=False
                 
     def level_two(self):
         global level_2,level_screen,level_2_passive_condition,level_2_part_2,level_2_dialogue_part_two,level_2_dialogue_once_two,level_2_part_2_boss_dialogue,level_2_dialogue_part_two_once
@@ -1288,7 +1296,7 @@ class EnemyOne(Player):
             if level_2_part_2 : enemy_1_rect=self.enemy_1_level_2_rect
             if attack_done and level_1_enemy_fight_condition or attack_done:
                 for idx,knight in enumerate(enemy_1_rect):
-                    if self.enemy_1_distance_list[idx]<100:
+                    if self.enemy_1_distance_list[idx]<50:
                         if player_idle_right and self.player_rect.x<=enemy_1_rect[idx].x:
                             self.enemy_1_health_list[idx]-=100 #25
                         if player_idle_left and self.player_rect.x>enemy_1_rect[idx].x:
@@ -1666,7 +1674,7 @@ class BossOne(Player):
                     SCREEN.blit(self.boss_1_attack_flip[int(self.boss_1_attack_number[0])//2],(self.boss_1_rect.x-self.camera_x_y[0]-5,self.boss_1_rect.y-self.camera_x_y[1]-5))
                 self.boss_1_attack_timer[0]-=2 ; self.boss_1_attack_number[0]+=0.50
                 if self.boss_1_attack_number[0]>9: self.boss_1_attack_number[0]=0  
-                self.player_current_health[0]-=250 #2  
+                self.player_current_health[0]-=2 #2  
 
     def health(self):
         global attack, level_2_dialogue_part_two_once, player_idle_right, player_idle_left,level_2_part_win_boss_dialogue,level_2_part_lose_boss_dialogue
