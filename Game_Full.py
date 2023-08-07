@@ -214,12 +214,13 @@ level_3_hill_2=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_Ti
 level_3_hill_3=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_Tileset\tiles\hill_3.png")
 level_3_hill_4=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_Tileset\tiles\hill_4.png")
 level_3_hill_5=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_Tileset\tiles\hill_5.png")
+level_3_hill_6=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_Tileset\tiles\hill_6.png")
+level_3_hill_7=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_Tileset\tiles\hill_7.png")
 level_3_door=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_Tileset\tiles\door_1.png")
 level_3_pillar_1=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_Tileset\tiles\tile_14.png")
 level_3_pillar_2=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_Tileset\tiles\tile_15.png")
 level_3_pillar_3=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_Tileset\tiles\tile_16.png")
 
-level_3_big_hill=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_Tileset\tiles\hill_1 - Copy.png")
 
 #1 500
 #2 585
@@ -230,7 +231,7 @@ level_3_big_hill=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_
 level_3_hill_list=[(level_3_hill_1,400,500),(level_3_hill_2,700,585),(level_3_hill_3,1100,540),(level_3_hill_4,1400,500),(level_3_hill_5,1500,540),
                    (level_3_hill_4,1900,500),(level_3_hill_1,2100,500),(level_3_hill_2,2200,585),(level_3_hill_4,2400,500),(level_3_hill_2,2700,585),
                    (level_3_hill_1,2800,500),(level_3_hill_5,2900,540),(level_3_hill_3,3200,540),(level_3_hill_4,3300,500),(level_3_hill_2,3400,585),
-                   (level_3_big_hill,3100,200)
+                   (level_3_hill_6,3580,380)
                    ]
 
 mouse_button_left_image=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Menu Design\Buttons Pack\Buttons Pack\MOUSE\MOUSEBUTTONLEFT.png")
