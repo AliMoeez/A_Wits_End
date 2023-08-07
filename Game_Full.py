@@ -209,17 +209,17 @@ level_3_bg_top_1=pygame.transform.scale(level_3_bg_top_1,(SCREEN_WIDTH,SCREEN_HE
 level_3_bg_top_2=pygame.transform.scale(level_3_bg_top_2,(SCREEN_WIDTH,SCREEN_HEIGHT))
 level_3_bg_top_3=pygame.transform.scale(level_3_bg_top_3,(SCREEN_WIDTH,SCREEN_HEIGHT))
 
-level_3_hill_1=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_Tileset\tiles\hill_1.png")
-level_3_hill_2=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_Tileset\tiles\hill_2.png")
-level_3_hill_3=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_Tileset\tiles\hill_3.png")
-level_3_hill_4=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_Tileset\tiles\hill_4.png")
-level_3_hill_5=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_Tileset\tiles\hill_5.png")
-level_3_hill_6=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_Tileset\tiles\hill_6.png")
-level_3_hill_7=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_Tileset\tiles\hill_7.png")
-level_3_door=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_Tileset\tiles\door_1.png")
-level_3_pillar_1=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_Tileset\tiles\tile_14.png")
-level_3_pillar_2=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_Tileset\tiles\tile_15.png")
-level_3_pillar_3=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_Tileset\tiles\tile_16.png")
+level_3_hill_1=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_Tileset\tiles\hill_1.png").convert_alpha()
+level_3_hill_2=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_Tileset\tiles\hill_2.png").convert_alpha()
+level_3_hill_3=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_Tileset\tiles\hill_3.png").convert_alpha()
+level_3_hill_4=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_Tileset\tiles\hill_4.png").convert_alpha()
+level_3_hill_5=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_Tileset\tiles\hill_5.png").convert_alpha()
+level_3_hill_6=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_Tileset\tiles\hill_6.png").convert_alpha()
+level_3_hill_7=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_Tileset\tiles\hill_7.png").convert_alpha()
+level_3_door=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_Tileset\tiles\door_1.png").convert_alpha()
+level_3_pillar_1=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_Tileset\tiles\tile_14.png").convert_alpha()
+level_3_pillar_2=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_Tileset\tiles\tile_15.png").convert_alpha()
+level_3_pillar_3=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_Tileset\tiles\tile_16.png").convert_alpha()
 
 
 #1 500
@@ -228,11 +228,13 @@ level_3_pillar_3=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Level 3_
 #4 500
 #5 540
 
-level_3_hill_list=[(level_3_hill_1,400,500),(level_3_hill_2,700,585),(level_3_hill_3,1100,540),(level_3_hill_4,1400,500),(level_3_hill_5,1500,540),
-                   (level_3_hill_4,1900,500),(level_3_hill_1,2100,500),(level_3_hill_2,2200,585),(level_3_hill_4,2400,500),(level_3_hill_2,2700,585),
-                   (level_3_hill_1,2800,500),(level_3_hill_5,2900,540),(level_3_hill_3,3200,540),(level_3_hill_4,3300,500),(level_3_hill_2,3400,585),
-                   (level_3_hill_6,3580,380)
-                   ]
+#level_3_hill_list=[(level_3_hill_3,100,540),(level_3_hill_1,400,500),(level_3_hill_2,700,585),(level_3_hill_3,1100,540),(level_3_hill_4,1400,500),(level_3_hill_5,1500,540),
+#                   (level_3_hill_4,1900,500),(level_3_hill_1,2100,500),(level_3_hill_2,2200,585),(level_3_hill_4,2400,500),(level_3_hill_2,2700,585),
+#                   (level_3_hill_1,2800,500),(level_3_hill_5,2900,540),(level_3_hill_3,3200,540),(level_3_hill_4,3300,500),(level_3_hill_2,3400,585),
+#                   (level_3_hill_6,3580,380),(level_3_hill_2,3900,585),(level_3_hill_4,4000,500),(level_3_hill_5,4100,540),
+#                   (level_3_hill_1,4300,500),(level_3_hill_4,4400,500),(level_3_hill_2,4500,585),(level_3_hill_4,5100,500),(level_3_hill_5,5200,540),(level_3_hill_1,5250,500)]
+
+level_3_hill_list=[] ; level_3_bg_list=[]
 
 mouse_button_left_image=pygame.image.load(r"C:\Users\Owner\Desktop\A Wit's End\Menu Design\Buttons Pack\Buttons Pack\MOUSE\MOUSEBUTTONLEFT.png")
 mouse_button_left_image=pygame.transform.scale(mouse_button_left_image,(40,40))
@@ -962,25 +964,51 @@ class Game:
         self.camera_x_y=camera_x_y ; self.player_x_movement=player_x_movement 
         self.level_2_bg_1=level_2_bg_1 ; self.level_2_bg_2=level_2_bg_2 ; self.level_2_bg_3=level_2_bg_3; self.level_2_bg_4=level_2_bg_4; self.level_2_bg_5=level_2_bg_5
         self.level_2_bg_6=level_2_bg_6; self.level_2_bg_7=level_2_bg_7; self.level_2_bg_8=level_2_bg_8; self.level_2_bg_9=level_2_bg_9 ; self.level_2_bg_10=level_2_bg_10
-        self.list_2_bg_y_pos=list_2_bg_y_pos ; self.level_3_hill_list=level_3_hill_list
+        self.list_2_bg_y_pos=list_2_bg_y_pos ; self.level_3_hill_list=level_3_hill_list ; self.level_3_bg_list=level_3_bg_list
 
-       # level_3_hill_list=[(level_3_hill_1,200,300),(level_3_hill_2,900,300),(level_3_hill_1_3,1500,300)]
+        self.level_3_hill_1=level_3_hill_1
+        self.level_3_hill_2=level_3_hill_2
+        self.level_3_hill_3=level_3_hill_3
+        self.level_3_hill_4=level_3_hill_4
+        self.level_3_hill_5=level_3_hill_5
+        self.level_3_hill_6=level_3_hill_6
+        self.level_3_hill_7=level_3_hill_7
+        self.level_3_door=level_3_door
+        self.level_3_pillar_1=level_3_pillar_1
+        self.level_3_pillar_2=level_3_pillar_2
+        self.level_3_pillar_3=level_3_pillar_3
+
         if level_3:
             level_screen=False
             self.level_3_bg_list=[self.level_2_bg_8,self.level_2_bg_9,self.level_2_bg_6,self.level_2_bg_7,self.level_2_bg_4,self.level_2_bg_3,
                                   self.level_2_bg_5,self.level_2_bg_2,self.level_2_bg_1,self.level_2_bg_11,self.level_2_bg_10,self.level_2_bg_12]
+            
+            self.level_3_hill_list=[(self.level_3_hill_3,100,540),(self.level_3_hill_1,400,500),(self.level_3_hill_2,700,585),(self.level_3_hill_3,1100,540),(self.level_3_hill_4,1400,500),(self.level_3_hill_5,1500,540),
+                   (self.level_3_hill_4,1900,500),(self.level_3_hill_1,2100,500),(self.level_3_hill_2,2200,585),(self.level_3_hill_4,2400,500),(self.level_3_hill_2,2700,585),
+                   (self.level_3_hill_1,2800,500),(self.level_3_hill_5,2900,540),(self.level_3_hill_3,3200,540),(self.level_3_hill_4,3300,500),(self.level_3_hill_2,3400,585),
+                   (self.level_3_hill_6,3580,380),(self.level_3_hill_2,3900,585),(self.level_3_hill_4,4000,500),(self.level_3_hill_5,4100,540),
+                   (self.level_3_hill_1,4300,500),(self.level_3_hill_4,4400,500),(self.level_3_hill_2,4500,585),(self.level_3_hill_4,5100,500),(self.level_3_hill_5,5200,540),(self.level_3_hill_1,5250,500)]
+            
             for idx,image in enumerate(self.level_3_bg_list):
                 SCREEN.blit(image,(-self.camera_x_y[0],self.list_2_bg_y_pos[idx]))
                 SCREEN.blit(image,(-self.camera_x_y[0]+1100,self.list_2_bg_y_pos[idx]))
                 SCREEN.blit(image,(-self.camera_x_y[0]+2200,self.list_2_bg_y_pos[idx]))
                 SCREEN.blit(image,(-self.camera_x_y[0]+3300,self.list_2_bg_y_pos[idx]))
+                SCREEN.blit(image,(-self.camera_x_y[0]+4400,self.list_2_bg_y_pos[idx]))
+            
             for idx,hill in enumerate(self.level_3_hill_list):
                 SCREEN.blit(self.level_3_hill_list[idx][0],(-self.camera_x_y[0]+self.level_3_hill_list[idx][1],self.level_3_hill_list[idx][2]))
-            if self.player_rect.x>=100 and self.player_rect.x<5350: self.camera_x_y[0]+=self.player_rect.x-self.camera_x_y[0]-210
+            
+            if self.player_rect.x>=100 and self.player_rect.x<4500: self.camera_x_y[0]+=self.player_rect.x-self.camera_x_y[0]-210
             if self.player_rect.x<15: self.player_rect.x=15    
-            if self.player_rect.x>=5350: self.camera_x_y[0]=5350-210
+            if self.player_rect.x>=4500: 
+                self.camera_x_y[0]=4500-210 
+                if self.player_rect.x>5300:
+                    self.player_rect.x=5300
             if self.camera_x_y[0]<0: self.camera_x_y[0]=0
             self.player_rect.x+=self.player_x_movement[0]
+
+        #    print(self.player_rect.x)
 
 
 
@@ -1815,6 +1843,8 @@ class BossOne(Player):
                 
 while run:
     tile_level_1_rect=[] ; tile_level_2_rect=[] ; level_2_bg_list=[] ; level_2_dec_list=[] ; level_2_item_list=[]
+    level_3_bg_list=[] ; level_3_hill_list=[]
+
     key=pygame.key.get_pressed()
     clock.tick(FPS)
     for event in pygame.event.get():
