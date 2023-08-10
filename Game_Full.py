@@ -548,6 +548,24 @@ level_3_bg_test=pygame.transform.scale(level_3_bg_test,(SCREEN_WIDTH,SCREEN_HEIG
 
 level_3_fade_level=[0]
 
+ally_1_idle_1=pygame.image.load(r"C:\Users\Owner\Desktop\A_Wits_End\A_Wit's_End\Allies_1\Sprites\Heavy Bandit\Idle\HeavyBandit_Idle_0.png")
+ally_1_idle_2=pygame.image.load(r"C:\Users\Owner\Desktop\A_Wits_End\A_Wit's_End\Allies_1\Sprites\Heavy Bandit\Idle\HeavyBandit_Idle_1.png")
+ally_1_idle_3=pygame.image.load(r"C:\Users\Owner\Desktop\A_Wits_End\A_Wit's_End\Allies_1\Sprites\Heavy Bandit\Idle\HeavyBandit_Idle_2.png")
+ally_1_idle_4=pygame.image.load(r"C:\Users\Owner\Desktop\A_Wits_End\A_Wit's_End\Allies_1\Sprites\Heavy Bandit\Idle\HeavyBandit_Idle_3.png")
+ally_1_idle_1=pygame.transform.scale(ally_1_idle_1,(75,85))
+ally_1_idle_2=pygame.transform.scale(ally_1_idle_2,(75,85))
+ally_1_idle_3=pygame.transform.scale(ally_1_idle_3,(75,85))
+ally_1_idle_4=pygame.transform.scale(ally_1_idle_4,(75,85))
+ally_1_idle_flip_1=pygame.transform.flip(ally_1_idle_1,True,False)
+ally_1_idle_flip_2=pygame.transform.flip(ally_1_idle_2,True,False)
+ally_1_idle_flip_3=pygame.transform.flip(ally_1_idle_3,True,False)
+ally_1_idle_flip_4=pygame.transform.flip(ally_1_idle_4,True,False)
+
+ally_1_idle=[ally_1_idle_1,ally_1_idle_2,ally_1_idle_3,ally_1_idle_4]
+ally_1_idle_flip=[ally_1_idle_flip_1,ally_1_idle_flip_2,ally_1_idle_flip_3,ally_1_idle_flip_4]
+
+ally_1_idle_number=[0]
+
 class Menu:
     def __init__(self,camera_x_y_bg):
         self.camera_x_y_bg=camera_x_y_bg
@@ -963,7 +981,7 @@ class Game:
         self.level_3_fade_level=level_3_fade_level ; self.level_3_part_2_fade_intro=[140] ; self.level_3_bg_test=level_3_bg_test
         if level_3 and not level_3_part_2:
             level_screen=False
-            
+
             self.level_3_hill_list=[(self.level_3_hill_3,100,545),(self.level_3_hill_1,400,505),(self.level_3_hill_2,700,590),(self.level_3_hill_3,1100,545),(self.level_3_hill_4,1400,505),(self.level_3_hill_5,1500,545),
                    (self.level_3_hill_4,1900,505),(self.level_3_hill_1,2100,505),(self.level_3_hill_2,2200,590),(self.level_3_hill_4,2400,505),(self.level_3_hill_2,2700,590),
                    (self.level_3_hill_1,2800,505),(self.level_3_hill_5,2900,545),(self.level_3_hill_3,3200,545),(self.level_3_hill_4,3300,505),(self.level_3_hill_2,3400,585),
@@ -1095,7 +1113,7 @@ class Player(Game):
         self.player_attack_type_4=player_attack_type_4 ; self.player_attack_type_4_flip=player_attack_type_4_flip ; self.attack_type=attack_type ; self.player_attack_number=player_attack_number
         self.attack_jump=attack_jump ; self.attack_jump_flip=attack_jump_flip ; self.player_attack_jump_number=player_attack_jump_number
         global attack,jump,jump_condition,player_idle_right,player_idle_left,attack_air, player_death,dialogue_move_condition, attack_done
-        if (level_1 or level_2_part_2) and not player_death and not dialogue_move_condition:
+        if (level_1 or level_2_part_2 or level_3) and not player_death and not dialogue_move_condition:
             if key[pygame.K_e]:
                 attack=True ; jump=False
             if attack and jump_condition and not attack_air:            
@@ -1132,7 +1150,7 @@ class Player(Game):
         global player_death,player_idle_right,player_idle_left,player_death_final, level_screen, level_1,reset_enemy_position,level_1_enemy_fight_condition
         global level_1_dialogue_part_two, end_level_1_dialogue,level_one_dialogue_part_three,end_level_1_dialogue,dialogue_move_condition, level_2_part_2
         self.player_fallen=player_fallen ; self.player_fallen_flip=player_fallen_flip ; self.player_fallen_number=player_fallen_number ; self.defeat_blur=defeat_blur
-        if level_1 or level_2_part_2:
+        if level_1 or level_2_part_2 or level_3:
             if self.player_current_health[0]<=0:
                 player_death=True # ; level_1_enemy_fight_condition=False
                 if player_death:
@@ -1628,6 +1646,23 @@ class EnemyTwo(Player):
                         enemy_knight.bottom=tile.top
             return self.enemy_two_rect_list        
 
+class AllyOne(Player):
+    def __init__(self):
+        super().__init__(player_x_movement,player_y_movement,player_rect,player_current_health)
+        self.camera_x_y=camera_x_y
+
+    def idle(self):
+        global level_3,level_3_part_2
+        self.ally_1_idle=ally_1_idle ; self.ally_1_idle_flip=ally_1_idle_flip ; self.ally_1_idle_number=ally_1_idle_number
+        if level_3 or level_3_part_2:
+            if self.player_rect.x<200:
+                SCREEN.blit(self.ally_1_idle[int(self.ally_1_idle_number[0])//2],(200-self.camera_x_y[0],570-self.camera_x_y[1]))
+            if self.player_rect.x>=200:
+                SCREEN.blit(self.ally_1_idle_flip[int(self.ally_1_idle_number[0])//2],(200-self.camera_x_y[0],570-self.camera_x_y[1]))
+            self.ally_1_idle_number[0]+=0.25
+            if self.ally_1_idle_number[0]>5:
+                self.ally_1_idle_number[0]=0
+
 class MainBoss(Player):
     def __init__(self,main_boss_rect_level_1,main_boss_x_movement,main_boss_y_movement,):
         super().__init__(player_x_movement,player_y_movement,player_rect,player_current_health)
@@ -1885,6 +1920,9 @@ while run:
     enemy_two.reset_position()
     enemy_two.collision_with_object(tile_level_1)
     enemy_two.collision_with_object_logic(tile_level_1)
+
+    allyone=AllyOne()
+    allyone.idle()
     
     main_boss=MainBoss(main_boss_rect_level_1,main_boss_x_movement,main_boss_y_movement)
     main_boss.movement()
