@@ -1046,7 +1046,7 @@ class Game:
                    (self.level_3_hill_5,5200,545),(self.level_3_hill_1,5250,505),(self.level_3_door,3850,550)]
 
             self.player_door_distance=math.sqrt(math.pow(self.player_rect.x-3850,2)+math.pow(self.player_rect.y-545,2))
-            
+
             y_1=0
             for row in self.tile_level_3:
                 x_1=0
@@ -1087,6 +1087,7 @@ class Game:
                     self.player_rect.x=5300
             if self.camera_x_y[0]<0: self.camera_x_y[0]=0
             self.player_rect.x+=self.player_x_movement[0]
+
 
         if level_3_part_2: 
             self.level_3_fade_level[0]-=10 ; rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  ; rectangle_blur.set_alpha(self.level_3_fade_level[0]) ; rectangle_blur.fill((0,0,0))   ; SCREEN.blit(rectangle_blur,(0,0))
