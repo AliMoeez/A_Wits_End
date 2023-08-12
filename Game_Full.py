@@ -562,7 +562,7 @@ boss_1_rect=pygame.Rect(boss_1_level_2_part_2_x[0],boss_1_level_2_part_2_y[0],55
 level_3_bg_test=pygame.image.load(r"C:\Users\Owner\Desktop\A_Wits_End\A_Wit's_End\Level 3_Tileset\background\backround.PNG").convert_alpha()
 level_3_bg_test=pygame.transform.scale(level_3_bg_test,(SCREEN_WIDTH,SCREEN_HEIGHT))
 
-level_3_fade_level=[0]
+level_3_fade_level=[0] ; level_3_dialogue_part_1=False ; level_3_dialogue_part_1_once=False
 
 ally_1_idle_1=pygame.image.load(r"C:\Users\Owner\Desktop\A_Wits_End\A_Wit's_End\Allies_1\Sprites\Heavy Bandit\Idle\HeavyBandit_Idle_0.png") ; ally_1_idle_2=pygame.image.load(r"C:\Users\Owner\Desktop\A_Wits_End\A_Wit's_End\Allies_1\Sprites\Heavy Bandit\Idle\HeavyBandit_Idle_1.png")
 ally_1_idle_3=pygame.image.load(r"C:\Users\Owner\Desktop\A_Wits_End\A_Wit's_End\Allies_1\Sprites\Heavy Bandit\Idle\HeavyBandit_Idle_2.png") ; ally_1_idle_4=pygame.image.load(r"C:\Users\Owner\Desktop\A_Wits_End\A_Wit's_End\Allies_1\Sprites\Heavy Bandit\Idle\HeavyBandit_Idle_3.png")
@@ -598,14 +598,17 @@ ally_1_run_flip_6=pygame.transform.flip(ally_1_run_6,True,False)
 ally_1_run_flip_7=pygame.transform.flip(ally_1_run_7,True,False)
 ally_1_run_flip_8=pygame.transform.flip(ally_1_run_8,True,False)
 
+ally_1_icon=pygame.image.load(r"C:\Users\Owner\Desktop\A_Wits_End\A_Wit's_End\Allies_1\Sprites\Heavy Bandit\Icon\HeavyBandit_Icon.png")
+ally_1_icon=pygame.transform.scale(ally_1_icon,(120,120))
+
 ally_1_run=[ally_1_run_1,ally_1_run_2,ally_1_run_3,ally_1_run_4,ally_1_run_5,ally_1_run_6,ally_1_run_7,ally_1_run_8]
 ally_1_run_flip=[ally_1_run_flip_1,ally_1_run_flip_2,ally_1_run_flip_3,ally_1_run_flip_4,ally_1_run_flip_5,ally_1_run_flip_6,ally_1_run_flip_7,ally_1_run_flip_8]
 
 
-ally_1_level_3_part_1_x_idle=[710,1270,1900]
+ally_1_level_3_part_1_x_idle=[1710,3795,3910]
 ally_1_level_3_part_1_y_idle=[570,570,570]
 
-ally_1_level_3_part_1_x_run=[700,800]
+ally_1_level_3_part_1_x_run=[3200,4300]
 ally_1_level_3_part_1_y_run=[570,570]
 
 ally_1_level_3_part_1_idle_rect=[pygame.Rect(ally_1_level_3_part_1_x_idle[0],ally_1_level_3_part_1_y_idle[0],75,85), 
@@ -1040,6 +1043,14 @@ class Game:
         if level_3 and not level_3_part_2:
             level_screen=False
 
+            if self.player_rect.x>=100 and self.player_rect.x<4500: self.camera_x_y[0]+=self.player_rect.x-self.camera_x_y[0]-210
+            if self.player_rect.x<15: self.player_rect.x=15    
+            if self.player_rect.x>=4500: 
+                self.camera_x_y[0]=4500-210 
+                if self.player_rect.x>5300:
+                    self.player_rect.x=5300
+            if self.camera_x_y[0]<0: self.camera_x_y[0]=0
+
             self.level_3_hill_list=[(self.level_3_hill_3,100,545),(self.level_3_hill_1,400,505),(self.level_3_hill_2,700,590),(self.level_3_hill_3,1100,545),(self.level_3_hill_4,1400,505),(self.level_3_hill_5,1500,545),
                    (self.level_3_hill_4,1900,505),(self.level_3_hill_1,2100,505),(self.level_3_hill_2,2200,590),(self.level_3_hill_4,2400,505),(self.level_3_hill_2,2700,590),
                    (self.level_3_hill_1,2800,505),(self.level_3_hill_5,2900,545),(self.level_3_hill_3,3200,545),(self.level_3_hill_4,3300,505),(self.level_3_hill_2,3400,585),
@@ -1066,7 +1077,7 @@ class Game:
             SCREEN.blit(self.level_3_bg_test,(-self.camera_x_y[0]+4400,0))
             
             for idx,hill in enumerate(self.level_3_hill_list):
-                SCREEN.blit(self.level_3_hill_list[idx][0],(-self.camera_x_y[0]+self.level_3_hill_list[idx][1],self.level_3_hill_list[idx][2]))
+                SCREEN.blit(self.level_3_hill_list[idx][0],(self.level_3_hill_list[idx][1]-self.camera_x_y[0],self.level_3_hill_list[idx][2]))
 
             if self.player_door_distance<75:
                 SCREEN.blit(self.mouse_button_left_image,(3875-self.camera_x_y[0],500-self.camera_x_y[1]))
@@ -1081,21 +1092,55 @@ class Game:
                 if self.level_3_fade_level[0]>=200:
                     level_3_part_2=True
             
-            if self.player_rect.x>=100 and self.player_rect.x<4500: self.camera_x_y[0]+=self.player_rect.x-self.camera_x_y[0]-210
-            if self.player_rect.x<15: self.player_rect.x=15    
-            if self.player_rect.x>=4500: 
-                self.camera_x_y[0]=4500-210 
-                if self.player_rect.x>5300:
-                    self.player_rect.x=5300
-            if self.camera_x_y[0]<0: self.camera_x_y[0]=0
-            self.player_rect.x+=self.player_x_movement[0]
-
-
         if level_3_part_2: 
             self.level_3_fade_level[0]-=10 ; rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  ; rectangle_blur.set_alpha(self.level_3_fade_level[0]) ; rectangle_blur.fill((0,0,0))   ; SCREEN.blit(rectangle_blur,(0,0))
             if self.level_3_fade_level[0]<=0:
                 self.level_3_fade_level[0]=0
 
+    def level_three_dialogue(self):
+        global level_3,level_3_part_2,level_3_dialogue_part_1,level_3_dialogue_part_1_once
+        global dialogue_move_condition ,change_dialogue,change_dialogue_cond_1
+        self.ally_1_icon=ally_1_icon ; self.player_icon=player_icon
+
+        self.level_3_dialogue_1=[
+            ("Halt this moment!","???",self.ally_1_icon),
+            ("I will end you if you try anything!!","You",self.player_icon),
+            ("There is no need for that....We are the men of Ayus. We fight against Kornos! We know of your defection.","Men of Ayus Trooper",self.ally_1_icon),
+            ("Who is your leader? Can I speak to them?","You",self.player_icon),
+            ("His name is the Great Alexandros of Hemmite. He is in our fortress ahead!","Men of Ayus Trooper",self.ally_1_icon),
+            ("I will meet with this 'Great' leader....","You",self.player_icon)
+            ]
+
+        if level_3 and not level_3_part_2 and not level_3_dialogue_part_1_once:
+            if self.player_rect.x>1400:
+                level_3_dialogue_part_1=True
+
+        if level_3_dialogue_part_1:
+            if level_3_dialogue_part_1:
+                level_3_dialogue=self.level_3_dialogue_1 ; colour_box=(1,50,32) ; colour_font=(1,150,71)
+            dialogue_move_condition=True ; rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  ; rectangle_blur.set_alpha(100) ; rectangle_blur.fill((0,0,0))  ; SCREEN.blit(rectangle_blur,(0,0)) 
+            rectangle_box_1=pygame.Surface((SCREEN_WIDTH,200))  ; rectangle_box_1.fill(colour_box)  ; rectangle_box_1.set_alpha(75)  ; SCREEN.blit(rectangle_box_1,(0,500))
+            
+            for idx, number in enumerate(level_3_dialogue):
+                
+                if idx==self.level_2_dialogue_list_part_1_length[0]:
+                    SCREEN.blit(level_3_dialogue[idx][2],(80,525))  ; font_game=pygame.font.SysFont("Impact",28) 
+                    show_font_knight=font_game.render(level_3_dialogue[idx][1],1,colour_font) 
+                    if level_3_dialogue[idx][2]==self.player_icon: SCREEN.blit(show_font_knight,(110,645))
+                    if level_3_dialogue[idx][1]=="Men of Ayus Trooper": SCREEN.blit(show_font_knight,(55,645))  
+                    if level_3_dialogue[idx][1]=="???": SCREEN.blit(show_font_knight,(115,645)) 
+                    if level_3_dialogue[idx][1]=="High Lord Stephen": SCREEN.blit(show_font_knight,(55,645)) 
+                    font_game=pygame.font.SysFont("Impact",24) ; show_font_knight=font_game.render(level_3_dialogue[idx][0],1,colour_font) ; SCREEN.blit(show_font_knight,(200,545))
+                
+                if self.level_2_dialogue_list_part_1_length[0]>=len(level_3_dialogue):
+                    level_3_dialogue_part_1=False ; level_3_dialogue_part_1_once=True
+                    self.level_2_dialogue_list_part_1_length[0]=0 ;  dialogue_move_condition=False 
+            
+            if event.type==pygame.MOUSEBUTTONDOWN:  change_dialogue_cond_1=True
+            if event.type==pygame.MOUSEBUTTONUP and change_dialogue_cond_1:
+                change_dialogue_cond_1=False ; change_dialogue=True  
+            if change_dialogue:
+                change_dialogue=False ; self.level_2_dialogue_list_part_1_length[0]+=1
 class Player(Game):
     def __init__(self,player_x_movement,player_y_movement,player_rect,player_current_health):
         self.player_x_movement=player_x_movement ; self.player_y_movement=player_y_movement ; self.player_current_health=player_current_health
@@ -1736,15 +1781,14 @@ class AllyOne(Player):
                 self.ally_1_idle_number.append(0) ; self.ally_1_y_movement.append(0)
                 if level_3 or level_3_part_2:
                     self.ally_1_y_movement[idx]=2
-                    if self.player_rect.x<ally.x:
-                        SCREEN.blit(self.ally_1_idle[int(self.ally_1_idle_number[idx])//2],(ally.x-self.camera_x_y[0],ally.y-self.camera_x_y[1]+17))
-                    if self.player_rect.x>=ally.x:
-                        SCREEN.blit(self.ally_1_idle_flip[int(self.ally_1_idle_number[idx])//2],(ally.x-self.camera_x_y[0],ally.y-self.camera_x_y[1]+17))
+                    if self.player_rect.x<ally_1_idle_list[idx].x:
+                        SCREEN.blit(self.ally_1_idle[int(self.ally_1_idle_number[idx])//2],(ally_1_idle_list[idx].x-self.camera_x_y[0],ally.y-self.camera_x_y[1]+17))
+                    if self.player_rect.x>=ally_1_idle_list[idx].x:
+                        SCREEN.blit(self.ally_1_idle_flip[int(self.ally_1_idle_number[idx])//2],(ally_1_idle_list[idx].x-self.camera_x_y[0],ally.y-self.camera_x_y[1]+17))
                     self.ally_1_idle_number[idx]+=0.25
                     if self.ally_1_idle_number[idx]>5:
                         self.ally_1_idle_number[idx]=0
             
-
     def run(self):
         global level_3,level_3_part_2
         self.ally_1_run=ally_1_run ; self.ally_1_run_flip=ally_1_run_flip ; self.ally_1_run_number=ally_1_run_number
@@ -2088,6 +2132,7 @@ while run:
     
     game.level_one_dialogue()
     game.level_two_dialogue()
+    game.level_three_dialogue()
     game.level_one_win()
     
     player.defeat()
