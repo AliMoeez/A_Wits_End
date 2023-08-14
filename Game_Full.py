@@ -1111,13 +1111,20 @@ class Game:
                 self.level_3_fade_level[0]+=10 ; rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  ; rectangle_blur.set_alpha(self.level_3_fade_level[0])  ; rectangle_blur.fill((0,0,0))   ; SCREEN.blit(rectangle_blur,(0,0))
                 if self.level_3_fade_level[0]>=200:
                     level_3_part_2=True
-                   # self.player_rect.x=100
-                   # self.camera_x_y[0]=0
+                    self.player_rect.x=100
+                    self.camera_x_y[0]=0
 
         if level_3_part_2: 
             self.level_3_fade_level[0]-=10 ; rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  ; rectangle_blur.set_alpha(self.level_3_fade_level[0]) ; rectangle_blur.fill((0,0,0))   ; SCREEN.blit(rectangle_blur,(0,0))
             if self.level_3_fade_level[0]<=0:
                 self.level_3_fade_level[0]=0
+            if self.player_rect.x>=100 and self.player_rect.x<2300: self.camera_x_y[0]+=self.player_rect.x-self.camera_x_y[0]-210
+            if self.player_rect.x<15: self.player_rect.x=15    
+            if self.player_rect.x>=2300: 
+                self.camera_x_y[0]=2300-210 
+                if self.player_rect.x>3100:
+                    self.player_rect.x=3100
+            if self.camera_x_y[0]<0: self.camera_x_y[0]=0
             
             for idx,bg in enumerate(self.level_3_bg_part_2_list):
                 SCREEN.blit(bg,(0,0))
@@ -1127,8 +1134,6 @@ class Game:
                     x_val=tile[0]*32
                     y_val=tile[1]*32
                     SCREEN.blit(tile[2],(x_val-self.camera_x_y[0],y_val-self.camera_x_y[1]))
-
-
 
     def level_three_dialogue(self):
         global level_3,level_3_part_2,level_3_dialogue_part_1,level_3_dialogue_part_1_once
