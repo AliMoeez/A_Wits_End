@@ -17,7 +17,7 @@ class Menu:
                 if self.camera_x_y_bg[0]<=-1100: self.camera_x_y_bg[0]=0
         
         if not Data.level_screen:
-            font_game=pygame.font.SysFont("Impact",36)  ; show_game=font_game.render("A Wit's End ",1,(120,159,179))  ; self.SCREEN.blit(show_game,(Data.SCREEN_WIDTH//2-75,100))
+            font_game=pygame.font.SysFont("Impact",36)  ; show_game=font_game.render("A_Wit's_End ",1,(120,159,179))  ; self.SCREEN.blit(show_game,(Data.SCREEN_WIDTH//2-75,100))
             rectangle_play=pygame.Surface((60,30))  ; rectangle_play.set_alpha(0)  ; rectangle_play.fill((200,200,200)) ; rect_play_show=SCREEN.blit(rectangle_play,(Data.SCREEN_WIDTH//2-25,405))
             font_game=pygame.font.SysFont("Impact",36)  ; show_game=font_game.render("Play",1,(120,159,179))  ; self.SCREEN.blit(show_game,(Data.SCREEN_WIDTH//2-25,400))
 

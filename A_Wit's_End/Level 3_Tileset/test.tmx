@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="2" nextobjectid="1">
+ <editorsettings>
+  <export target="swdewqw.csv" format="csv"/>
+ </editorsettings>
+ <tileset firstgid="1" source="x.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="100" height="25">
+  <data encoding="base64" compression="zlib">
+   eJztmNsKgzAQRH1vUYvWh+D/f2cVdumw5Gq9VefAYJJuopk1S3GoqmqY9Jbr3fXKiMnxKmedkthmkluwn73ymrOHEk9iakE65sSjWtqt9Fvp45jPH1xT17Gxo4zNUuw9nMRhf8ke18xbA880Qr8Gv5xpp3KmceiF+mHHUmhu1HsXiR1hD0vRe+jzY15b6af8tPEO1rV+43ux9Ll95x89uzrqtfqN7SMJnQNCCCGEEEIIIYQcz3NSJ+rh2pu+He9hXhf43c7HGPJlzoH6svY34tS3Z+3fFfUe3889vk2n8ntWsF7geY7VDd9voZpR4nXuGQnlKTbfzjkTtl6sXStCNeJMOgOahy3rxFY5/UW+/dgaMLcfBT7amhD7T+KrJSV1e439/qtC3uL1yHeLoq6mK9UP6h76APPEXc0=
+  </data>
+ </layer>
+</map>

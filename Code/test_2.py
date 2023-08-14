@@ -1,10 +1,8 @@
-import pygame
-import pygame
+from test import Dog 
 
-def func(x):
-    pygame.draw.rect(x,(100,100,100),pygame.Rect(10,10,10,10))
 
-func(x)
+Dog()
+Dog().statement()
 
 
 

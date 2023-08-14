@@ -1,6 +1,6 @@
-import player
+from player import Player
 
-class EnemyOne(player.Player):
+class EnemyOne(Player):
     #here
     def __init__(self,enemy_list_level_1,npc_walk_length,npc_direction_choice,enemy_1_distance_list,enemy_1_health_list):
         self.enemy_list_level_1=enemy_list_level_1 ;  self.npc_walk_length=npc_walk_length ; self.npc_direction_choice=npc_direction_choice ; self.enemy_1_distance_list=enemy_1_distance_list

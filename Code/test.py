@@ -1,5 +1,10 @@
-list=[0,1,2,3,4,5]
-list_2=[6,7,8,9]
 
-for idx,number in enumerate(list+list_2):
-    print(number)
+
+level_1_houses="X"
+
+class Dog:
+    def __init__(self):
+        self.level_1_houses=level_1_houses
+
+    def statement(self):
+        print(f"THIS IS THE DOG CLASS, {level_1_houses}")

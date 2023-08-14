@@ -1,6 +1,6 @@
-import pygame,sys,json,random, math, menu,Data,enemy_one,enemy_two,game,general_boss,main_boss,player
+import pygame
 
-pygame.init()
+"""pygame.init()
 
 FPS=30
 run=True
@@ -20,7 +20,7 @@ while run:
             pygame.quit()
             sys.exit()
             
-    menu=menu.Menu(Data.camera_x_y_bg)
+    menu=Menu(Data.camera_x_y_bg)
     menu.home(Data.level_3_bg_1,Data.level_3_bg_2)
     menu.level_selection()
     
@@ -77,5 +77,5 @@ while run:
     
     player.defeat()
     
-    pygame.display.update()
+    pygame.display.update()"""
     
