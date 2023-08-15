@@ -24,6 +24,18 @@ bg_3=pygame.transform.scale(bg_3,(SCREEN_WIDTH,SCREEN_HEIGHT))
 bg_4=pygame.transform.scale(bg_4,(SCREEN_WIDTH,SCREEN_HEIGHT))
 bg_5=pygame.transform.scale(bg_5,(SCREEN_WIDTH,SCREEN_HEIGHT))
 
+level_3_tile_set_part_2=load_pygame(r"A_Wit's_End\Level 3_Tileset\test.tmx")
+
+level_3_tile_set_part_2_rect=[]
+
+rect_x=200
+rect_y=100
+
+
+rects=pygame.Rect(rect_x,rect_y,45,65)
+
+rects_x_move=[0]
+rects_y_move=[0]
 
 while run:
     SCREEN.fill((0,0,0))
@@ -32,22 +44,64 @@ while run:
     SCREEN.blit(bg_3,(0,0))
     SCREEN.blit(bg_4,(0,0))
     SCREEN.blit(bg_5,(0,0))
+
     key=pygame.key.get_pressed()
     for event in pygame.event.get():
         if event.type==pygame.QUIT:
             pygame.quit()
             sys.exit()
 
-    for layer in data:
-         for tile in layer.tiles():
-              x_val=tile[0]*32
-              y_val=tile[1]*32
-              SCREEN.blit(tile[2],(x_val-camera_x_y[0],y_val))
+    for layer in level_3_tile_set_part_2:
+        for tile in layer.tiles():
+            x_val=tile[0]*32
+            y_val=tile[1]*32
+            SCREEN.blit(tile[2],(x_val-camera_x_y[0],y_val-camera_x_y[1]))
+            level_3_tile_set_part_2_rect.append(pygame.Rect((x_val,y_val,32,32)))
+
+    pygame.draw.rect(SCREEN,(200,100,100),rects)
 
     if key[pygame.K_d]:
-        camera_x_y[0]+=20
+        rects_x_move[0]=5
+        camera_x_y[0]+=5
     if key[pygame.K_a]:
-         camera_x_y[0]-=20
+         rects_x_move[0]=-1
+         camera_x_y[0]-=15
+    else:
+        rects_x_move[0]=0
+
+    rects_y_move[0]=2
+
+    
+    def collision_with_object(level_3_tile_set_part_2_rect):
+        tile_hit=[]
+        for tiles in level_3_tile_set_part_2_rect:
+            if rects.colliderect(tiles):
+                tile_hit.append(tiles)
+        return tile_hit
+
+
+    def collision_with_object_logic(level_3_tile_set_part_2_rect):
+            rects.x+=rects_x_move[0]
+            collision=collision_with_object(level_3_tile_set_part_2_rect)
+            for tile in collision:
+                if rects_x_move[0]>0:
+                    rects.right=tile.left
+                elif rects_x_move[0]<0:
+                    rects.left=tile.right
+            rects.y+=rects_y_move[0]
+            collision=collision_with_object(level_3_tile_set_part_2_rect)
+            for tile in collision:
+                if rects_y_move[0]>0:
+                    rects.bottom=tile.top
+                elif rects_y_move[0]<0:
+                    rects.top=tile.bottom
+            return rects
+    
+
+    collision_with_object(level_3_tile_set_part_2_rect)
+    collision_with_object_logic(level_3_tile_set_part_2_rect)
+    level_3_tile_set_part_2_rect=[]
+
     
     
 
