@@ -277,6 +277,7 @@ player_y=[600] ; player_y_movement=[0] #585
 
 player_rect=pygame.Rect(player_x[0],player_y[0],45,48)
 
+
 jump=False ; jump_condition=False ; player_idle_right=True ; player_idle_left=False ; attack=False ; crouch=False ; attack_air=False
 
 health_icon=pygame.image.load(r"A_Wit's_End\Player\health\health_icon.png")
@@ -1082,6 +1083,17 @@ class Game:
 
             self.player_door_distance=math.sqrt(math.pow(self.player_rect.x-3850,2)+math.pow(self.player_rect.y-545,2))
 
+            y_1=0
+            for row in self.tile_level_3:  #48,43
+                x_1=0
+                for tile in row:
+                    if tile in ["1","2"]:
+                        SCREEN.blit(self.level_3_tile_1,(x_1*48-self.camera_x_y[0],y_1*43-self.camera_x_y[1]))
+                    if tile!="0":
+                        self.tile_level_3_rect.append(pygame.Rect((x_1*48,y_1*43,48,43)))
+                    x_1+=1
+                y_1+=1
+
             SCREEN.blit(self.level_3_bg_test,(-self.camera_x_y[0],0))
             SCREEN.blit(self.level_3_bg_test,(-self.camera_x_y[0]+1100,0))
             SCREEN.blit(self.level_3_bg_test,(-self.camera_x_y[0]+2200,0))
@@ -1091,17 +1103,6 @@ class Game:
             for idx,hill in enumerate(self.level_3_hill_list):
                 SCREEN.blit(self.level_3_hill_list[idx][0],(self.level_3_hill_list[idx][1]-self.camera_x_y[0],self.level_3_hill_list[idx][2]))
 
-            y_1=0
-            for row in self.tile_level_3:  #48,43
-                x_1=0
-                for tile in row:
-                    if tile in ["1","2"]:
-                        SCREEN.blit(self.level_3_tile_1,(x_1*48-self.camera_x_y[0],y_1*45-self.camera_x_y[1]))
-                    if tile!="0":
-                        self.tile_level_3_rect.append(pygame.Rect((x_1*48,y_1*45,48,45)))
-                        pygame.draw.rect(SCREEN,(100,100,100),pygame.Rect(x_1*48,y_1*45,48,45),width=1)
-                    x_1+=1
-                y_1+=1
 
             if self.player_door_distance<75:
                 SCREEN.blit(self.mouse_button_left_image,(3875-self.camera_x_y[0],500-self.camera_x_y[1]))
@@ -1120,23 +1121,18 @@ class Game:
                     self.player_rect.y=200
 
         if level_3_part_2: 
+            self.player_rect.height=64
             level_3=False
             self.level_3_fade_level[0]-=10 ; rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  ; rectangle_blur.set_alpha(self.level_3_fade_level[0]) ; rectangle_blur.fill((0,0,0))   ; SCREEN.blit(rectangle_blur,(0,0))
             if self.level_3_fade_level[0]<=0:
                 self.level_3_fade_level[0]=0
-            if self.player_rect.x>=100 and self.player_rect.x<2300: self.camera_x_y[0]+=self.player_rect.x-self.camera_x_y[0]-210
+            if self.player_rect.x>=100 and self.player_rect.x<3890: self.camera_x_y[0]+=self.player_rect.x-self.camera_x_y[0]-210
             if self.player_rect.x<15: self.player_rect.x=15    
-            if self.player_rect.x>=2300: 
-                self.camera_x_y[0]=2300-210 
-                if self.player_rect.x>3100:
-                    self.player_rect.x=3100
+            if self.player_rect.x>=3890: 
+                self.camera_x_y[0]=3890-210 
+                if self.player_rect.x>4725:
+                    self.player_rect.x=4725
             if self.camera_x_y[0]<0: self.camera_x_y[0]=0
-
-            if key[pygame.K_w]:
-                self.camera_x_y[1]-=2
-
-            if key[pygame.K_s]:
-                self.camera_x_y[1]+=2
             
             for idx,bg in enumerate(self.level_3_bg_part_2_list):
                 SCREEN.blit(bg,(0,0))
@@ -1838,7 +1834,7 @@ class AllyOne(Player):
         global level_3,level_3_part_2
         self.ally_1_idle=ally_1_idle ; self.ally_1_idle_flip=ally_1_idle_flip ; self.ally_1_idle_number=ally_1_idle_number
 
-        if level_3 or level_3_part_2:
+        if level_3:
             for idx,ally in enumerate(self.ally_1_level_3_part_1_idle_rect+self.ally_1_level_3_part_1_run_rect):
                 self.ally_1_rect_list.append(pygame.Rect(ally.x,ally.y,75,85))
                 self.ally_1_y_movement.append(0)
