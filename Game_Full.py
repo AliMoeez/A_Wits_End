@@ -633,6 +633,12 @@ ally_1_level_3_part_1_y_idle=[570,570,570]
 ally_1_level_3_part_1_x_run=[3200,4300]
 ally_1_level_3_part_1_y_run=[570,570]
 
+ally_1_level_3_part_2_x_idle=[200,1400,2700]
+ally_1_level_3_part_2_y_idle=[270,270,270]
+
+ally_1_level_3_part_2_x_run=[800,800]
+ally_1_level_3_part_2_y_run=[270,270]
+
 ally_1_level_3_part_1_idle_rect=[pygame.Rect(ally_1_level_3_part_1_x_idle[0],ally_1_level_3_part_1_y_idle[0],75,85), 
                             pygame.Rect(ally_1_level_3_part_1_x_idle[1],ally_1_level_3_part_1_y_idle[1],75,85), 
                             pygame.Rect(ally_1_level_3_part_1_x_idle[2],ally_1_level_3_part_1_y_idle[2],75,85)]
@@ -640,6 +646,17 @@ ally_1_level_3_part_1_idle_rect=[pygame.Rect(ally_1_level_3_part_1_x_idle[0],all
 
 ally_1_level_3_part_1_run_rect=[pygame.Rect(ally_1_level_3_part_1_x_run[0],ally_1_level_3_part_1_y_run[0],75,85),
                             pygame.Rect(ally_1_level_3_part_1_x_run[1],ally_1_level_3_part_1_y_run[1],75,85)]
+
+
+ally_1_level_3_part_2_idle_rect=[pygame.Rect(ally_1_level_3_part_2_x_idle[0],ally_1_level_3_part_2_y_idle[0],75,85), 
+                            pygame.Rect(ally_1_level_3_part_2_x_idle[1],ally_1_level_3_part_2_y_idle[1],75,85), 
+                            pygame.Rect(ally_1_level_3_part_2_x_idle[2],ally_1_level_3_part_2_y_idle[2],75,85)
+
+]
+
+ally_1_level_3_part_2_run_rect=[pygame.Rect(ally_1_level_3_part_2_x_run[0],ally_1_level_3_part_2_y_run[0],75,85),
+                            pygame.Rect(ally_1_level_3_part_2_x_run[1],ally_1_level_3_part_2_y_run[1],75,85)
+]
 
 ally_1_rect_list=[]
 
@@ -1824,21 +1841,28 @@ class EnemyTwo(Player):
             return self.enemy_two_rect_list        
 
 class AllyOne(Player):
-    def __init__(self,ally_1_x_movement,ally_1_y_movement,ally_1_level_3_part_1_idle_rect,ally_1_level_3_part_1_run_rect,ally_1_rect_list):
+    def __init__(self,ally_1_x_movement,ally_1_y_movement,ally_1_level_3_part_1_idle_rect,ally_1_level_3_part_1_run_rect,ally_1_rect_list,
+                 ally_1_level_3_part_2_idle_rect,ally_1_level_3_part_2_run_rect):
         super().__init__(player_x_movement,player_y_movement,player_rect,player_current_health)
         self.camera_x_y=camera_x_y ; self.ally_1_x_movement=ally_1_x_movement ; self.ally_1_y_movement=ally_1_y_movement
         self.ally_1_level_3_part_1_idle_rect=ally_1_level_3_part_1_idle_rect ; self.ally_1_level_3_part_1_run_rect=ally_1_level_3_part_1_run_rect
         self.ally_1_run_direction=ally_1_run_direction ; self.ally_1_run_length=ally_1_run_length ; self.ally_1_rect_list=ally_1_rect_list
+        self.ally_1_level_3_part_2_idle_rect=ally_1_level_3_part_2_idle_rect ; self.ally_1_level_3_part_2_run_rect=ally_1_level_3_part_2_run_rect
 
     def idle(self):
         global level_3,level_3_part_2
         self.ally_1_idle=ally_1_idle ; self.ally_1_idle_flip=ally_1_idle_flip ; self.ally_1_idle_number=ally_1_idle_number
 
-        if level_3:
-            for idx,ally in enumerate(self.ally_1_level_3_part_1_idle_rect+self.ally_1_level_3_part_1_run_rect):
+        if level_3 or level_3_part_2:
+            if level_3:
+                ally_total_list=self.ally_1_level_3_part_1_idle_rect+self.ally_1_level_3_part_1_run_rect
+                ally_1_idle_list=ally_1_level_3_part_1_idle_rect
+            if level_3_part_2:
+                ally_total_list=self.ally_1_level_3_part_2_idle_rect+self.ally_1_level_3_part_2_run_rect
+                ally_1_idle_list=self.ally_1_level_3_part_2_idle_rect
+            for idx,ally in enumerate(ally_total_list):
                 self.ally_1_rect_list.append(pygame.Rect(ally.x,ally.y,75,85))
-                self.ally_1_y_movement.append(0)
-            ally_1_idle_list=ally_1_level_3_part_1_idle_rect
+                self.ally_1_y_movement.append(2)
             for idx,ally in enumerate(ally_1_idle_list):
                 self.ally_1_idle_number.append(0) ; self.ally_1_y_movement.append(0)
                 if level_3 or level_3_part_2:
@@ -1850,12 +1874,17 @@ class AllyOne(Player):
                     self.ally_1_idle_number[idx]+=0.25
                     if self.ally_1_idle_number[idx]>5:
                         self.ally_1_idle_number[idx]=0
+                    if level_3_part_2:
+                        ally.height=95
             
     def run(self):
         global level_3,level_3_part_2
         self.ally_1_run=ally_1_run ; self.ally_1_run_flip=ally_1_run_flip ; self.ally_1_run_number=ally_1_run_number
-        if level_3:
-            ally_1_run_list=self.ally_1_level_3_part_1_run_rect
+        if level_3 or level_3_part_2:
+            if level_3:
+                ally_1_run_list=self.ally_1_level_3_part_1_run_rect
+            if level_3_part_2:
+                ally_1_run_list=self.ally_1_level_3_part_2_run_rect
             for idx,ally in enumerate(ally_1_run_list):
                 self.ally_1_run_number.append(0)  ; self.ally_1_x_movement.append(0)
             for idx,ally in enumerate(ally_1_run_list):
@@ -1865,8 +1894,14 @@ class AllyOne(Player):
                 if self.ally_1_run_direction[idx]==0 and self.ally_1_run_length[idx]>0:
                     self.ally_1_x_movement[idx]=2
                     SCREEN.blit(self.ally_1_run_flip[int(self.ally_1_run_number[idx])//2],(ally.x-self.camera_x_y[0],ally.y-self.camera_x_y[1]+17))
+                if level_3_part_2:
+                        ally.height=95
 
-        if level_3:
+        if level_3 or level_3_part_2:
+            if level_3:
+                ally_1_run_list=self.ally_1_level_3_part_1_run_rect
+            if level_3_part_2:
+                ally_1_run_list=self.ally_1_level_3_part_2_run_rect
             for idx,ally in enumerate(ally_1_run_list):
                 self.ally_1_run_number[idx]+=0.40
                 if self.ally_1_run_number[idx]>10:
@@ -1876,37 +1911,46 @@ class AllyOne(Player):
                     self.ally_1_run_direction[idx]=random.randint(0,1)
                     self.ally_1_run_length[idx]=random.randint(50,75)
 
-    def collision_with_object(self,tile_level_3):
+    def collision_with_object(self,tile_level_3,level_3_tile_set_part_2):
+        global level_3,level_3_part_2
         if level_3:
             ally_1_rect=self.ally_1_level_3_part_1_idle_rect+self.ally_1_level_3_part_1_run_rect
-        if level_3:
+            tile_lvl_3=self.tile_level_3_rect
+        if level_3_part_2:
+            ally_1_rect=self.ally_1_level_3_part_2_idle_rect+self.ally_1_level_3_part_2_run_rect
+            tile_lvl_3=self.level_3_tile_set_part_2_rect
+        if level_3 or level_3_part_2:
             hit_tile=[]
             for idx,ally_1 in enumerate(ally_1_rect):
-                for tiles in self.tile_level_3_rect:
+                for tiles in tile_lvl_3:
                     if ally_1.colliderect(tiles):
                         hit_tile.append(tiles)
             return hit_tile
         
-    def collision_with_object_logic(self,tile_level_3):
+    def collision_with_object_logic(self,tile_level_3,level_3_tile_set_part_2):
+        global level_3,level_3_part_2
         if level_3:
             ally_1_rect=self.ally_1_level_3_part_1_idle_rect+self.ally_1_level_3_part_1_run_rect
-        if level_3:
-            for idx,ally_1 in enumerate(self.ally_1_level_3_part_1_run_rect):
+            ally_1_run_rect=self.ally_1_level_3_part_1_run_rect
+        if level_3_part_2:
+            ally_1_rect=self.ally_1_level_3_part_2_idle_rect+self.ally_1_level_3_part_2_run_rect
+            ally_1_run_rect=self.ally_1_level_3_part_2_run_rect
+        if level_3 or level_3_part_2:
+            for idx,ally_1 in enumerate(ally_1_run_rect):
                 ally_1.x+=self.ally_1_x_movement[idx]
-            collision=AllyOne.collision_with_object(self,tile_level_3)
+            collision=AllyOne.collision_with_object(self,tile_level_3,level_3_tile_set_part_2)
             for tile in collision:
-                for idx,ally_1 in enumerate(self.ally_1_level_3_part_1_run_rect):
+                for idx,ally_1 in enumerate(ally_1_run_rect):
                     if self.ally_1_x_movement[idx]>0:
                         ally_1.right=tile.left
-                #    if self.ally_1_x_movement[idx]<0:
-                #        ally_1.left=tile.right
             for idx,ally_1 in enumerate(ally_1_rect):
                 ally_1.y+=self.ally_1_y_movement[idx]
-            collision=AllyOne.collision_with_object(self,tile_level_3)
+            collision=AllyOne.collision_with_object(self,tile_level_3,level_3_tile_set_part_2)
             for tile in collision:
                 for idx,ally_1 in enumerate(ally_1_rect):
                     if ally_1.colliderect(tile):
-                        ally_1.bottom=tile.top
+                        if self.ally_1_y_movement[idx]>0:
+                            ally_1_rect[idx].bottom=tile.top
             return self.ally_1_rect_list  
 
 class MainBoss(Player):
@@ -2167,11 +2211,11 @@ while run:
     enemy_two.collision_with_object(tile_level_1)
     enemy_two.collision_with_object_logic(tile_level_1)
 
-    allyone=AllyOne(ally_1_x_movement,ally_1_y_movement,ally_1_level_3_part_1_idle_rect,ally_1_level_3_part_1_run_rect,ally_1_rect_list)
+    allyone=AllyOne(ally_1_x_movement,ally_1_y_movement,ally_1_level_3_part_1_idle_rect,ally_1_level_3_part_1_run_rect,ally_1_rect_list,ally_1_level_3_part_2_idle_rect,ally_1_level_3_part_2_run_rect)
     allyone.idle()
     allyone.run()
-    allyone.collision_with_object(tile_level_3)
-    allyone.collision_with_object_logic(tile_level_3)
+    allyone.collision_with_object(tile_level_3,level_3_tile_set_part_2)
+    allyone.collision_with_object_logic(tile_level_3,level_3_tile_set_part_2)
     
     main_boss=MainBoss(main_boss_rect_level_1,main_boss_x_movement,main_boss_y_movement)
     main_boss.movement()
