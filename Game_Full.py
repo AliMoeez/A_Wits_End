@@ -633,11 +633,11 @@ ally_1_level_3_part_1_y_idle=[570,570,570]
 ally_1_level_3_part_1_x_run=[3200,4300]
 ally_1_level_3_part_1_y_run=[570,570]
 
-ally_1_level_3_part_2_x_idle=[200,1400,2700]
-ally_1_level_3_part_2_y_idle=[270,270,270]
+ally_1_level_3_part_2_x_idle=[400,1500,2050,2700,3100]
+ally_1_level_3_part_2_y_idle=[570,570,570,570,570]
 
-ally_1_level_3_part_2_x_run=[800,800]
-ally_1_level_3_part_2_y_run=[270,270]
+ally_1_level_3_part_2_x_run=[800,1500,2100,2700,3000]
+ally_1_level_3_part_2_y_run=[570,570,570,570,570]
 
 ally_1_level_3_part_1_idle_rect=[pygame.Rect(ally_1_level_3_part_1_x_idle[0],ally_1_level_3_part_1_y_idle[0],75,85), 
                             pygame.Rect(ally_1_level_3_part_1_x_idle[1],ally_1_level_3_part_1_y_idle[1],75,85), 
@@ -650,12 +650,17 @@ ally_1_level_3_part_1_run_rect=[pygame.Rect(ally_1_level_3_part_1_x_run[0],ally_
 
 ally_1_level_3_part_2_idle_rect=[pygame.Rect(ally_1_level_3_part_2_x_idle[0],ally_1_level_3_part_2_y_idle[0],75,85), 
                             pygame.Rect(ally_1_level_3_part_2_x_idle[1],ally_1_level_3_part_2_y_idle[1],75,85), 
-                            pygame.Rect(ally_1_level_3_part_2_x_idle[2],ally_1_level_3_part_2_y_idle[2],75,85)
+                            pygame.Rect(ally_1_level_3_part_2_x_idle[2],ally_1_level_3_part_2_y_idle[2],75,85),
+                            pygame.Rect(ally_1_level_3_part_2_x_idle[3],ally_1_level_3_part_2_y_idle[3],75,85),
+                            pygame.Rect(ally_1_level_3_part_2_x_idle[4],ally_1_level_3_part_2_y_idle[4],75,85)
 
 ]
 
 ally_1_level_3_part_2_run_rect=[pygame.Rect(ally_1_level_3_part_2_x_run[0],ally_1_level_3_part_2_y_run[0],75,85),
-                            pygame.Rect(ally_1_level_3_part_2_x_run[1],ally_1_level_3_part_2_y_run[1],75,85)
+                            pygame.Rect(ally_1_level_3_part_2_x_run[1],ally_1_level_3_part_2_y_run[1],75,85),
+                            pygame.Rect(ally_1_level_3_part_2_x_run[2],ally_1_level_3_part_2_y_run[2],75,85),
+                            pygame.Rect(ally_1_level_3_part_2_x_run[3],ally_1_level_3_part_2_y_run[3],75,85),
+                            pygame.Rect(ally_1_level_3_part_2_x_run[4],ally_1_level_3_part_2_y_run[4],75,85)
 ]
 
 ally_1_rect_list=[]
@@ -664,7 +669,9 @@ ally_1_x_movement=[] ; ally_1_y_movement=[]
 
 ally_1_idle_number=[] ; ally_1_run_number=[] 
 
-ally_1_run_direction=[1,0] ; ally_1_run_length=[20,30]
+ally_1_run_direction=[1,0,1,0,1] ; ally_1_run_length=[20,30,10,30,10]
+
+ally_1_player_distance_list=[]
 
 class Menu:
     def __init__(self,camera_x_y_bg):
@@ -1160,7 +1167,6 @@ class Game:
                     y_val=tile[1]*32
                     SCREEN.blit(tile[2],(x_val-self.camera_x_y[0],y_val-self.camera_x_y[1]))
                     self.level_3_tile_set_part_2_rect.append(pygame.Rect((x_val,y_val,32,40)))
-
 
     def level_three_dialogue(self):
         global level_3,level_3_part_2,level_3_dialogue_part_1,level_3_dialogue_part_1_once
@@ -1864,7 +1870,7 @@ class AllyOne(Player):
                 self.ally_1_rect_list.append(pygame.Rect(ally.x,ally.y,75,85))
                 self.ally_1_y_movement.append(2)
             for idx,ally in enumerate(ally_1_idle_list):
-                self.ally_1_idle_number.append(0) ; self.ally_1_y_movement.append(0)
+                self.ally_1_idle_number.append(0) ; self.ally_1_y_movement.append(2)
                 if level_3 or level_3_part_2:
                     self.ally_1_y_movement[idx]=2
                     if self.player_rect.x<ally_1_idle_list[idx].x:
@@ -1885,6 +1891,7 @@ class AllyOne(Player):
                 ally_1_run_list=self.ally_1_level_3_part_1_run_rect
             if level_3_part_2:
                 ally_1_run_list=self.ally_1_level_3_part_2_run_rect
+            
             for idx,ally in enumerate(ally_1_run_list):
                 self.ally_1_run_number.append(0)  ; self.ally_1_x_movement.append(0)
             for idx,ally in enumerate(ally_1_run_list):
@@ -1895,13 +1902,8 @@ class AllyOne(Player):
                     self.ally_1_x_movement[idx]=2
                     SCREEN.blit(self.ally_1_run_flip[int(self.ally_1_run_number[idx])//2],(ally.x-self.camera_x_y[0],ally.y-self.camera_x_y[1]+17))
                 if level_3_part_2:
-                        ally.height=95
+                    ally.height=95
 
-        if level_3 or level_3_part_2:
-            if level_3:
-                ally_1_run_list=self.ally_1_level_3_part_1_run_rect
-            if level_3_part_2:
-                ally_1_run_list=self.ally_1_level_3_part_2_run_rect
             for idx,ally in enumerate(ally_1_run_list):
                 self.ally_1_run_number[idx]+=0.40
                 if self.ally_1_run_number[idx]>10:
@@ -1910,6 +1912,32 @@ class AllyOne(Player):
                 if self.ally_1_run_length[idx]<=0:
                     self.ally_1_run_direction[idx]=random.randint(0,1)
                     self.ally_1_run_length[idx]=random.randint(50,75)
+
+    def player_interaction(self):
+        global level_3_part_2
+        self.ally_1_player_distance_list=ally_1_player_distance_list ; self.mouse_button_left_image=mouse_button_left_image
+        if level_3_part_2:
+            for idx,ally in enumerate(self.ally_1_level_3_part_2_idle_rect):
+                self.player_ally_distance=math.sqrt(math.pow(self.player_rect.x-ally.x,2)+math.pow(self.player_rect.y-ally.y,2))
+                self.ally_1_player_distance_list.append(self.player_ally_distance)
+                if len(self.ally_1_player_distance_list)>len(self.ally_1_level_3_part_2_idle_rect):
+                    del self.ally_1_player_distance_list[0]
+            for idx,ally in enumerate(self.ally_1_level_3_part_2_idle_rect):
+                if self.ally_1_player_distance_list[idx]<120:
+                    SCREEN.blit(self.mouse_button_left_image,(ally.x-self.camera_x_y[0]+20,ally.y-self.camera_x_y[1]-45))
+                    font_game=pygame.font.SysFont("Impact",20)  ; show_font=font_game.render("to interact",1,(255,70,71))  
+                    SCREEN.blit(show_font,(ally.x-self.camera_x_y[0],ally.y-self.camera_x_y[1]-5))
+        
+
+
+        #    if self.player_door_distance<75:
+        #        SCREEN.blit(self.mouse_button_left_image,(3875-self.camera_x_y[0],500-self.camera_x_y[1]))
+        #        font_game=pygame.font.SysFont("Impact",20)  ; show_font=font_game.render("to interact",1,(255,70,71))  
+        #        SCREEN.blit(show_font,(3855-self.camera_x_y[0],470-self.camera_x_y[1]))
+        #        if event.type==pygame.MOUSEBUTTONDOWN:
+        #            if event.button==1:
+        #                level_3_transition_1=True
+                    
 
     def collision_with_object(self,tile_level_3,level_3_tile_set_part_2):
         global level_3,level_3_part_2
@@ -1939,10 +1967,6 @@ class AllyOne(Player):
             for idx,ally_1 in enumerate(ally_1_run_rect):
                 ally_1.x+=self.ally_1_x_movement[idx]
             collision=AllyOne.collision_with_object(self,tile_level_3,level_3_tile_set_part_2)
-            for tile in collision:
-                for idx,ally_1 in enumerate(ally_1_run_rect):
-                    if self.ally_1_x_movement[idx]>0:
-                        ally_1.right=tile.left
             for idx,ally_1 in enumerate(ally_1_rect):
                 ally_1.y+=self.ally_1_y_movement[idx]
             collision=AllyOne.collision_with_object(self,tile_level_3,level_3_tile_set_part_2)
@@ -1951,6 +1975,8 @@ class AllyOne(Player):
                     if ally_1.colliderect(tile):
                         if self.ally_1_y_movement[idx]>0:
                             ally_1_rect[idx].bottom=tile.top
+                        if self.ally_1_y_movement[idx]<0:
+                            ally_1_rect[idx].top=tile.bottom
             return self.ally_1_rect_list  
 
 class MainBoss(Player):
@@ -2214,6 +2240,7 @@ while run:
     allyone=AllyOne(ally_1_x_movement,ally_1_y_movement,ally_1_level_3_part_1_idle_rect,ally_1_level_3_part_1_run_rect,ally_1_rect_list,ally_1_level_3_part_2_idle_rect,ally_1_level_3_part_2_run_rect)
     allyone.idle()
     allyone.run()
+    allyone.player_interaction()
     allyone.collision_with_object(tile_level_3,level_3_tile_set_part_2)
     allyone.collision_with_object_logic(tile_level_3,level_3_tile_set_part_2)
     
