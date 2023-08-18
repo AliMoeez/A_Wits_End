@@ -941,7 +941,7 @@ class Game:
                             level_2_part_2=True
                         
             if level_2_part_2:
-                self.player_rect.y=200
+               # self.player_rect.y=200
                 if self.player_rect.x<210:
                     self.player_rect.x=210
                 if self.player_rect.x>=210 and self.player_rect.x<=5300:
@@ -1226,8 +1226,6 @@ class Game:
             ("Good luck, you'll need it.","Men of Ayus Trooper",self.ally_1_icon),
         ]
 
-            
-
         if level_3 and not level_3_part_2 and not level_3_dialogue_part_1_once:
             if self.player_rect.x>1400:
                 level_3_dialogue_part_1=True
@@ -1236,15 +1234,15 @@ class Game:
             if level_3_dialogue_part_1:
                 level_3_dialogue=self.level_3_dialogue_1 ; colour_box=(1,50,32) ; colour_font=(1,150,71)
             if player_ally_one and not level_3_dialogue_part_2_once:
-                level_3_dialogue=self.ally_one_1_dialogue ; colour_box=(1,50,32) ; colour_font=(1,150,71)
+                level_3_dialogue=self.ally_one_1_dialogue ; colour_box=(119,136,153) ; colour_font=(112,128,144)
             if player_ally_two and not level_3_dialogue_part_3_once:
-                level_3_dialogue=self.ally_one_2_dialogue ; colour_box=(1,50,32) ; colour_font=(1,150,71)
+                level_3_dialogue=self.ally_one_2_dialogue ; colour_box=(192,192,192)  ; colour_font=(112,128,144)
             if player_ally_three and not level_3_dialogue_part_4_once:
-                level_3_dialogue=self.ally_one_3_dialogue ; colour_box=(1,50,32) ; colour_font=(1,150,71)
+                level_3_dialogue=self.ally_one_3_dialogue ; colour_box=(192,192,192) ; colour_font=(112,128,144)
             if player_ally_four and not level_3_dialogue_part_5_once:
-                level_3_dialogue=self.ally_one_4_dialogue ; colour_box=(1,50,32) ; colour_font=(1,150,71)
+                level_3_dialogue=self.ally_one_4_dialogue ; colour_box=(192,192,192)  ; colour_font=(112,128,144)
             if player_ally_five and not level_3_dialogue_part_6_once:
-                level_3_dialogue=self.ally_one_5_dialogue ; colour_box=(1,50,32) ; colour_font=(1,150,71)
+                level_3_dialogue=self.ally_one_5_dialogue ; colour_box=(192,192,192)  ; colour_font=(112,128,144)
 
             dialogue_move_condition=True ; rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  ; rectangle_blur.set_alpha(100) ; rectangle_blur.fill((0,0,0))  ; SCREEN.blit(rectangle_blur,(0,0)) 
             rectangle_box_1=pygame.Surface((SCREEN_WIDTH,200))  ; rectangle_box_1.fill(colour_box)  ; rectangle_box_1.set_alpha(75)  ; SCREEN.blit(rectangle_box_1,(0,500))
