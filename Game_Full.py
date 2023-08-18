@@ -672,6 +672,8 @@ ally_1_idle_number=[] ; ally_1_run_number=[]
 ally_1_run_direction=[1,0,1,0,1] ; ally_1_run_length=[20,30,10,30,10]
 
 ally_1_player_distance_list=[] ; player_ally_one_dialogue=False ; level_3_dialogue_part_2_once=False
+level_3_dialogue_part_3_once=False ; level_3_dialogue_part_4_once=False ; level_3_dialogue_part_5_once=False
+level_3_dialogue_part_6_once=False ; 
 
 player_ally_one=False ; player_ally_two=False ;  player_ally_three=False ; player_ally_four=False ;  player_ally_five=False
 
@@ -1172,6 +1174,7 @@ class Game:
 
     def level_three_dialogue(self):
         global level_3,level_3_part_2,level_3_dialogue_part_1,level_3_dialogue_part_1_once,level_3_dialogue_part_2_once
+        global level_3_dialogue_part_3_once,level_3_dialogue_part_4_once,level_3_dialogue_part_5_once,level_3_dialogue_part_6_once
         global player_ally_one, player_ally_two,player_ally_three,player_ally_four, player_ally_five
         global dialogue_move_condition ,change_dialogue,change_dialogue_cond_1
         self.ally_1_icon=ally_1_icon ; self.player_icon=player_icon ; self.ally_1_level_3_part_2_idle_rect=ally_1_level_3_part_2_idle_rect
@@ -1196,10 +1199,12 @@ class Game:
 
         self.ally_one_2_dialogue=[
             ("Your time is done whether you move north or south, east or west...Its over for you.","Men of Ayus Trooper",self.ally_1_icon),
+            ("Your time is done whether you move north or south, east or west...Its over for you.","Men of Ayus Trooper",self.ally_1_icon),
             ("You people are weird.....","You",self.player_icon)
         ]
 
         self.ally_one_3_dialogue=[
+            ("You reak of arrogance.... Time will tell as I was once quite arrogant.","Men of Ayus Trooper",self.ally_1_icon),
             ("You reak of arrogance.... Time will tell as I was once quite arrogant.","Men of Ayus Trooper",self.ally_1_icon),
             ("Who are you?","You",self.player_icon),
             ("The one who was just like you.","Men of Ayus Trooper",self.ally_1_icon),
@@ -1209,11 +1214,13 @@ class Game:
 
         self.ally_one_4_dialogue=[
             ("Leave while you can, it is your only hope....","Men of Ayus Trooper",self.ally_1_icon),
+            ("Leave while you can, it is your only hope....","Men of Ayus Trooper",self.ally_1_icon),
             ("Hope? What hope?","You",self.player_icon),
             ("Trust me it isnt worth it...","Men of Ayus Trooper",self.ally_1_icon),
         ]
 
         self.ally_one_5_dialogue=[
+            ("He is ahead. But you will meet him where we are not. Alone...","Men of Ayus Trooper",self.ally_1_icon),
             ("He is ahead. But you will meet him where we are not. Alone...","Men of Ayus Trooper",self.ally_1_icon),
             ("Sounds good!","You",self.player_icon),
             ("Good luck, you'll need it.","Men of Ayus Trooper",self.ally_1_icon),
@@ -1225,11 +1232,20 @@ class Game:
             if self.player_rect.x>1400:
                 level_3_dialogue_part_1=True
 
-        if level_3_dialogue_part_1 or player_ally_one :
+        if level_3_dialogue_part_1 or player_ally_one  or player_ally_two or player_ally_three or player_ally_four or player_ally_five:
             if level_3_dialogue_part_1:
                 level_3_dialogue=self.level_3_dialogue_1 ; colour_box=(1,50,32) ; colour_font=(1,150,71)
             if player_ally_one and not level_3_dialogue_part_2_once:
                 level_3_dialogue=self.ally_one_1_dialogue ; colour_box=(1,50,32) ; colour_font=(1,150,71)
+            if player_ally_two and not level_3_dialogue_part_3_once:
+                level_3_dialogue=self.ally_one_2_dialogue ; colour_box=(1,50,32) ; colour_font=(1,150,71)
+            if player_ally_three and not level_3_dialogue_part_4_once:
+                level_3_dialogue=self.ally_one_3_dialogue ; colour_box=(1,50,32) ; colour_font=(1,150,71)
+            if player_ally_four and not level_3_dialogue_part_5_once:
+                level_3_dialogue=self.ally_one_4_dialogue ; colour_box=(1,50,32) ; colour_font=(1,150,71)
+            if player_ally_five and not level_3_dialogue_part_6_once:
+                level_3_dialogue=self.ally_one_5_dialogue ; colour_box=(1,50,32) ; colour_font=(1,150,71)
+
             dialogue_move_condition=True ; rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  ; rectangle_blur.set_alpha(100) ; rectangle_blur.fill((0,0,0))  ; SCREEN.blit(rectangle_blur,(0,0)) 
             rectangle_box_1=pygame.Surface((SCREEN_WIDTH,200))  ; rectangle_box_1.fill(colour_box)  ; rectangle_box_1.set_alpha(75)  ; SCREEN.blit(rectangle_box_1,(0,500))
             
@@ -1249,6 +1265,14 @@ class Game:
                     self.level_2_dialogue_list_part_1_length[0]=0 ;  dialogue_move_condition=False 
                     if player_ally_one : level_3_dialogue_part_2_once=True
                     player_ally_one=False
+                    if player_ally_two : level_3_dialogue_part_3_once=True
+                    player_ally_two=False
+                    if player_ally_three : level_3_dialogue_part_4_once=True
+                    player_ally_three=False
+                    if player_ally_four : level_3_dialogue_part_5_once=True
+                    player_ally_four=False
+                    if player_ally_five : level_3_dialogue_part_6_once=True
+                    player_ally_five=False
             
             if event.type==pygame.MOUSEBUTTONDOWN:  change_dialogue_cond_1=True
             if event.type==pygame.MOUSEBUTTONUP and change_dialogue_cond_1:
@@ -1958,7 +1982,7 @@ class AllyOne(Player):
 
     def player_interaction(self):
         global level_3_part_2,player_ally_one, player_ally_two,player_ally_three,player_ally_four, player_ally_five
-        global level_3_dialogue_part_2_once
+        global level_3_dialogue_part_2_once, level_3_dialogue_part_3_once,level_3_dialogue_part_4_once,level_3_dialogue_part_5_once,level_3_dialogue_part_6_once
         self.ally_1_player_distance_list=ally_1_player_distance_list ; self.mouse_button_left_image=mouse_button_left_image
         if level_3_part_2:
             for idx,ally in enumerate(self.ally_1_level_3_part_2_idle_rect):
@@ -1974,7 +1998,15 @@ class AllyOne(Player):
                     if event.type==pygame.MOUSEBUTTONDOWN:
                         if event.button==1:
                             if idx==0:
-                                player_ally_one=True ; level_3_dialogue_part_2_once=False# player_ally_two,player_ally_three,player_ally_four, player_ally_five
+                                player_ally_one=True ; level_3_dialogue_part_2_once=False#
+                            if idx==1:
+                                player_ally_two=True ; level_3_dialogue_part_3_once=False
+                            if idx==2:
+                                player_ally_three=True ; level_3_dialogue_part_4_once=False
+                            if idx==3:
+                                player_ally_four=True ; level_3_dialogue_part_5_once=False
+                            if idx==4:
+                                player_ally_five=True ; level_3_dialogue_part_6_once=False
 
     def collision_with_object(self,tile_level_3,level_3_tile_set_part_2):
         global level_3,level_3_part_2
