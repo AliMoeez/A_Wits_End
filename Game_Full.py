@@ -671,7 +671,9 @@ ally_1_idle_number=[] ; ally_1_run_number=[]
 
 ally_1_run_direction=[1,0,1,0,1] ; ally_1_run_length=[20,30,10,30,10]
 
-ally_1_player_distance_list=[]
+ally_1_player_distance_list=[] ; player_ally_one_dialogue=False ; level_3_dialogue_part_2_once=False
+
+player_ally_one=False ; player_ally_two=False ;  player_ally_three=False ; player_ally_four=False ;  player_ally_five=False
 
 class Menu:
     def __init__(self,camera_x_y_bg):
@@ -1169,31 +1171,70 @@ class Game:
                     self.level_3_tile_set_part_2_rect.append(pygame.Rect((x_val,y_val,32,40)))
 
     def level_three_dialogue(self):
-        global level_3,level_3_part_2,level_3_dialogue_part_1,level_3_dialogue_part_1_once
+        global level_3,level_3_part_2,level_3_dialogue_part_1,level_3_dialogue_part_1_once,level_3_dialogue_part_2_once
+        global player_ally_one, player_ally_two,player_ally_three,player_ally_four, player_ally_five
         global dialogue_move_condition ,change_dialogue,change_dialogue_cond_1
-        self.ally_1_icon=ally_1_icon ; self.player_icon=player_icon
+        self.ally_1_icon=ally_1_icon ; self.player_icon=player_icon ; self.ally_1_level_3_part_2_idle_rect=ally_1_level_3_part_2_idle_rect
 
         self.level_3_dialogue_1=[
+
             ("Halt this moment!","???",self.ally_1_icon),
             ("I will end you if you try anything!!","You",self.player_icon),
-            ("We know your cause quite well, as we to are working against Kornos.We are the Men of Ayus. ","Men of Ayus Trooper",self.ally_1_icon),
+            ("We know your cause quite well, as we to are working against Kornos. We are the Men of Ayus. ","Men of Ayus Trooper",self.ally_1_icon),
             ("Who is your leader? Can I speak to them?","You",self.player_icon),
-            ("His name is the Great Alexandros of Hemmite. He is in our fortress ahead!","Men of Ayus Trooper",self.ally_1_icon),
-            ("I will meet with this 'Great' leader....","You",self.player_icon)
+            ("His name is the Great Alexandros of Hemmite. He is in our fortress ahead! But....","Men of Ayus Trooper",self.ally_1_icon),
+            ("I will meet with this 'Great' leader of yours....","You",self.player_icon)
             ]
+
+        
+        self.ally_one_1_dialogue=[
+            ("You are falling into a path of destruction. Only if you knew what you were doing.","Men of Ayus Trooper",self.ally_1_icon),
+            ("You are falling into a path of destruction. Only if you knew what you were doing..","Men of Ayus Trooper",self.ally_1_icon),
+            ("What do you mean?","You",self.player_icon),
+            ("I've been here for a while now! I know the types that won't last. Just a fair warning though!","Men of Ayus Trooper",self.ally_1_icon)
+        ]
+
+        self.ally_one_2_dialogue=[
+            ("Your time is done whether you move north or south, east or west...Its over for you.","Men of Ayus Trooper",self.ally_1_icon),
+            ("You people are weird.....","You",self.player_icon)
+        ]
+
+        self.ally_one_3_dialogue=[
+            ("You reak of arrogance.... Time will tell as I was once quite arrogant.","Men of Ayus Trooper",self.ally_1_icon),
+            ("Who are you?","You",self.player_icon),
+            ("The one who was just like you.","Men of Ayus Trooper",self.ally_1_icon),
+            ("That isn't very helpul.","You",self.player_icon)
+
+        ]
+
+        self.ally_one_4_dialogue=[
+            ("Leave while you can, it is your only hope....","Men of Ayus Trooper",self.ally_1_icon),
+            ("Hope? What hope?","You",self.player_icon),
+            ("Trust me it isnt worth it...","Men of Ayus Trooper",self.ally_1_icon),
+        ]
+
+        self.ally_one_5_dialogue=[
+            ("He is ahead. But you will meet him where we are not. Alone...","Men of Ayus Trooper",self.ally_1_icon),
+            ("Sounds good!","You",self.player_icon),
+            ("Good luck, you'll need it.","Men of Ayus Trooper",self.ally_1_icon),
+        ]
+
+            
 
         if level_3 and not level_3_part_2 and not level_3_dialogue_part_1_once:
             if self.player_rect.x>1400:
                 level_3_dialogue_part_1=True
 
-        if level_3_dialogue_part_1:
+        if level_3_dialogue_part_1 or player_ally_one :
             if level_3_dialogue_part_1:
                 level_3_dialogue=self.level_3_dialogue_1 ; colour_box=(1,50,32) ; colour_font=(1,150,71)
+            if player_ally_one and not level_3_dialogue_part_2_once:
+                level_3_dialogue=self.ally_one_1_dialogue ; colour_box=(1,50,32) ; colour_font=(1,150,71)
             dialogue_move_condition=True ; rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  ; rectangle_blur.set_alpha(100) ; rectangle_blur.fill((0,0,0))  ; SCREEN.blit(rectangle_blur,(0,0)) 
             rectangle_box_1=pygame.Surface((SCREEN_WIDTH,200))  ; rectangle_box_1.fill(colour_box)  ; rectangle_box_1.set_alpha(75)  ; SCREEN.blit(rectangle_box_1,(0,500))
             
             for idx, number in enumerate(level_3_dialogue):
-                
+            
                 if idx==self.level_2_dialogue_list_part_1_length[0]:
                     SCREEN.blit(level_3_dialogue[idx][2],(80,525))  ; font_game=pygame.font.SysFont("Impact",28) 
                     show_font_knight=font_game.render(level_3_dialogue[idx][1],1,colour_font) 
@@ -1206,6 +1247,8 @@ class Game:
                 if self.level_2_dialogue_list_part_1_length[0]>=len(level_3_dialogue):
                     level_3_dialogue_part_1=False ; level_3_dialogue_part_1_once=True
                     self.level_2_dialogue_list_part_1_length[0]=0 ;  dialogue_move_condition=False 
+                    if player_ally_one : level_3_dialogue_part_2_once=True
+                    player_ally_one=False
             
             if event.type==pygame.MOUSEBUTTONDOWN:  change_dialogue_cond_1=True
             if event.type==pygame.MOUSEBUTTONUP and change_dialogue_cond_1:
@@ -1914,7 +1957,8 @@ class AllyOne(Player):
                     self.ally_1_run_length[idx]=random.randint(50,75)
 
     def player_interaction(self):
-        global level_3_part_2
+        global level_3_part_2,player_ally_one, player_ally_two,player_ally_three,player_ally_four, player_ally_five
+        global level_3_dialogue_part_2_once
         self.ally_1_player_distance_list=ally_1_player_distance_list ; self.mouse_button_left_image=mouse_button_left_image
         if level_3_part_2:
             for idx,ally in enumerate(self.ally_1_level_3_part_2_idle_rect):
@@ -1927,17 +1971,10 @@ class AllyOne(Player):
                     SCREEN.blit(self.mouse_button_left_image,(ally.x-self.camera_x_y[0]+20,ally.y-self.camera_x_y[1]-45))
                     font_game=pygame.font.SysFont("Impact",20)  ; show_font=font_game.render("to interact",1,(255,70,71))  
                     SCREEN.blit(show_font,(ally.x-self.camera_x_y[0],ally.y-self.camera_x_y[1]-5))
-        
-
-
-        #    if self.player_door_distance<75:
-        #        SCREEN.blit(self.mouse_button_left_image,(3875-self.camera_x_y[0],500-self.camera_x_y[1]))
-        #        font_game=pygame.font.SysFont("Impact",20)  ; show_font=font_game.render("to interact",1,(255,70,71))  
-        #        SCREEN.blit(show_font,(3855-self.camera_x_y[0],470-self.camera_x_y[1]))
-        #        if event.type==pygame.MOUSEBUTTONDOWN:
-        #            if event.button==1:
-        #                level_3_transition_1=True
-                    
+                    if event.type==pygame.MOUSEBUTTONDOWN:
+                        if event.button==1:
+                            if idx==0:
+                                player_ally_one=True ; level_3_dialogue_part_2_once=False# player_ally_two,player_ally_three,player_ally_four, player_ally_five
 
     def collision_with_object(self,tile_level_3,level_3_tile_set_part_2):
         global level_3,level_3_part_2
