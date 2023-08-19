@@ -677,32 +677,51 @@ level_3_dialogue_part_6_once=False ; level_3_dialogue_part_7_once=False
 
 player_ally_one=False ; player_ally_two=False ;  player_ally_three=False ; player_ally_four=False ;  player_ally_five=False
 
-boss_2_idle_1=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Idle\LightBandit_Idle_0.png")
-boss_2_idle_2=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Idle\LightBandit_Idle_1.png")
-boss_2_idle_3=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Idle\LightBandit_Idle_2.png")
-boss_2_idle_4=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Idle\LightBandit_Idle_3.png")
-boss_2_idle_1=pygame.transform.scale(boss_2_idle_1,(75,85))
-boss_2_idle_2=pygame.transform.scale(boss_2_idle_2,(75,85))
-boss_2_idle_3=pygame.transform.scale(boss_2_idle_3,(75,85))
-boss_2_idle_4=pygame.transform.scale(boss_2_idle_4,(75,85))
-boss_2_idle_flip_1=pygame.transform.flip(boss_2_idle_1,True,False)
-boss_2_idle_flip_2=pygame.transform.flip(boss_2_idle_2,True,False)
-boss_2_idle_flip_3=pygame.transform.flip(boss_2_idle_3,True,False)
-boss_2_idle_flip_4=pygame.transform.flip(boss_2_idle_4,True,False)
-boss_2_idle=[boss_2_idle_1,boss_2_idle_2,boss_2_idle_3,boss_2_idle_4]
-boss_2_idle_flip=[boss_2_idle_flip_1,boss_2_idle_flip_2,boss_2_idle_flip_3,boss_2_idle_flip_4]
-boss_2_idle_number=[0] 
+boss_2_idle_1=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Idle\LightBandit_Idle_0.png") ; boss_2_idle_2=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Idle\LightBandit_Idle_1.png") ; boss_2_idle_3=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Idle\LightBandit_Idle_2.png") ; boss_2_idle_4=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Idle\LightBandit_Idle_3.png")
+boss_2_idle_1=pygame.transform.scale(boss_2_idle_1,(75,85)) ; boss_2_idle_2=pygame.transform.scale(boss_2_idle_2,(75,85)) ; boss_2_idle_3=pygame.transform.scale(boss_2_idle_3,(75,85)) ; boss_2_idle_4=pygame.transform.scale(boss_2_idle_4,(75,85))
+boss_2_idle_flip_1=pygame.transform.flip(boss_2_idle_1,True,False) ; boss_2_idle_flip_2=pygame.transform.flip(boss_2_idle_2,True,False) ; boss_2_idle_flip_3=pygame.transform.flip(boss_2_idle_3,True,False) ; boss_2_idle_flip_4=pygame.transform.flip(boss_2_idle_4,True,False)
+boss_2_idle=[boss_2_idle_1,boss_2_idle_2,boss_2_idle_3,boss_2_idle_4] ; boss_2_idle_flip=[boss_2_idle_flip_1,boss_2_idle_flip_2,boss_2_idle_flip_3,boss_2_idle_flip_4] ; boss_2_idle_number=[0] 
 
-boss_2_icon_level_3=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Icon\boss_two_icon.png")
-boss_2_icon_level_3=pygame.transform.scale(boss_2_icon_level_3,(120,120))
+boss_2_icon_level_3=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Icon\boss_two_icon.png") ; boss_2_icon_level_3=pygame.transform.scale(boss_2_icon_level_3,(120,120))
 
-boss_2_level_3_x=[4575]
-boss_2_level_3_y=[390]
+boss_2_run_1=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Run\LightBandit_Run_0.png")
+boss_2_run_2=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Run\LightBandit_Run_1.png")
+boss_2_run_3=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Run\LightBandit_Run_2.png")
+boss_2_run_4=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Run\LightBandit_Run_3.png")
+boss_2_run_5=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Run\LightBandit_Run_4.png")
+boss_2_run_6=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Run\LightBandit_Run_5.png")
+boss_2_run_7=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Run\LightBandit_Run_6.png")
+boss_2_run_8=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Run\LightBandit_Run_7.png")
 
-boss_2_level_3_x_movement=[0]
-boss_2_level_3_y_movement=[0]
+boss_2_run_1=pygame.transform.scale(boss_2_run_1,(75,85))
+boss_2_run_2=pygame.transform.scale(boss_2_run_2,(75,85))
+boss_2_run_3=pygame.transform.scale(boss_2_run_3,(75,85))
+boss_2_run_4=pygame.transform.scale(boss_2_run_4,(75,85))
+boss_2_run_5=pygame.transform.scale(boss_2_run_5,(75,85))
+boss_2_run_6=pygame.transform.scale(boss_2_run_6,(75,85))
+boss_2_run_7=pygame.transform.scale(boss_2_run_7,(75,85))
+boss_2_run_8=pygame.transform.scale(boss_2_run_8,(75,85))
 
+boss_2_run_flip_1=pygame.transform.flip(boss_2_run_1,True,False)
+boss_2_run_flip_2=pygame.transform.flip(boss_2_run_2,True,False)
+boss_2_run_flip_3=pygame.transform.flip(boss_2_run_3,True,False)
+boss_2_run_flip_4=pygame.transform.flip(boss_2_run_4,True,False)
+boss_2_run_flip_5=pygame.transform.flip(boss_2_run_5,True,False)
+boss_2_run_flip_6=pygame.transform.flip(boss_2_run_6,True,False)
+boss_2_run_flip_7=pygame.transform.flip(boss_2_run_7,True,False)
+boss_2_run_flip_8=pygame.transform.flip(boss_2_run_8,True,False)
+
+boss_2_run=[boss_2_run_1,boss_2_run_2,boss_2_run_3,boss_2_run_4,boss_2_run_5,boss_2_run_6,boss_2_run_7,boss_2_run_8]
+boss_2_run_flip=[boss_2_run_flip_1,boss_2_run_flip_2,boss_2_run_flip_3,boss_2_run_flip_4,boss_2_run_flip_5,boss_2_run_flip_6,boss_2_run_flip_7,boss_2_run_flip_8]
+
+boss_2_run_number=[0]
+
+boss_2_level_3_x=[4575] ; boss_2_level_3_y=[390]
+boss_2_level_3_x_movement=[0] ; boss_2_level_3_y_movement=[0]
 boss_2_level_3_rect=pygame.Rect(boss_2_level_3_x[0],boss_2_level_3_y[0],75,80)
+
+
+
 
 level_3_dialogue_boss_fight=False
 
@@ -1194,6 +1213,12 @@ class Game:
 
             if self.player_rect.x>4300 and not level_3_dialogue_part_7_once:
                 level_3_dialogue_boss_fight=True
+
+            if level_3_dialogue_part_7_once:
+                if self.player_rect.x<3800:
+                    self.player_rect.x=3800
+
+            
             
             for idx,bg in enumerate(self.level_3_bg_part_2_list):
                 SCREEN.blit(bg,(0,0))
@@ -1268,11 +1293,10 @@ class Game:
             ("In what regards? I've been betrayed enough already at this point.","You",self.player_icon),
             ("You would have to join my army, and we can begin operations against Kornos at Fort Creed.","Alexandros of Hemmite",self.boss_2_icon_level_3),
             ("Is he actaully at Fort Creed?","You",self.player_icon),
-            ("Yes, but you have to accept my offer of else....","Alexandros of Hemmite",self.boss_2_icon_level_3),
+            ("Yes, but you have to accept my offer or else....","Alexandros of Hemmite",self.boss_2_icon_level_3),
             ("Else what?","You",self.player_icon),
-            ("Your death..... There is no way out of this.","Alexandros of Hemmite",self.boss_2_icon_level_3),
-            ("So be it...","You",self.player_icon),
-
+            ("Your death.....There is no way out of this....","Alexandros of Hemmite",self.boss_2_icon_level_3),
+            ("You can to end me but it won't work in your favour.","You",self.player_icon),
         ]
 
         if level_3 and not level_3_part_2 and not level_3_dialogue_part_1_once:
@@ -2326,8 +2350,8 @@ class BossTwo(Player):
 
     def idle(self):
         self.boss_2_idle=boss_2_idle ; self.boss_2_idle_flip=boss_2_idle_flip ; self.boss_2_idle_number=boss_2_idle_number
-        global level_3_part_2
-        if level_3_part_2:
+        global level_3_part_2,level_3_dialogue_part_7_once
+        if level_3_part_2 and not level_3_dialogue_part_7_once:
             self.boss_2_level_3_y_movement[0]=8
             if self.player_rect.x<=self.boss_2_level_3_rect.x:
                 SCREEN.blit(self.boss_2_idle[int(self.boss_2_idle_number[0])//2],(self.boss_2_level_3_rect.x-self.camera_x_y[0],self.boss_2_level_3_rect.y-self.camera_x_y[1]))
@@ -2338,7 +2362,18 @@ class BossTwo(Player):
                 self.boss_2_idle_number[0]=0
 
     def run(self):
-        pass
+        global level_3_part_2,level_3_dialogue_part_7_once
+        self.boss_2_run_number=boss_2_run_number ; self.boss_2_run=boss_2_run ; self.boss_2_run_flip=boss_2_run_flip
+        if level_3_part_2 and level_3_dialogue_part_7_once:
+            if self.player_rect.x<=self.boss_2_level_3_rect.x:
+                SCREEN.blit(self.boss_2_run[int(self.boss_2_run_number[0])//2],(self.boss_2_level_3_rect.x-self.camera_x_y[0],self.boss_2_level_3_rect.y-self.camera_x_y[1]))
+                self.boss_2_level_3_x_movement[0]=-2
+            if self.player_rect.x>self.boss_2_level_3_rect.x:
+                SCREEN.blit(self.boss_2_run_flip[int(self.boss_2_run_number[0])//2],(self.boss_2_level_3_rect.x-self.camera_x_y[0],self.boss_2_level_3_rect.y-self.camera_x_y[1]))
+                self.boss_2_level_3_x_movement[0]=2
+            self.boss_2_run_number[0]+=0.30
+            if self.boss_2_run_number[0]>9:
+                self.boss_2_run_number[0]=0
 
     def attack(self):
         pass
