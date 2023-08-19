@@ -677,6 +677,31 @@ level_3_dialogue_part_6_once=False ;
 
 player_ally_one=False ; player_ally_two=False ;  player_ally_three=False ; player_ally_four=False ;  player_ally_five=False
 
+boss_2_idle_1=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Idle\LightBandit_Idle_0.png")
+boss_2_idle_2=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Idle\LightBandit_Idle_1.png")
+boss_2_idle_3=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Idle\LightBandit_Idle_2.png")
+boss_2_idle_4=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Idle\LightBandit_Idle_3.png")
+boss_2_idle_1=pygame.transform.scale(boss_2_idle_1,(75,85))
+boss_2_idle_2=pygame.transform.scale(boss_2_idle_2,(75,85))
+boss_2_idle_3=pygame.transform.scale(boss_2_idle_3,(75,85))
+boss_2_idle_4=pygame.transform.scale(boss_2_idle_4,(75,85))
+boss_2_idle_flip_1=pygame.transform.flip(boss_2_idle_1,True,False)
+boss_2_idle_flip_2=pygame.transform.flip(boss_2_idle_2,True,False)
+boss_2_idle_flip_3=pygame.transform.flip(boss_2_idle_3,True,False)
+boss_2_idle_flip_4=pygame.transform.flip(boss_2_idle_4,True,False)
+boss_2_idle=[boss_2_idle_1,boss_2_idle_2,boss_2_idle_3,boss_2_idle_4]
+boss_2_idle_flip=[boss_2_idle_flip_1,boss_2_idle_flip_2,boss_2_idle_flip_3,boss_2_idle_flip_4]
+boss_2_idle_number=[0] 
+
+boss_2_level_3_x=[200]
+boss_2_level_3_y=[270]
+
+boss_2_level_3_x_movement=[0]
+boss_2_level_3_y_movement=[0]
+
+boss_2_level_3_rect=pygame.Rect(boss_2_level_3_x[0],boss_2_level_3_y[0],75,80)
+
+
 class Menu:
     def __init__(self,camera_x_y_bg):
         self.camera_x_y_bg=camera_x_y_bg
@@ -1236,13 +1261,13 @@ class Game:
             if player_ally_one and not level_3_dialogue_part_2_once:
                 level_3_dialogue=self.ally_one_1_dialogue ; colour_box=(119,136,153) ; colour_font=(112,128,144)
             if player_ally_two and not level_3_dialogue_part_3_once:
-                level_3_dialogue=self.ally_one_2_dialogue ; colour_box=(192,192,192)  ; colour_font=(112,128,144)
+                level_3_dialogue=self.ally_one_2_dialogue ; colour_box=(119,136,153)  ; colour_font=(112,128,144)
             if player_ally_three and not level_3_dialogue_part_4_once:
-                level_3_dialogue=self.ally_one_3_dialogue ; colour_box=(192,192,192) ; colour_font=(112,128,144)
+                level_3_dialogue=self.ally_one_3_dialogue ; colour_box=(119,136,153) ; colour_font=(112,128,144)
             if player_ally_four and not level_3_dialogue_part_5_once:
-                level_3_dialogue=self.ally_one_4_dialogue ; colour_box=(192,192,192)  ; colour_font=(112,128,144)
+                level_3_dialogue=self.ally_one_4_dialogue ; colour_box=(119,136,153)  ; colour_font=(112,128,144)
             if player_ally_five and not level_3_dialogue_part_6_once:
-                level_3_dialogue=self.ally_one_5_dialogue ; colour_box=(192,192,192)  ; colour_font=(112,128,144)
+                level_3_dialogue=self.ally_one_5_dialogue ; colour_box=(119,136,153)  ; colour_font=(112,128,144)
 
             dialogue_move_condition=True ; rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  ; rectangle_blur.set_alpha(100) ; rectangle_blur.fill((0,0,0))  ; SCREEN.blit(rectangle_blur,(0,0)) 
             rectangle_box_1=pygame.Surface((SCREEN_WIDTH,200))  ; rectangle_box_1.fill(colour_box)  ; rectangle_box_1.set_alpha(75)  ; SCREEN.blit(rectangle_box_1,(0,500))
@@ -2257,6 +2282,85 @@ class BossOne(Player):
                     self.boss_1_rect.bottom=tile.top
             return self.boss_1_rect  
                 
+class BossTwo(Player):
+    #stage 1 boss two is kind of like a normal enemy but hits harder than enemy two. then
+    # in stage 2 boss two is faster and hits alot harder than before. 
+    def __init__(self,boss_2_level_3_x,boss_2_level_3_y,boss_2_level_3_x_movement,boss_2_level_3_y_movement,boss_2_level_3_rect):
+        super().__init__(player_x_movement,player_y_movement,player_rect,player_current_health)
+        self.camera_x_y=camera_x_y
+        self.boss_2_level_3_x=boss_2_level_3_x
+        self.boss_2_level_3_y=boss_2_level_3_y
+        self.boss_2_level_3_x_movement=boss_2_level_3_x_movement
+        self.boss_2_level_3_y_movement=boss_2_level_3_y_movement
+        self.boss_2_level_3_rect=boss_2_level_3_rect
+
+    def idle(self):
+        self.boss_2_idle=boss_2_idle ; self.boss_2_idle_flip=boss_2_idle_flip ; self.boss_2_idle_number=boss_2_idle_number
+        global level_3_part_2
+        if level_3_part_2:
+            self.boss_2_level_3_y_movement[0]=8
+            if self.player_rect.x<=self.boss_2_level_3_rect.x:
+                SCREEN.blit(self.boss_2_idle[int(self.boss_2_idle_number[0])//2],(self.boss_2_level_3_rect.x-self.camera_x_y[0],self.boss_2_level_3_rect.y-self.camera_x_y[1]))
+            if self.player_rect.x>self.boss_2_level_3_rect.x:
+                SCREEN.blit(self.boss_2_idle_flip[int(self.boss_2_idle_number[0])//2],(self.boss_2_level_3_rect.x-self.camera_x_y[0],self.boss_2_level_3_rect.y-self.camera_x_y[1]))
+            self.boss_2_idle_number[0]+=0.25
+            if self.boss_2_idle_number[0]>6:
+                self.boss_2_idle_number[0]=0
+
+    def run(self):
+        pass
+
+    def attack(self):
+        pass
+
+    def health(self):
+        pass
+
+    def recovery(self):
+        pass
+
+    def fall(self):
+        pass
+
+    def reset_position(self):
+        pass
+
+    def collision_with_object(self,level_3_tile_set_part_2):
+        global level_3_part_2
+        self.level_3_tile_set_part_2_rect=level_3_tile_set_part_2_rect
+        if level_3_part_2:
+            tiles=[]
+            for tile in self.level_3_tile_set_part_2_rect:
+                if self.boss_2_level_3_rect.colliderect(tile):
+                    tiles.append(tile)
+            return tiles
+
+    def collision_with_object_logic(self):
+        global level_3_part_2
+        if level_3_part_2:
+            self.boss_2_level_3_rect.x+=self.boss_2_level_3_x_movement[0]
+            collision=BossTwo.collision_with_object(self,level_3_tile_set_part_2)
+            for tile in collision:
+                if self.boss_2_level_3_x_movement[0]>0:
+                    self.boss_2_level_3_rect.right=tile.left
+                if self.boss_2_level_3_x_movement[0]<0:
+                    self.boss_2_level_3_rect.left=tile.right
+            self.boss_2_level_3_rect.y+=self.boss_2_level_3_y_movement[0]
+            collision=BossTwo.collision_with_object(self,level_3_tile_set_part_2)
+            for tile in collision:
+                if self.boss_2_level_3_y_movement[0]>0:
+                    self.boss_2_level_3_rect.bottom=tile.top
+                if self.boss_2_level_3_y_movement[0]<0:
+                    self.boss_2_level_3_rect.top=tile.bottom
+            return self.boss_2_level_3_rect   
+            
+
+
+    
+
+
+
+
 while run:
     tile_level_1_rect=[] ; tile_level_2_rect=[] ; level_2_bg_list=[] ; level_2_dec_list=[] ; level_2_item_list=[] ; tile_level_3_rect=[]
     level_3_bg_list=[] ; level_3_hill_list=[] ; level_3_tile_set_part_2_rect=[]
@@ -2329,6 +2433,17 @@ while run:
     boss_one.reset_position()
     boss_one.collision_with_object(tile_level_2)
     boss_one.collision_with_object_logic(tile_level_2)
+
+    boss_two=BossTwo(boss_2_level_3_x,boss_2_level_3_y,boss_2_level_3_x_movement,boss_2_level_3_y_movement,boss_2_level_3_rect)
+    boss_two.idle()
+    boss_two.run()
+    boss_two.attack()
+    boss_two.health()
+    boss_two.recovery()
+    boss_two.fall()
+    boss_two.reset_position()
+    boss_two.collision_with_object(level_3_tile_set_part_2)
+    boss_two.collision_with_object_logic()
     
     game.level_one_dialogue()
     game.level_two_dialogue()
