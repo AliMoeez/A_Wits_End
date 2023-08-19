@@ -673,7 +673,7 @@ ally_1_run_direction=[1,0,1,0,1] ; ally_1_run_length=[20,30,10,30,10]
 
 ally_1_player_distance_list=[] ; player_ally_one_dialogue=False ; level_3_dialogue_part_2_once=False
 level_3_dialogue_part_3_once=False ; level_3_dialogue_part_4_once=False ; level_3_dialogue_part_5_once=False
-level_3_dialogue_part_6_once=False ; 
+level_3_dialogue_part_6_once=False ; level_3_dialogue_part_7_once=False
 
 player_ally_one=False ; player_ally_two=False ;  player_ally_three=False ; player_ally_four=False ;  player_ally_five=False
 
@@ -693,13 +693,18 @@ boss_2_idle=[boss_2_idle_1,boss_2_idle_2,boss_2_idle_3,boss_2_idle_4]
 boss_2_idle_flip=[boss_2_idle_flip_1,boss_2_idle_flip_2,boss_2_idle_flip_3,boss_2_idle_flip_4]
 boss_2_idle_number=[0] 
 
-boss_2_level_3_x=[200]
-boss_2_level_3_y=[270]
+boss_2_icon_level_3=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Icon\boss_two_icon.png")
+boss_2_icon_level_3=pygame.transform.scale(boss_2_icon_level_3,(120,120))
+
+boss_2_level_3_x=[4575]
+boss_2_level_3_y=[390]
 
 boss_2_level_3_x_movement=[0]
 boss_2_level_3_y_movement=[0]
 
 boss_2_level_3_rect=pygame.Rect(boss_2_level_3_x[0],boss_2_level_3_y[0],75,80)
+
+level_3_dialogue_boss_fight=False
 
 
 class Menu:
@@ -1111,7 +1116,7 @@ class Game:
                 change_dialogue=False ; self.level_2_dialogue_list_part_1_length[0]+=1
 
     def level_three(self):
-        global level_3,level_screen,level_3_part_2,level_3_transition_1
+        global level_3,level_screen,level_3_part_2,level_3_transition_1,level_3_dialogue_boss_fight,level_3_dialogue_part_7_once
         self.camera_x_y=camera_x_y ; self.player_x_movement=player_x_movement ; self.mouse_button_left_image=mouse_button_left_image
         self.list_2_bg_y_pos=list_2_bg_y_pos ; self.level_3_hill_list=level_3_hill_list ; self.level_3_bg_list=level_3_bg_list ; self.level_3_door=level_3_door
         self.level_3_hill_1=level_3_hill_1 ; self.level_3_hill_2=level_3_hill_2 ; self.level_3_hill_3=level_3_hill_3 ; self.level_3_hill_4=level_3_hill_4 ; self.level_3_hill_5=level_3_hill_5
@@ -1186,6 +1191,9 @@ class Game:
                 if self.player_rect.x>4725:
                     self.player_rect.x=4725
             if self.camera_x_y[0]<0: self.camera_x_y[0]=0
+
+            if self.player_rect.x>4300 and not level_3_dialogue_part_7_once:
+                level_3_dialogue_boss_fight=True
             
             for idx,bg in enumerate(self.level_3_bg_part_2_list):
                 SCREEN.blit(bg,(0,0))
@@ -1198,11 +1206,11 @@ class Game:
                     self.level_3_tile_set_part_2_rect.append(pygame.Rect((x_val,y_val,32,40)))
 
     def level_three_dialogue(self):
-        global level_3,level_3_part_2,level_3_dialogue_part_1,level_3_dialogue_part_1_once,level_3_dialogue_part_2_once
-        global level_3_dialogue_part_3_once,level_3_dialogue_part_4_once,level_3_dialogue_part_5_once,level_3_dialogue_part_6_once
+        global level_3,level_3_part_2,level_3_dialogue_part_1,level_3_dialogue_part_1_once,level_3_dialogue_part_2_once,level_3_dialogue_boss_fight
+        global level_3_dialogue_part_3_once,level_3_dialogue_part_4_once,level_3_dialogue_part_5_once,level_3_dialogue_part_6_once,level_3_dialogue_part_7_once
         global player_ally_one, player_ally_two,player_ally_three,player_ally_four, player_ally_five
         global dialogue_move_condition ,change_dialogue,change_dialogue_cond_1
-        self.ally_1_icon=ally_1_icon ; self.player_icon=player_icon ; self.ally_1_level_3_part_2_idle_rect=ally_1_level_3_part_2_idle_rect
+        self.ally_1_icon=ally_1_icon ; self.player_icon=player_icon ; self.ally_1_level_3_part_2_idle_rect=ally_1_level_3_part_2_idle_rect ; self.boss_2_icon_level_3=boss_2_icon_level_3
 
         self.level_3_dialogue_1=[
 
@@ -1251,11 +1259,27 @@ class Game:
             ("Good luck, you'll need it.","Men of Ayus Trooper",self.ally_1_icon),
         ]
 
+        self.boss_two_dialogue=[
+            ("I was waiting with great anticipation for your arrival.","Alexandros of Hemmite",self.boss_2_icon_level_3),
+            ("Who are you really? I'm assuming Kornos betrayed you at some point.","You",self.player_icon),
+            ("Betryal is a weak way to describe it. He sent me to my death for opposing his ruling.","Alexandros of Hemmite",self.boss_2_icon_level_3),
+            ("What did you do?","You",self.player_icon),
+            ("I won't speak of it with you...yet.... But, would you like to work with me to end Kornos?","Alexandros of Hemmite",self.boss_2_icon_level_3),
+            ("In what regards? I've been betrayed enough already at this point.","You",self.player_icon),
+            ("You would have to join my army, and we can begin operations against Kornos at Fort Creed.","Alexandros of Hemmite",self.boss_2_icon_level_3),
+            ("Is he actaully at Fort Creed?","You",self.player_icon),
+            ("Yes, but you have to accept my offer of else....","Alexandros of Hemmite",self.boss_2_icon_level_3),
+            ("Else what?","You",self.player_icon),
+            ("Your death..... There is no way out of this.","Alexandros of Hemmite",self.boss_2_icon_level_3),
+            ("So be it...","You",self.player_icon),
+
+        ]
+
         if level_3 and not level_3_part_2 and not level_3_dialogue_part_1_once:
             if self.player_rect.x>1400:
                 level_3_dialogue_part_1=True
 
-        if level_3_dialogue_part_1 or player_ally_one  or player_ally_two or player_ally_three or player_ally_four or player_ally_five:
+        if level_3_dialogue_part_1 or player_ally_one  or player_ally_two or player_ally_three or player_ally_four or player_ally_five or level_3_dialogue_boss_fight:
             if level_3_dialogue_part_1:
                 level_3_dialogue=self.level_3_dialogue_1 ; colour_box=(1,50,32) ; colour_font=(1,150,71)
             if player_ally_one and not level_3_dialogue_part_2_once:
@@ -1268,7 +1292,9 @@ class Game:
                 level_3_dialogue=self.ally_one_4_dialogue ; colour_box=(119,136,153)  ; colour_font=(112,128,144)
             if player_ally_five and not level_3_dialogue_part_6_once:
                 level_3_dialogue=self.ally_one_5_dialogue ; colour_box=(119,136,153)  ; colour_font=(112,128,144)
-
+            if level_3_dialogue_boss_fight and not level_3_dialogue_part_7_once:
+                level_3_dialogue=self.boss_two_dialogue ; colour_box=(119,136,153)  ; colour_font=(112,128,144)
+            
             dialogue_move_condition=True ; rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  ; rectangle_blur.set_alpha(100) ; rectangle_blur.fill((0,0,0))  ; SCREEN.blit(rectangle_blur,(0,0)) 
             rectangle_box_1=pygame.Surface((SCREEN_WIDTH,200))  ; rectangle_box_1.fill(colour_box)  ; rectangle_box_1.set_alpha(75)  ; SCREEN.blit(rectangle_box_1,(0,500))
             
@@ -1281,6 +1307,7 @@ class Game:
                     if level_3_dialogue[idx][1]=="Men of Ayus Trooper": SCREEN.blit(show_font_knight,(55,645))  
                     if level_3_dialogue[idx][1]=="???": SCREEN.blit(show_font_knight,(115,645)) 
                     if level_3_dialogue[idx][1]=="High Lord Stephen": SCREEN.blit(show_font_knight,(55,645)) 
+                    if level_3_dialogue[idx][1]=="Alexandros of Hemmite": SCREEN.blit(show_font_knight,(50,645))  
                     font_game=pygame.font.SysFont("Impact",24) ; show_font_knight=font_game.render(level_3_dialogue[idx][0],1,colour_font) ; SCREEN.blit(show_font_knight,(200,545))
                 
                 if self.level_2_dialogue_list_part_1_length[0]>=len(level_3_dialogue):
@@ -1296,6 +1323,9 @@ class Game:
                     player_ally_four=False
                     if player_ally_five : level_3_dialogue_part_6_once=True
                     player_ally_five=False
+                    if level_3_dialogue_boss_fight: level_3_dialogue_part_7_once=True
+                    level_3_dialogue_boss_fight=False
+
             
             if event.type==pygame.MOUSEBUTTONDOWN:  change_dialogue_cond_1=True
             if event.type==pygame.MOUSEBUTTONUP and change_dialogue_cond_1:
@@ -2354,13 +2384,6 @@ class BossTwo(Player):
                     self.boss_2_level_3_rect.top=tile.bottom
             return self.boss_2_level_3_rect   
             
-
-
-    
-
-
-
-
 while run:
     tile_level_1_rect=[] ; tile_level_2_rect=[] ; level_2_bg_list=[] ; level_2_dec_list=[] ; level_2_item_list=[] ; tile_level_3_rect=[]
     level_3_bg_list=[] ; level_3_hill_list=[] ; level_3_tile_set_part_2_rect=[]
