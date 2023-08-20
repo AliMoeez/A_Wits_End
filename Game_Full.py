@@ -787,7 +787,7 @@ boss_2_fall=[boss_2_fall_image]
 boss_2_fall_flip=[boss_2_fall_flip_image]
 
 
-boss_2_attack_number=[0] ; boss_2_recover_number=[0]
+boss_2_attack_number=[0] ; boss_2_recover_number=[0] ; boss_2_rise_number=[0]
 
 boss_2_fall_right=False ; boss_2_fall_left=False
 
@@ -2487,13 +2487,23 @@ class BossTwo(Player):
     def recovery(self):
         global boss_one_fall_once
         self.boss_2_recover=boss_2_recover ; self.boss_2_recover_flip=boss_2_recover_flip ; self.boss_2_recover_number=boss_2_recover_number ; self.boss_2_fall=boss_2_fall ; self.boss_2_fall_flip=boss_2_fall_flip
+        self.boss_2_rise_number=boss_2_rise_number
         if boss_one_fall_once:
-            if boss_2_fall_right:
+            if boss_2_fall_right and self.boss_2_rise_number[0]<=10:
                 SCREEN.blit(self.boss_2_fall[0],(self.boss_2_level_3_rect.x-self.camera_x_y[0],self.boss_2_level_3_rect.y-self.camera_x_y[1]))
                 self.boss_2_level_3_x_movement[0]=0
-            if boss_2_fall_left:
-                SCREEN.blit(self.boss_2_fal_flip[0],(self.boss_2_level_3_rect.x-self.camera_x_y[0],self.boss_2_level_3_rect.y-self.camera_x_y[1]))
+            if boss_2_fall_left and self.boss_2_rise_number[0]<=10:
+                SCREEN.blit(self.boss_2_fall_flip[0],(self.boss_2_level_3_rect.x-self.camera_x_y[0],self.boss_2_level_3_rect.y-self.camera_x_y[1]))
                 self.boss_2_level_3_x_movement[0]=0
+            self.boss_2_rise_number[0]+=0.25
+            if self.boss_2_rise_number[0]>10:
+                if self.player_rect.x<=self.boss_2_level_3_rect.x:
+                    SCREEN.blit(self.boss_2_recover[int(self.boss_2_recover_number[0]//2)],(self.boss_2_level_3_rect.x-self.camera_x_y[0],self.boss_2_level_3_rect.y-self.camera_x_y[1]))
+                if self.player_rect.x>=self.boss_2_level_3_rect.x:
+                    SCREEN.blit(self.boss_2_recover_flip[int(self.boss_2_recover_number[0]//2)],(self.boss_2_level_3_rect.x-self.camera_x_y[0],self.boss_2_level_3_rect.y-self.camera_x_y[1]))
+                self.boss_2_recover_number[0]+=0.35
+                if self.boss_2_recover_number[0]>11:
+                    self.boss_2_recover_number[0]=11
 
     def fall(self):
         self.boss_2_fall=boss_2_fall ; self.boss_2_fall_flip=boss_2_fall_flip
