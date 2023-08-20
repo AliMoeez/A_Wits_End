@@ -673,7 +673,7 @@ ally_1_run_direction=[1,0,1,0,1] ; ally_1_run_length=[20,30,10,30,10]
 
 ally_1_player_distance_list=[] ; player_ally_one_dialogue=False ; level_3_dialogue_part_2_once=False
 level_3_dialogue_part_3_once=False ; level_3_dialogue_part_4_once=False ; level_3_dialogue_part_5_once=False
-level_3_dialogue_part_6_once=False ; level_3_dialogue_part_7_once=False
+level_3_dialogue_part_6_once=False ; level_3_dialogue_part_7_once=False ; level_3_dialogue_part_8_once=False
 
 player_ally_one=False ; player_ally_two=False ;  player_ally_three=False ; player_ally_four=False ;  player_ally_five=False
 
@@ -791,7 +791,7 @@ boss_2_attack_number=[0] ; boss_2_recover_number=[0] ; boss_2_rise_number=[0]
 
 boss_2_fall_right=False ; boss_2_fall_left=False
 
-level_3_dialogue_boss_fight=False ; boss_one_fall_once=False
+level_3_dialogue_boss_fight=False ; boss_one_fall_once=False ; level_3_dialogue_rise_boss=False
 
 
 class Menu:
@@ -1305,8 +1305,8 @@ class Game:
             health_border=pygame.draw.rect(SCREEN,(220,220,220),pygame.Rect(10,10,self.health_bar_length,25),4) 
 
     def level_three_dialogue(self):
-        global level_3,level_3_part_2,level_3_dialogue_part_1,level_3_dialogue_part_1_once,level_3_dialogue_part_2_once,level_3_dialogue_boss_fight
-        global level_3_dialogue_part_3_once,level_3_dialogue_part_4_once,level_3_dialogue_part_5_once,level_3_dialogue_part_6_once,level_3_dialogue_part_7_once
+        global level_3,level_3_part_2,level_3_dialogue_part_1,level_3_dialogue_part_1_once,level_3_dialogue_part_2_once,level_3_dialogue_boss_fight,level_3_dialogue_rise_boss
+        global level_3_dialogue_part_3_once,level_3_dialogue_part_4_once,level_3_dialogue_part_5_once,level_3_dialogue_part_6_once,level_3_dialogue_part_7_once,level_3_dialogue_part_8_once
         global player_ally_one, player_ally_two,player_ally_three,player_ally_four, player_ally_five
         global dialogue_move_condition ,change_dialogue,change_dialogue_cond_1
         self.ally_1_icon=ally_1_icon ; self.player_icon=player_icon ; self.ally_1_level_3_part_2_idle_rect=ally_1_level_3_part_2_idle_rect ; self.boss_2_icon_level_3=boss_2_icon_level_3
@@ -1373,11 +1373,16 @@ class Game:
             ("You can to end me but it won't work in your favour.","You",self.player_icon),
         ]
 
+        self.boss_two_rise_dialogue=[
+            ("YOU THOUGHT YOU COULD BEAT ME! NEVER!!!!!!!","Alexandros of Hemmite",self.boss_2_icon_level_3),
+            ("WAIT WHAT?","You",self.player_icon)
+        ]
+
         if level_3 and not level_3_part_2 and not level_3_dialogue_part_1_once:
             if self.player_rect.x>1400:
                 level_3_dialogue_part_1=True
 
-        if level_3_dialogue_part_1 or player_ally_one  or player_ally_two or player_ally_three or player_ally_four or player_ally_five or level_3_dialogue_boss_fight:
+        if level_3_dialogue_part_1 or player_ally_one  or player_ally_two or player_ally_three or player_ally_four or player_ally_five or level_3_dialogue_boss_fight or level_3_dialogue_rise_boss:
             if level_3_dialogue_part_1:
                 level_3_dialogue=self.level_3_dialogue_1 ; colour_box=(1,50,32) ; colour_font=(1,150,71)
             if player_ally_one and not level_3_dialogue_part_2_once:
@@ -1392,6 +1397,8 @@ class Game:
                 level_3_dialogue=self.ally_one_5_dialogue ; colour_box=(119,136,153)  ; colour_font=(112,128,144)
             if level_3_dialogue_boss_fight and not level_3_dialogue_part_7_once:
                 level_3_dialogue=self.boss_two_dialogue ; colour_box=(119,136,153)  ; colour_font=(112,128,144)
+            if level_3_dialogue_rise_boss and not level_3_dialogue_part_8_once:
+                level_3_dialogue=self.boss_two_rise_dialogue ; colour_box=(119,136,153)  ; colour_font=(112,128,144)
             
             dialogue_move_condition=True ; rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  ; rectangle_blur.set_alpha(100) ; rectangle_blur.fill((0,0,0))  ; SCREEN.blit(rectangle_blur,(0,0)) 
             rectangle_box_1=pygame.Surface((SCREEN_WIDTH,200))  ; rectangle_box_1.fill(colour_box)  ; rectangle_box_1.set_alpha(75)  ; SCREEN.blit(rectangle_box_1,(0,500))
@@ -1422,6 +1429,8 @@ class Game:
                     if player_ally_five : level_3_dialogue_part_6_once=True
                     player_ally_five=False
                     if level_3_dialogue_boss_fight: level_3_dialogue_part_7_once=True
+                    level_3_dialogue_boss_fight=False
+                    if level_3_dialogue_rise_boss: level_3_dialogue_part_8_once=True
                     level_3_dialogue_boss_fight=False
 
             
@@ -2485,7 +2494,7 @@ class BossTwo(Player):
                 boss_one_fall_once=True
 
     def recovery(self):
-        global boss_one_fall_once
+        global boss_one_fall_once,level_3_dialogue_rise_boss, level_3_dialogue_part_8_once
         self.boss_2_recover=boss_2_recover ; self.boss_2_recover_flip=boss_2_recover_flip ; self.boss_2_recover_number=boss_2_recover_number ; self.boss_2_fall=boss_2_fall ; self.boss_2_fall_flip=boss_2_fall_flip
         self.boss_2_rise_number=boss_2_rise_number
         if boss_one_fall_once:
@@ -2504,6 +2513,9 @@ class BossTwo(Player):
                 self.boss_2_recover_number[0]+=0.35
                 if self.boss_2_recover_number[0]>11:
                     self.boss_2_recover_number[0]=11
+                    if not level_3_dialogue_part_8_once:
+                        level_3_dialogue_rise_boss=True
+                    else: level_3_dialogue_rise_boss=False
 
     def fall(self):
         self.boss_2_fall=boss_2_fall ; self.boss_2_fall_flip=boss_2_fall_flip
