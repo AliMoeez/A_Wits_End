@@ -793,6 +793,9 @@ boss_2_fall_right=False ; boss_2_fall_left=False
 
 level_3_dialogue_boss_fight=False ; boss_one_fall_once=False ; level_3_dialogue_rise_boss=False ; enemy_stage_two=False
 
+level_3_part_2_lose_dialogue=False ; level_3_dialogue_part_9_once=False
+level_3_part_2_win_dialogue=False ; level_3_dialogue_part_10_once=False
+
 
 class Menu:
     def __init__(self,camera_x_y_bg):
@@ -1305,10 +1308,10 @@ class Game:
     def level_three_dialogue(self):
         global level_3,level_3_part_2,level_3_dialogue_part_1,level_3_dialogue_part_1_once,level_3_dialogue_part_2_once,level_3_dialogue_boss_fight,level_3_dialogue_rise_boss
         global level_3_dialogue_part_3_once,level_3_dialogue_part_4_once,level_3_dialogue_part_5_once,level_3_dialogue_part_6_once,level_3_dialogue_part_7_once,level_3_dialogue_part_8_once
-        global player_ally_one, player_ally_two,player_ally_three,player_ally_four, player_ally_five,enemy_stage_two
-        global dialogue_move_condition ,change_dialogue,change_dialogue_cond_1
+        global player_ally_one, player_ally_two,player_ally_three,player_ally_four, player_ally_five,enemy_stage_two,level_3_part_2_lose_dialogue,level_3_dialogue_part_9_once
+        global dialogue_move_condition ,change_dialogue,change_dialogue_cond_1,enemy_stage_two,level_3_part_2_win_dialogue,level_3_dialogue_part_10_once
         self.ally_1_icon=ally_1_icon ; self.player_icon=player_icon ; self.ally_1_level_3_part_2_idle_rect=ally_1_level_3_part_2_idle_rect ; self.boss_2_icon_level_3=boss_2_icon_level_3
-        self.boss_2_level_3_health=boss_2_level_3_health
+        self.boss_2_level_3_health=boss_2_level_3_health ; self.player_current_health=player_current_health 
 
         self.level_3_dialogue_1=[
 
@@ -1360,7 +1363,7 @@ class Game:
         self.boss_two_dialogue=[
             ("I was waiting with great anticipation for your arrival.","Alexandros of Hemmite",self.boss_2_icon_level_3),
             ("Who are you really? I'm assuming Kornos betrayed you at some point.","You",self.player_icon),
-            ("Betryal is a weak way to describe it. He sent me to my death for opposing his ruling.","Alexandros of Hemmite",self.boss_2_icon_level_3),
+            ("Betryal is a weak way to describe it......","Alexandros of Hemmite",self.boss_2_icon_level_3),
             ("What did you do?","You",self.player_icon),
             ("I won't speak of it with you...yet.... But, would you like to work with me to end Kornos?","Alexandros of Hemmite",self.boss_2_icon_level_3),
             ("In what regards? I've been betrayed enough already at this point.","You",self.player_icon),
@@ -1369,7 +1372,7 @@ class Game:
             ("Yes, but you have to accept my offer or else....","Alexandros of Hemmite",self.boss_2_icon_level_3),
             ("Else what?","You",self.player_icon),
             ("Your death.....There is no way out of this....","Alexandros of Hemmite",self.boss_2_icon_level_3),
-            ("You can to end me but it won't work in your favour.","You",self.player_icon),
+            ("You can try to end me but it won't work in your favour.","You",self.player_icon),
         ]
 
         self.boss_two_rise_dialogue=[
@@ -1377,11 +1380,29 @@ class Game:
             ("WAIT WHAT?","You",self.player_icon)
         ]
 
+        self.boss_two_lose_dialouge=[
+            ("Your mind is weak and so was your strength....","Alexandros of Hemmite",self.boss_2_icon_level_3)
+        ]
+
+        self.boss_two_win_dialogue=[
+            ("AHHHHHHHH","Alexandros of Hemmite",self.boss_2_icon_level_3),
+            ("Finnaly you die","You",self.player_icon)
+        ]
+
         if level_3 and not level_3_part_2 and not level_3_dialogue_part_1_once:
             if self.player_rect.x>1400:
                 level_3_dialogue_part_1=True
 
-        if level_3_dialogue_part_1 or player_ally_one  or player_ally_two or player_ally_three or player_ally_four or player_ally_five or level_3_dialogue_boss_fight or level_3_dialogue_rise_boss:
+        if level_3_part_2 and self.player_current_health[0]<=0:
+            level_3_part_2_lose_dialogue=True
+            level_3_dialogue_part_9_once=False
+
+        if enemy_stage_two and self.boss_2_level_3_health[0]<=0:
+            level_3_part_2_win_dialogue=True
+            level_3_dialogue_part_10_once=False
+        
+
+        if level_3_dialogue_part_1 or player_ally_one  or player_ally_two or player_ally_three or player_ally_four or player_ally_five or level_3_dialogue_boss_fight or level_3_dialogue_rise_boss or level_3_part_2_lose_dialogue or level_3_part_2_win_dialogue:
             if level_3_dialogue_part_1:
                 level_3_dialogue=self.level_3_dialogue_1 ; colour_box=(1,50,32) ; colour_font=(1,150,71)
             if player_ally_one and not level_3_dialogue_part_2_once:
@@ -1398,7 +1419,11 @@ class Game:
                 level_3_dialogue=self.boss_two_dialogue ; colour_box=(119,136,153)  ; colour_font=(112,128,144)
             if level_3_dialogue_rise_boss and not level_3_dialogue_part_8_once:
                 level_3_dialogue=self.boss_two_rise_dialogue ; colour_box=(119,136,153)  ; colour_font=(112,128,144)
-            
+            if level_3_part_2_lose_dialogue and not level_3_dialogue_part_9_once:
+                level_3_dialogue=self.boss_two_lose_dialouge ; colour_box=(119,136,153)  ; colour_font=(112,128,144)
+            if level_3_part_2_win_dialogue and not level_3_dialogue_part_10_once:
+                level_3_dialogue=self.boss_two_win_dialouge ; colour_box=(119,136,153)  ; colour_font=(112,128,144)
+
             dialogue_move_condition=True ; rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  ; rectangle_blur.set_alpha(100) ; rectangle_blur.fill((0,0,0))  ; SCREEN.blit(rectangle_blur,(0,0)) 
             rectangle_box_1=pygame.Surface((SCREEN_WIDTH,200))  ; rectangle_box_1.fill(colour_box)  ; rectangle_box_1.set_alpha(75)  ; SCREEN.blit(rectangle_box_1,(0,500))
             
@@ -1431,6 +1456,10 @@ class Game:
                     level_3_dialogue_boss_fight=False
                     if level_3_dialogue_rise_boss: level_3_dialogue_part_8_once=True
                     level_3_dialogue_boss_fight=False ;  self.boss_2_level_3_health[0]=1000
+                    if level_3_part_2_lose_dialogue: level_3_dialogue_part_9_once=True
+                    level_3_part_2_lose_dialogue=False  
+                    if level_3_part_2_win_dialogue: level_3_dialogue_part_10_once=True
+                    level_3_part_2_win_dialogue=False   
 
             if event.type==pygame.MOUSEBUTTONDOWN:  change_dialogue_cond_1=True
             if event.type==pygame.MOUSEBUTTONUP and change_dialogue_cond_1:
@@ -2510,10 +2539,10 @@ class BossTwo(Player):
             health_border=pygame.draw.rect(SCREEN,(220,220,220),pygame.Rect(590,10,self.health_bar_length,25),4) 
             if attack:
                 if player_idle_right and self.player_rect.x<=self.boss_2_level_3_rect.x and self.player_boss_two_distance<75:
-                    self.boss_2_level_3_health[0]-=50
+                    self.boss_2_level_3_health[0]-=1000 #50
                     boss_2_fall_right=True ; boss_2_fall_left=False
                 if player_idle_left and self.player_rect.x>self.boss_2_level_3_rect.x and self.player_boss_two_distance<75:
-                    self.boss_2_level_3_health[0]-=50
+                    self.boss_2_level_3_health[0]-=1000 #50
                     boss_2_fall_right=False ; boss_2_fall_left=True
                 if self.boss_2_level_3_health[0]<=0 and not boss_one_fall_once:
                     boss_one_fall_once=True
