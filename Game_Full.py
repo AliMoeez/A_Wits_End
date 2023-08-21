@@ -636,7 +636,7 @@ ally_1_level_3_part_1_y_run=[570,570]
 ally_1_level_3_part_2_x_idle=[400,1500,2050,2700,3100]
 ally_1_level_3_part_2_y_idle=[570,570,570,570,570]
 
-ally_1_level_3_part_2_x_run=[800,1500,2100,2700,3000]
+ally_1_level_3_part_2_x_run=[800,1200,1700,2100,2200]
 ally_1_level_3_part_2_y_run=[570,570,570,570,570]
 
 ally_1_level_3_part_1_idle_rect=[pygame.Rect(ally_1_level_3_part_1_x_idle[0],ally_1_level_3_part_1_y_idle[0],75,85), 
@@ -1625,8 +1625,6 @@ class Player(Game):
                 self.player_current_health[0]=1000
                # reset_enemy_position=False
 
-
-
     def collision_with_object(self,tile_level_1_rect,tile_level_2_rect,tile_level_3_rect,level_3_tile_set_part_2_rect):
         global level_2_part_2, level_3,level_3_part_2
         if level_1:
@@ -2177,6 +2175,14 @@ class AllyOne(Player):
                             if idx==4:
                                 player_ally_five=True ; level_3_dialogue_part_6_once=False
 
+    def reset_position(self):
+        global level_3_part_2, reset_enemy_position
+        self.ally_1_level_3_part_2_x_run=ally_1_level_3_part_2_x_run ; self.ally_1_level_3_part_2_y_run=ally_1_level_3_part_2_y_run
+        if level_3_part_2 and reset_enemy_position:
+            for idx,ally in enumerate(self.ally_1_level_3_part_2_run_rect):
+                self.ally_1_level_3_part_2_run_rect[idx].x=self.ally_1_level_3_part_2_x_run[idx]
+                self.ally_1_level_3_part_2_run_rect[idx].y=self.ally_1_level_3_part_2_y_run[idx]
+
     def collision_with_object(self,tile_level_3,level_3_tile_set_part_2):
         global level_3,level_3_part_2
         if level_3:
@@ -2635,6 +2641,7 @@ while run:
     allyone=AllyOne(ally_1_x_movement,ally_1_y_movement,ally_1_level_3_part_1_idle_rect,ally_1_level_3_part_1_run_rect,ally_1_rect_list,ally_1_level_3_part_2_idle_rect,ally_1_level_3_part_2_run_rect)
     allyone.idle()
     allyone.run()
+    allyone.reset_position()
     allyone.player_interaction()
     allyone.collision_with_object(tile_level_3,level_3_tile_set_part_2)
     allyone.collision_with_object_logic(tile_level_3,level_3_tile_set_part_2)
