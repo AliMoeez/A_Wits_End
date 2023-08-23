@@ -823,7 +823,7 @@ class Menu:
 
     def level_selection(self):
         self.camera_x_y=camera_x_y ; self.player_rect=player_rect
-        global level_screen, level_1, level_2, level_2_part_2, level_3, level_4 ; 
+        global level_screen, level_1, level_2, level_2_part_2, level_3, level_4 , level_3_part_3
         if level_screen:
             self.player_rect.x=0
             self.player_rect.y=585
@@ -841,7 +841,7 @@ class Menu:
             if pygame.Rect.collidepoint(rectangle_level_2,pygame.mouse.get_pos()) and event.type==pygame.MOUSEBUTTONDOWN:
                 level_scren=False ; level_1=False ; level_2=True ; level_3=False ; level_4=False
             if pygame.Rect.collidepoint(rectangle_level_3,pygame.mouse.get_pos()) and event.type==pygame.MOUSEBUTTONDOWN:
-                level_scren=False ; level_1=False ; level_2=False ; level_3=True ; level_4=False
+                level_scren=False ; level_1=False ; level_2=False ; level_3_part_3=True ; level_4=False #change to level_3
         if level_1:
             level_screen=False
             if key[pygame.K_r]:
@@ -850,7 +850,7 @@ class Menu:
             level_screen=False
             if key[pygame.K_r]:
                 level_2=False ; level_2_part_2=False ; level_screen=True ; level_1=False ; level_3=False ; reset_enemy_position=True
-        if level_3:
+        if level_3_part_3: #change to level_3
             level_screen=False
             if key[pygame.K_r]:
                 level_3=False ; level_2_part_2=False ; level_screen=True ; level_1=False ; level_2=False ; reset_enemy_position=True
@@ -1316,7 +1316,59 @@ class Game:
             self.level_3_fade_level_2[0]-=10 ; rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  ; rectangle_blur.set_alpha(self.level_3_fade_level_2[0])  ; rectangle_blur.fill((0,0,0))   ; SCREEN.blit(rectangle_blur,(0,0))
             if self.level_3_fade_level_2[0]<0:
                 self.level_3_fade_level_2[0]=0
-            SCREEN.fill((200,100,200))
+        
+            if self.player_rect.x>=100 and self.player_rect.x<4500: self.camera_x_y[0]+=self.player_rect.x-self.camera_x_y[0]-210
+            if self.player_rect.x<15: self.player_rect.x=15    
+            if self.player_rect.x>=4500: 
+                self.camera_x_y[0]=4500-210 
+                if self.player_rect.x>5300:
+                    self.player_rect.x=5300
+            if self.camera_x_y[0]<0: self.camera_x_y[0]=0
+           
+            y_1=0
+            for row in self.tile_level_3:
+                x_1=0
+                for tile in row:
+                    if tile in ["1","2"]:
+                        SCREEN.blit(self.level_3_tile_1,(x_1*48-self.camera_x_y[0],y_1*43-self.camera_x_y[1]))
+                    if tile!="0":
+                        self.tile_level_3_rect.append(pygame.Rect((x_1*48,y_1*43,48,43)))
+                    x_1+=1
+                y_1+=1
+
+            SCREEN.blit(self.level_3_bg_test,(-self.camera_x_y[0],0))
+            SCREEN.blit(self.level_3_bg_test,(-self.camera_x_y[0]+1100,0))
+            SCREEN.blit(self.level_3_bg_test,(-self.camera_x_y[0]+2200,0))
+            SCREEN.blit(self.level_3_bg_test,(-self.camera_x_y[0]+3300,0))
+            SCREEN.blit(self.level_3_bg_test,(-self.camera_x_y[0]+4400,0))
+
+         #   (self.level_3_hill_1,400,505),(self.level_3_hill_2,700,590),(self.level_3_hill_3,1100,545),(self.level_3_hill_4,1400,505),(self.level_3_hill_5,1500,545)
+            
+            self.hill_list_level_3_part_3=[
+                (self.level_3_hill_2,200,590),
+                (self.level_3_hill_4,500,505),
+                (self.level_3_hill_3,1000,545),
+                (self.level_3_hill_1,1200,505),
+                (self.level_3_hill_5,1400,545),
+                (self.level_3_hill_1,1500,505),
+                (self.level_3_hill_4,1950,505),
+                (self.level_3_hill_2,2100,590),
+                (self.level_3_hill_4,2200,505),
+                (self.level_3_hill_1,2350,505),
+                (self.level_3_hill_5,2750,545),
+                (self.level_3_hill_3,2900,545),
+                (self.level_3_hill_2,3050,590),
+                (self.level_3_hill_1,3100,505),
+                (self.level_3_hill_3,3200,545),
+                (self.level_3_hill_2,3300,590),
+                (self.level_3_hill_4,3500,505),
+                (self.level_3_hill_5,3700,545),
+                (self.level_3_hill_3,4100,545),
+                (self.level_3_hill_1,4400,505)
+            ]
+
+            for idx,hill in enumerate(self.hill_list_level_3_part_3):
+                SCREEN.blit(self.hill_list_level_3_part_3[idx][0],(self.hill_list_level_3_part_3[idx][1]-self.camera_x_y[0],self.hill_list_level_3_part_3[idx][2]-self.camera_x_y[1]))
 
         if level_3 or level_3_part_2 or level_3_part_3:
             health_icons=pygame.draw.rect(SCREEN,(165,42,42),pygame.Rect(10,10,self.player_current_health[0]/self.health_bar_ratio,25))
@@ -1500,7 +1552,7 @@ class Player(Game):
         self.player_idle=player_idle ; self.player_idle_flip=player_idle_flip ; self.player_idle_number=player_idle_number ; self.player_jump=player_jump
         self.player_run_number=player_run_number; self.player_run=player_run ; self.player_run_flip=player_run_flip ; self.player_jump_flip=player_jump_flip
         self.player_jump_number=player_jump_number ; self.player_jump_length=player_jump_length 
-        if (level_1 or level_2 or level_3 or level_3_part_2) and not player_death:
+        if (level_1 or level_2 or level_3 or level_3_part_2 or level_3_part_3) and not player_death:
             if key[pygame.K_SPACE] and not crouch:
                 jump=True
                 attack=False
@@ -1584,7 +1636,7 @@ class Player(Game):
         self.player_attack_type_4=player_attack_type_4 ; self.player_attack_type_4_flip=player_attack_type_4_flip ; self.attack_type=attack_type ; self.player_attack_number=player_attack_number
         self.attack_jump=attack_jump ; self.attack_jump_flip=attack_jump_flip ; self.player_attack_jump_number=player_attack_jump_number
         global attack,jump,jump_condition,player_idle_right,player_idle_left,attack_air, player_death,dialogue_move_condition, attack_done
-        if (level_1 or level_2_part_2 or level_3 or level_3_part_2) and not player_death and not dialogue_move_condition:
+        if (level_1 or level_2_part_2 or level_3 or level_3_part_2 or level_3_part_3) and not player_death and not dialogue_move_condition:
             if key[pygame.K_e]:
                 attack=True ; jump=False
             if attack and jump_condition and not attack_air:            
@@ -1620,9 +1672,9 @@ class Player(Game):
     def defeat(self):
         global player_death,player_idle_right,player_idle_left,player_death_final, level_screen, level_1,reset_enemy_position,level_1_enemy_fight_condition
         global level_1_dialogue_part_two, end_level_1_dialogue,level_one_dialogue_part_three,end_level_1_dialogue,dialogue_move_condition, level_2_part_2,level_3_part_2
-        global level_3,level_3_part_2
+        global level_3,level_3_part_3
         self.player_fallen=player_fallen ; self.player_fallen_flip=player_fallen_flip ; self.player_fallen_number=player_fallen_number ; self.defeat_blur=defeat_blur
-        if level_1 or level_2_part_2 or level_3 or level_3_part_2:
+        if level_1 or level_2_part_2 or level_3 or level_3_part_2 or level_3_part_3:
             if self.player_current_health[0]<=0:
                 player_death=True # ; level_1_enemy_fight_condition=False
                 if player_death:
@@ -1676,16 +1728,16 @@ class Player(Game):
                # reset_enemy_position=False
 
     def collision_with_object(self,tile_level_1_rect,tile_level_2_rect,tile_level_3_rect,level_3_tile_set_part_2_rect):
-        global level_2_part_2, level_3,level_3_part_2
+        global level_2_part_2, level_3,level_3_part_2,level_3_part_3
         if level_1:
             tile_level=self.tile_level_1_rect
         if level_2_part_2:
             tile_level=self.tile_level_2_rect
-        if level_3:
+        if level_3 or level_3_part_3:
             tile_level=self.tile_level_3_rect
         if level_3_part_2:
             tile_level=self.level_3_tile_set_part_2_rect
-        if level_1 or level_2_part_2 or level_3 or level_3_part_2:
+        if level_1 or level_2_part_2 or level_3 or level_3_part_2 or level_3_part_3:
             tile_hit=[]
             for tiles in tile_level:
                 if self.player_rect.colliderect(tiles):
@@ -1693,8 +1745,8 @@ class Player(Game):
             return tile_hit
 
     def collision_with_object_logic(self,tile_level_1_rect,tile_level_2_rect,tile_level_3_rect,level_3_tile_set_part_2_rect):
-        global jump_condition,level_2_part_2,level_3,level_3_part_2
-        if level_1 or level_2_part_2 or level_3 or level_3_part_2:
+        global jump_condition,level_2_part_2,level_3,level_3_part_2,level_3_part_3
+        if level_1 or level_2_part_2 or level_3 or level_3_part_2 or level_3_part_3:
             self.player_rect.x+=self.player_x_movement[0]
             collision=Player.collision_with_object(self,tile_level_1_rect,tile_level_2_rect,tile_level_3_rect,level_3_tile_set_part_2_rect)
             for tile in collision:
@@ -2611,8 +2663,11 @@ class BossTwo(Player):
 
     def reset_position(self):
         global reset_enemy_position
+        self.boss_2_level_3_x=boss_2_level_3_x ; self.boss_2_level_3_y=boss_2_level_3_y
         if level_3_part_2 and reset_enemy_position:
-             reset_enemy_position=False
+            self.boss_2_level_3_rect.x=self.boss_2_level_3_x[0]
+            self.boss_2_level_3_rect.y=self.boss_2_level_3_y[0]
+            # reset_enemy_position=False
 
     def collision_with_object(self,level_3_tile_set_part_2):
         global level_3_part_2
