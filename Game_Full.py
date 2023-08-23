@@ -794,7 +794,8 @@ boss_2_fall_right=False ; boss_2_fall_left=False
 level_3_dialogue_boss_fight=False ; boss_one_fall_once=False ; level_3_dialogue_rise_boss=False ; enemy_stage_two=False
 
 level_3_part_2_lose_dialogue=False ; level_3_dialogue_part_9_once=False
-level_3_part_2_win_dialogue=False ; level_3_dialogue_part_10_once=False
+level_3_part_2_win_dialogue=False ; level_3_dialogue_part_10_once=False 
+level_3_dialogue_part_11_once=False
 
 level_3_fade_level_2=[0] ; level_3_part_3=False
 
@@ -1341,30 +1342,12 @@ class Game:
             SCREEN.blit(self.level_3_bg_test,(-self.camera_x_y[0]+2200,0))
             SCREEN.blit(self.level_3_bg_test,(-self.camera_x_y[0]+3300,0))
             SCREEN.blit(self.level_3_bg_test,(-self.camera_x_y[0]+4400,0))
-
-         #   (self.level_3_hill_1,400,505),(self.level_3_hill_2,700,590),(self.level_3_hill_3,1100,545),(self.level_3_hill_4,1400,505),(self.level_3_hill_5,1500,545)
             
             self.hill_list_level_3_part_3=[
-                (self.level_3_hill_2,200,590),
-                (self.level_3_hill_4,500,505),
-                (self.level_3_hill_3,1000,545),
-                (self.level_3_hill_1,1200,505),
-                (self.level_3_hill_5,1400,545),
-                (self.level_3_hill_1,1500,505),
-                (self.level_3_hill_4,1950,505),
-                (self.level_3_hill_2,2100,590),
-                (self.level_3_hill_4,2200,505),
-                (self.level_3_hill_1,2350,505),
-                (self.level_3_hill_5,2750,545),
-                (self.level_3_hill_3,2900,545),
-                (self.level_3_hill_2,3050,590),
-                (self.level_3_hill_1,3100,505),
-                (self.level_3_hill_3,3200,545),
-                (self.level_3_hill_2,3300,590),
-                (self.level_3_hill_4,3500,505),
-                (self.level_3_hill_5,3700,545),
-                (self.level_3_hill_3,4100,545),
-                (self.level_3_hill_1,4400,505)
+                (self.level_3_hill_2,200,590),(self.level_3_hill_4,500,505),(self.level_3_hill_3,1000,545),(self.level_3_hill_1,1200,505),(self.level_3_hill_5,1400,545),
+                (self.level_3_hill_1,1500,505),(self.level_3_hill_4,1950,505),(self.level_3_hill_2,2100,590),(self.level_3_hill_4,2200,505),(self.level_3_hill_1,2350,505),
+                (self.level_3_hill_5,2750,545),(self.level_3_hill_3,2900,545),(self.level_3_hill_2,3050,590),(self.level_3_hill_1,3100,505),(self.level_3_hill_3,3200,545),
+                (self.level_3_hill_2,3300,590),(self.level_3_hill_4,3500,505),(self.level_3_hill_5,3700,545),(self.level_3_hill_3,4100,545),(self.level_3_hill_1,4400,505)
             ]
 
             for idx,hill in enumerate(self.hill_list_level_3_part_3):
@@ -1378,8 +1361,8 @@ class Game:
     def level_three_dialogue(self):
         global level_3,level_3_part_2,level_3_dialogue_part_1,level_3_dialogue_part_1_once,level_3_dialogue_part_2_once,level_3_dialogue_boss_fight,level_3_dialogue_rise_boss
         global level_3_dialogue_part_3_once,level_3_dialogue_part_4_once,level_3_dialogue_part_5_once,level_3_dialogue_part_6_once,level_3_dialogue_part_7_once,level_3_dialogue_part_8_once
-        global player_ally_one, player_ally_two,player_ally_three,player_ally_four, player_ally_five,enemy_stage_two,level_3_part_2_lose_dialogue,level_3_dialogue_part_9_once
-        global dialogue_move_condition ,change_dialogue,change_dialogue_cond_1,enemy_stage_two,level_3_part_2_win_dialogue,level_3_dialogue_part_10_once
+        global player_ally_one, player_ally_two,player_ally_three,player_ally_four, player_ally_five,enemy_stage_two,level_3_part_2_lose_dialogue,level_3_dialogue_part_9_once,level_3_part_3
+        global dialogue_move_condition ,change_dialogue,change_dialogue_cond_1,enemy_stage_two,level_3_part_2_win_dialogue,level_3_dialogue_part_10_once,level_3_dialogue_part_11_once
         self.ally_1_icon=ally_1_icon ; self.player_icon=player_icon ; self.ally_1_level_3_part_2_idle_rect=ally_1_level_3_part_2_idle_rect ; self.boss_2_icon_level_3=boss_2_icon_level_3
         self.boss_2_level_3_health=boss_2_level_3_health ; self.player_current_health=player_current_health 
 
@@ -1393,7 +1376,6 @@ class Game:
             ("I will meet with this 'Great' leader of yours....","You",self.player_icon)
             ]
 
-        
         self.ally_one_1_dialogue=[
             ("You are falling into a path of destruction. Only if you knew what you were doing.","Men of Ayus Trooper",self.ally_1_icon),
             ("You are falling into a path of destruction. Only if you knew what you were doing..","Men of Ayus Trooper",self.ally_1_icon),
@@ -1459,6 +1441,11 @@ class Game:
             ("Finnaly you die","You",self.player_icon)
         ]
 
+        self.level_3_part_3_dialogue=[
+            ("Fortress 10 is nearby and should be heavily guarded.... Kornos will not survive","You",self.player_icon),
+            ("Fortress 10 is nearby and should be heavily guarded.... Kornos will not survive","You",self.player_icon)
+        ]
+
         if level_3 and not level_3_part_2 and not level_3_dialogue_part_1_once:
             if self.player_rect.x>1400:
                 level_3_dialogue_part_1=True
@@ -1471,8 +1458,7 @@ class Game:
             level_3_part_2_win_dialogue=True
             level_3_dialogue_part_10_once=False
         
-
-        if level_3_dialogue_part_1 or player_ally_one  or player_ally_two or player_ally_three or player_ally_four or player_ally_five or level_3_dialogue_boss_fight or level_3_dialogue_rise_boss or level_3_part_2_lose_dialogue or level_3_part_2_win_dialogue:
+        if level_3_dialogue_part_1 or player_ally_one  or player_ally_two or player_ally_three or player_ally_four or player_ally_five or level_3_dialogue_boss_fight or level_3_dialogue_rise_boss or level_3_part_2_lose_dialogue or level_3_part_2_win_dialogue or (level_3_part_3 and not level_3_dialogue_part_11_once):
             if level_3_dialogue_part_1:
                 level_3_dialogue=self.level_3_dialogue_1 ; colour_box=(1,50,32) ; colour_font=(1,150,71)
             if player_ally_one and not level_3_dialogue_part_2_once:
@@ -1493,7 +1479,9 @@ class Game:
                 level_3_dialogue=self.boss_two_lose_dialouge ; colour_box=(119,136,153)  ; colour_font=(112,128,144)
             if level_3_part_2_win_dialogue and not level_3_dialogue_part_10_once:
                 level_3_dialogue=self.boss_two_win_dialogue ; colour_box=(119,136,153)  ; colour_font=(112,128,144)
-
+            if level_3_part_3 and not level_3_dialogue_part_11_once:
+                level_3_dialogue=self.level_3_part_3_dialogue ; colour_box=(1,50,32) ; colour_font=(1,150,71)
+            
             dialogue_move_condition=True ; rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  ; rectangle_blur.set_alpha(100) ; rectangle_blur.fill((0,0,0))  ; SCREEN.blit(rectangle_blur,(0,0)) 
             rectangle_box_1=pygame.Surface((SCREEN_WIDTH,200))  ; rectangle_box_1.fill(colour_box)  ; rectangle_box_1.set_alpha(75)  ; SCREEN.blit(rectangle_box_1,(0,500))
             
@@ -1533,6 +1521,7 @@ class Game:
                     if level_3_part_2_win_dialogue: level_3_dialogue_part_10_once=True
                     level_3_dialogue_rise_boss=False
                     level_3_part_2_win_dialogue=False
+                    if level_3_part_3: level_3_dialogue_part_11_once=True
 
             if event.type==pygame.MOUSEBUTTONDOWN:  change_dialogue_cond_1=True
             if event.type==pygame.MOUSEBUTTONUP and change_dialogue_cond_1:
