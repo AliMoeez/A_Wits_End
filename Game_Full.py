@@ -446,8 +446,22 @@ enemy_1_level_2_rect=[pygame.Rect(enemy_1_level_2_x[0],enemy_1_level_2_y[0],45,5
                       pygame.Rect(enemy_1_level_2_x[4],enemy_1_level_2_y[4],45,55),pygame.Rect(enemy_1_level_2_x[5],enemy_1_level_2_y[5],45,55),
                       pygame.Rect(enemy_1_level_2_x[6],enemy_1_level_2_y[6],45,55),pygame.Rect(enemy_1_level_2_x[7],enemy_1_level_2_y[7],45,55)]
 
+
+enemy_1_level_3_x=[800,900,1200,1800,1900,2700,2900,3000,3100,3400,3500,3700]
+
+enemy_1_level_3_y=[575,575,575,575,575,575,575,575,575,575,575,575,575]
+
+enemy_1_level_3_rect=[pygame.Rect(enemy_1_level_3_x[0],enemy_1_level_3_y[0],45,55),pygame.Rect(enemy_1_level_3_x[1],enemy_1_level_3_y[1],45,55),
+                      pygame.Rect(enemy_1_level_3_x[2],enemy_1_level_3_y[2],45,55),pygame.Rect(enemy_1_level_3_x[3],enemy_1_level_3_y[3],45,55),
+                      pygame.Rect(enemy_1_level_3_x[4],enemy_1_level_3_y[4],45,55),pygame.Rect(enemy_1_level_3_x[5],enemy_1_level_3_y[5],45,55),
+                      pygame.Rect(enemy_1_level_3_x[6],enemy_1_level_3_y[6],45,55),pygame.Rect(enemy_1_level_3_x[7],enemy_1_level_3_y[7],45,55),
+                      pygame.Rect(enemy_1_level_3_x[8],enemy_1_level_3_y[8],45,55),pygame.Rect(enemy_1_level_3_x[9],enemy_1_level_3_y[9],45,55),
+                      pygame.Rect(enemy_1_level_3_x[10],enemy_1_level_3_y[10],45,55),pygame.Rect(enemy_1_level_3_x[11],enemy_1_level_3_y[11],45,55),
+
+]
+
 enemy_1_walk_length=[0] ; enemy_1_idle_length=[0] ; level_1_enemy_fight_condition=False ; enemy_1_x_movement=[0] ; enemy_1_y_movement=[0] ; enemy_1_friendly_dialogue=False ; enemy_one_dialogue_list=[0] ; enemy_list_level_1=[]
-enemy_1_attack_length=[0] ; enemy_1_distance_list=[] ; enemy_1_health_list=[] ; enemy_one_fall_number=[] ; enemy_one_fall_direction_set=[] ; enemy_list_level_2=[]
+enemy_1_attack_length=[0] ; enemy_1_distance_list=[] ; enemy_1_health_list=[] ; enemy_one_fall_number=[] ; enemy_one_fall_direction_set=[] ; enemy_list_level_2=[] ; enemy_list_level_3=[]
 
 npc_walk_length=[random.randint(200,400),random.randint(200,400),random.randint(200,400),random.randint(200,400)] 
 npc_direction_choice=[random.randint(1,2),random.randint(1,2),random.randint(1,2),random.randint(1,2),random.randint(1,2)]
@@ -1755,13 +1769,13 @@ class Player(Game):
 
 class EnemyOne(Player):
     #here
-    def __init__(self,enemy_list_level_1,npc_walk_length,npc_direction_choice,enemy_1_distance_list,enemy_1_health_list):
+    def __init__(self,enemy_list_level_1,npc_walk_length,npc_direction_choice,enemy_1_distance_list,enemy_1_health_list,enemy_1_level_3_rect,enemy_list_level_3):
         self.enemy_list_level_1=enemy_list_level_1 ;  self.npc_walk_length=npc_walk_length ; self.npc_direction_choice=npc_direction_choice ; self.enemy_1_distance_list=enemy_1_distance_list
-        self.enemy_1_health_list=enemy_1_health_list
+        self.enemy_1_health_list=enemy_1_health_list ; self.enemy_1_level_3_rect=enemy_1_level_3_rect ; self.enemy_list_level_3=enemy_list_level_3
         super().__init__(player_x_movement,player_y_movement,player_rect,player_current_health)
     
     def move(self,enemy_1_level_1_rect,enemy_level_1_rect,enemy_1_level_1_rect_idle,enemy_1_x_movement,enemy_1_y_movement,enemy_1_level_2_rect):
-        global level_1, level_1_enemy_fight_condition,x,y,off_x, level_2_part_2
+        global level_1, level_1_enemy_fight_condition,x,y,off_x, level_2_part_2,level_3_part_3
         self.enemy_1_level_1_rect=enemy_1_level_1_rect ; self.enemy_1_walk=enemy_1_walk ; self.enemy_level_1_rect=enemy_level_1_rect ; self.enemy_1_level_1_rect_idle=enemy_1_level_1_rect_idle
         self.enemy_1_idle=enemy_1_idle ; self.enemy_1_walk_length=enemy_1_walk_length ; self.enemy_1_idle_length=enemy_1_idle_length ; self.enemy_1_idle_flip=enemy_1_idle_flip
         self.enemy_1_x_movement=enemy_1_x_movement ; self.enemy_1_y_movement=enemy_1_y_movement ; self.camera_x_y=camera_x_y ; self.enemy_1_walk_flip=enemy_1_walk_flip
@@ -1769,9 +1783,10 @@ class EnemyOne(Player):
         self.enemy_one_fall_number=enemy_one_fall_number ; self.enemy_one_fall_direction_set=enemy_one_fall_direction_set ; self.enemy_1_level_2_rect=enemy_1_level_2_rect
         self.tile_level_2_rect=tile_level_2_rect ; self.enemy_list_level_2=enemy_list_level_2 ; self.level_2_tile_index=level_2_tile_index ; self.tile_level_2_rect=tile_level_2_rect
         
-        if level_1 or level_2_part_2:
+        if level_1 or level_2_part_2 or level_3_part_3:
             if level_1: enemy_1_rect=self.enemy_level_1_rect
             if level_2_part_2 : enemy_1_rect=self.enemy_1_level_2_rect
+            if level_3_part_3 : enemy_1_rect=self.enemy_1_level_3_rect
             for idx,knight in enumerate(enemy_1_rect):
                 player_enemy_1_distance=math.sqrt(math.pow(self.player_rect.x-knight.x,2)+math.pow(self.player_rect.y-knight.y,2))
                 self.enemy_1_x_movement.append(0) ; self.enemy_1_attack_length.append(0) ; self.enemy_1_distance_list.append(player_enemy_1_distance)
@@ -1788,6 +1803,9 @@ class EnemyOne(Player):
                 
         if level_2_part_2:
             for idx,enemy_knight in enumerate(self.enemy_1_level_2_rect): self.enemy_list_level_2.append(pygame.Rect(enemy_knight.x,enemy_knight.y,45,55))
+
+        if level_3_part_3:
+            for idx,enemy_knight in enumerate(self.enemy_1_level_3_rect): self.enemy_list_level_3.append(pygame.Rect(enemy_knight.x,enemy_knight.y,45,55))
         
         if level_1 and not level_1_enemy_fight_condition or level_2_part_2:
             if level_1: enemy_1_rect=self.enemy_1_level_1_rect
@@ -1817,7 +1835,6 @@ class EnemyOne(Player):
                     if self.npc_walk_length[idx]<=0:
                             self.npc_walk_length[idx]=random.randint(500,700) ; self.npc_direction_choice[idx]=random.randint(1,2)   
                         
-        
             if level_1 and not level_1_enemy_fight_condition:
                 for idx,enemy_knight in enumerate(self.enemy_1_level_1_rect_idle):
                     self.enemy_1_x_movement[idx+len(self.npc_walk_length)]=0
@@ -1842,6 +1859,7 @@ class EnemyOne(Player):
                         self.enemy_1_x_movement[idx]=-4
                         SCREEN.blit(self.enemy_1_walk_flip[int(self.enemy_1_walk_length[0])//2],(enemy_1_rect[idx].x-self.camera_x_y[0],knight.y-self.camera_x_y[1]+10)) 
         
+        
         for idx,knight in enumerate(self.enemy_1_level_2_rect):
             if level_2_part_2 and self.enemy_1_distance_list[idx]<=200 and self.enemy_1_distance_list[idx]>50: 
                 if level_2_part_2 : enemy_1_rect=self.enemy_1_level_2_rect
@@ -1854,7 +1872,26 @@ class EnemyOne(Player):
                     if self.player_rect.x<knight.x:
                             self.enemy_1_x_movement[idx]=-4
                             SCREEN.blit(self.enemy_1_walk_flip[int(self.enemy_1_walk_length[0])//2],(enemy_1_rect[idx].x-self.camera_x_y[0],knight.y-self.camera_x_y[1]+10)) 
-    
+        
+        for idx,enemy_knight in enumerate(self.enemy_1_level_3_rect):
+            if level_3_part_3 and self.enemy_1_distance_list[idx]<900 and self.enemy_1_distance_list[idx]>50: 
+                enemy_1_rect=self.enemy_1_level_3_rect
+                if self.enemy_1_distance_list[idx]<900 and self.enemy_1_health_list[idx]>0:
+                    self.enemy_1_walk_length[0]+=0.20
+                    if self.enemy_1_walk_length[0]>10: self.enemy_1_walk_length[0]=0
+                    if self.player_rect.x>=knight.x:
+                        self.enemy_1_x_movement[idx]=3
+                        SCREEN.blit(self.enemy_1_walk[int(self.enemy_1_walk_length[0])//2],(enemy_1_rect[idx].x-self.camera_x_y[0],knight.y-self.camera_x_y[1]+25)) 
+                    if self.player_rect.x<knight.x:
+                        self.enemy_1_x_movement[idx]=-3
+                        SCREEN.blit(self.enemy_1_walk_flip[int(self.enemy_1_walk_length[0])//2],(enemy_1_rect[idx].x-self.camera_x_y[0],knight.y-self.camera_x_y[1]+25)) 
+            if level_3_part_3 and self.enemy_1_distance_list[idx]>=900:
+                enemy_1_rect=self.enemy_1_level_3_rect
+                if self.player_rect.x>enemy_knight.x: SCREEN.blit(self.enemy_1_idle[int(self.enemy_1_idle_length[0]//2)],(enemy_knight.x-self.camera_x_y[0],enemy_knight.y-self.camera_x_y[1]+25))
+                else: SCREEN.blit(self.enemy_1_idle_flip[int(self.enemy_1_idle_length[0]//2)],(enemy_knight.x-self.camera_x_y[0],enemy_knight.y-self.camera_x_y[1]+25))
+                self.enemy_1_idle_length[0]+=0.15
+                if self.enemy_1_idle_length[0]>12: self.enemy_1_idle_length[0]=0
+
     def player_interaction(self):
         global level_1 , level_1_enemy_fight_condition , enemy_1_friendly_dialogue,change_dialogue , dialogue_start_condition , end_dialogue ,change_dialogue_cond_1,dialogue_move_condition
         self.mouse_button_left_image=mouse_button_left_image ; self.enemy_one_icon=enemy_one_icon ; self.enemy_one_dialogue_list=enemy_one_dialogue_list ; self.player_icon=player_icon
@@ -1907,16 +1944,24 @@ class EnemyOne(Player):
     def attack(self):
         self.enemy_1_attack=enemy_1_attack ; self.enemy_1_attack_flip=enemy_1_attack_flip ; self.enemy_1_attack_length=enemy_1_attack_length 
         global level_1_enemy_fight_condition
-        if level_1 and level_1_enemy_fight_condition or level_2_part_2: #here
+        if level_1 and level_1_enemy_fight_condition or level_2_part_2 or level_3_part_3: #here
             if level_1: enemy_1_rect=self.enemy_level_1_rect
             if level_2_part_2 : enemy_1_rect=self.enemy_1_level_2_rect
+            if level_3_part_3 : enemy_1_rect=self.enemy_1_level_3_rect
             for idx,knight in enumerate(enemy_1_rect):
-                if  level_1 and self.enemy_1_distance_list[idx]<50 and self.enemy_1_health_list[idx]>0 or level_2_part_2 and self.enemy_1_distance_list[idx]<=50 and self.enemy_1_health_list[idx]>0:
+                if  level_1 and self.enemy_1_distance_list[idx]<50 and self.enemy_1_health_list[idx]>0 or level_2_part_2 and self.enemy_1_distance_list[idx]<=50 and self.enemy_1_health_list[idx]>0 or level_3_part_3 and self.enemy_1_distance_list[idx]<=50 and self.enemy_1_health_list[idx]>0:
                     self.enemy_1_x_movement[idx]=0
-                    if self.player_rect.x>=enemy_1_rect[idx].x:
-                        SCREEN.blit(self.enemy_1_attack[int(self.enemy_1_attack_length[idx])//2],(enemy_1_rect[idx].x-self.camera_x_y[0],enemy_1_rect[idx].y-self.camera_x_y[1]))
-                    if self.player_rect.x<enemy_1_rect[idx].x:
-                        SCREEN.blit(self.enemy_1_attack_flip[int(self.enemy_1_attack_length[idx])//2],(enemy_1_rect[idx].x-self.camera_x_y[0],enemy_1_rect[idx].y-self.camera_x_y[1]))
+                    if level_3_part_3:
+                        if self.player_rect.x>=enemy_1_rect[idx].x:
+                            SCREEN.blit(self.enemy_1_attack[int(self.enemy_1_attack_length[idx])//2],(enemy_1_rect[idx].x-self.camera_x_y[0],enemy_1_rect[idx].y-self.camera_x_y[1]+10))
+                        if self.player_rect.x<enemy_1_rect[idx].x:
+                            SCREEN.blit(self.enemy_1_attack_flip[int(self.enemy_1_attack_length[idx])//2],(enemy_1_rect[idx].x-self.camera_x_y[0],enemy_1_rect[idx].y-self.camera_x_y[1]+10))
+                    else:
+                        if self.player_rect.x>=enemy_1_rect[idx].x:
+                            SCREEN.blit(self.enemy_1_attack[int(self.enemy_1_attack_length[idx])//2],(enemy_1_rect[idx].x-self.camera_x_y[0],enemy_1_rect[idx].y-self.camera_x_y[1]))
+                        if self.player_rect.x<enemy_1_rect[idx].x:
+                            SCREEN.blit(self.enemy_1_attack_flip[int(self.enemy_1_attack_length[idx])//2],(enemy_1_rect[idx].x-self.camera_x_y[0],enemy_1_rect[idx].y-self.camera_x_y[1]))
+
                     self.enemy_1_attack_length[idx]+=0.75
                     if self.enemy_1_attack_length[idx]>9:
                         self.enemy_1_attack_length[idx]=0
@@ -1981,11 +2026,12 @@ class EnemyOne(Player):
                 for idx,knight in enumerate(self.enemy_1_health_list):
                     self.enemy_1_health_list[idx]=100
                 
-    def collision_with_object(self,tile_level_1,tile_level_2):
+    def collision_with_object(self,tile_level_1,tile_level_2,tile_level_3_rect):
         self.level_2_tile_index=level_2_tile_index ; self.npc_direction_choice=npc_direction_choice
-        if level_1 or level_2_part_2:
+        if level_1 or level_2_part_2 or level_3_part_3:
             if level_1: enemy_1_rect=self.enemy_level_1_rect ; tile_level=self.tile_level_1_rect
             if level_2_part_2 : enemy_1_rect=self.enemy_1_level_2_rect ; tile_level=self.tile_level_2_rect
+            if level_3_part_3: enemy_1_rect=self.enemy_1_level_3_rect ; tile_level=self.tile_level_3_rect
             hit_tile=[]
             for idx,enemy_knight in enumerate(enemy_1_rect):
                 for tiles in tile_level:
@@ -2001,19 +2047,20 @@ class EnemyOne(Player):
                                 self.npc_direction_choice[idx]=2 
             return hit_tile
         
-    def collision_with_object_logic(self,tile_level_1,tile_level_2):
+    def collision_with_object_logic(self,tile_level_1,tile_level_2,tile_level_3_rect):
         global level_1_enemy_fight_condition, level_2_part_2
-        if level_1 or level_2_part_2:
+        if level_1 or level_2_part_2 or level_3_part_3:
             if level_1: enemy_1_rect=self.enemy_level_1_rect ; enemy_list=self.enemy_list_level_1
             if level_2_part_2 : enemy_1_rect=self.enemy_1_level_2_rect ; enemy_list=self.enemy_list_level_2
+            if level_3_part_3: enemy_1_rect=self.enemy_1_level_3_rect ; enemy_list=self.enemy_list_level_3
             for idx,enemy_knight in enumerate(enemy_1_rect):
                 try:
                     enemy_knight.x+=self.enemy_1_x_movement[idx]
                 except IndexError : pass
-            collision=EnemyOne.collision_with_object(self,tile_level_1,tile_level_2)
+            collision=EnemyOne.collision_with_object(self,tile_level_1,tile_level_2,tile_level_3_rect)
             for idx,enemy_knight in enumerate(enemy_1_rect):
                 enemy_knight.y+=self.enemy_1_y_movement[0]
-            collision=EnemyOne.collision_with_object(self,tile_level_1,tile_level_2)
+            collision=EnemyOne.collision_with_object(self,tile_level_1,tile_level_2,tile_level_3_rect)
             for tile in collision:
                 for idx,enemy_knight in enumerate(enemy_1_rect):
                     if enemy_knight.colliderect(tile):
@@ -2715,15 +2762,15 @@ while run:
     player.collision_with_object(tile_level_1_rect,tile_level_2_rect,tile_level_3_rect,level_3_tile_set_part_2_rect)
     player.collision_with_object_logic(tile_level_1_rect,tile_level_2_rect,tile_level_3_rect,level_3_tile_set_part_2_rect)
     
-    enemy_one=EnemyOne(enemy_list_level_1,npc_walk_length,npc_direction_choice,enemy_1_distance_list,enemy_1_health_list)
+    enemy_one=EnemyOne(enemy_list_level_1,npc_walk_length,npc_direction_choice,enemy_1_distance_list,enemy_1_health_list,enemy_1_level_3_rect,enemy_list_level_3)
     enemy_one.move(enemy_1_level_1_rect,enemy_level_1_rect,enemy_1_level_1_rect_idle,enemy_1_x_movement,enemy_1_y_movement,enemy_1_level_2_rect)
     enemy_one.player_interaction()
     enemy_one.attack()
     enemy_one.player_hit()
     enemy_one.fall()
     enemy_one.reset_position()
-    enemy_one.collision_with_object(tile_level_1,tile_level_2)
-    enemy_one.collision_with_object_logic(tile_level_1,tile_level_2)
+    enemy_one.collision_with_object(tile_level_1,tile_level_2,tile_level_3_rect)
+    enemy_one.collision_with_object_logic(tile_level_1,tile_level_2,tile_level_3_rect)
     
     enemy_two=EnemyTwo(enemy_two_level_1_rect,enemy_two_x_movement,enemy_two_y_movement,enemy_two_rect_list,enemy_two_distance_list,enemy_two_health)
     enemy_two.movement()
