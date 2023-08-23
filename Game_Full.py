@@ -1393,11 +1393,11 @@ class Game:
             if self.player_rect.x>1400:
                 level_3_dialogue_part_1=True
 
-        if level_3_part_2 and self.player_current_health[0]<=0:
+        if level_3_part_2 and self.player_current_health[0]<=0 and not level_3_dialogue_part_9_once:
             level_3_part_2_lose_dialogue=True
             level_3_dialogue_part_9_once=False
 
-        if enemy_stage_two and self.boss_2_level_3_health[0]<=0:
+        if enemy_stage_two and self.boss_2_level_3_health[0]<=0 and not level_3_dialogue_part_10_once:
             level_3_part_2_win_dialogue=True
             level_3_dialogue_part_10_once=False
         
@@ -1422,7 +1422,7 @@ class Game:
             if level_3_part_2_lose_dialogue and not level_3_dialogue_part_9_once:
                 level_3_dialogue=self.boss_two_lose_dialouge ; colour_box=(119,136,153)  ; colour_font=(112,128,144)
             if level_3_part_2_win_dialogue and not level_3_dialogue_part_10_once:
-                level_3_dialogue=self.boss_two_win_dialouge ; colour_box=(119,136,153)  ; colour_font=(112,128,144)
+                level_3_dialogue=self.boss_two_win_dialogue ; colour_box=(119,136,153)  ; colour_font=(112,128,144)
 
             dialogue_move_condition=True ; rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  ; rectangle_blur.set_alpha(100) ; rectangle_blur.fill((0,0,0))  ; SCREEN.blit(rectangle_blur,(0,0)) 
             rectangle_box_1=pygame.Surface((SCREEN_WIDTH,200))  ; rectangle_box_1.fill(colour_box)  ; rectangle_box_1.set_alpha(75)  ; SCREEN.blit(rectangle_box_1,(0,500))
@@ -1454,12 +1454,15 @@ class Game:
                     player_ally_five=False
                     if level_3_dialogue_boss_fight: level_3_dialogue_part_7_once=True
                     level_3_dialogue_boss_fight=False
-                    if level_3_dialogue_rise_boss: level_3_dialogue_part_8_once=True
-                    level_3_dialogue_boss_fight=False ;  self.boss_2_level_3_health[0]=1000
+                    if level_3_dialogue_rise_boss: 
+                        level_3_dialogue_part_8_once=True
+                        self.boss_2_level_3_health[0]=1000
+                    level_3_dialogue_rise_boss=False 
                     if level_3_part_2_lose_dialogue: level_3_dialogue_part_9_once=True
                     level_3_part_2_lose_dialogue=False  
                     if level_3_part_2_win_dialogue: level_3_dialogue_part_10_once=True
-                    level_3_part_2_win_dialogue=False   
+                    level_3_dialogue_rise_boss=False
+                    level_3_part_2_win_dialogue=False
 
             if event.type==pygame.MOUSEBUTTONDOWN:  change_dialogue_cond_1=True
             if event.type==pygame.MOUSEBUTTONUP and change_dialogue_cond_1:
@@ -2494,7 +2497,7 @@ class BossTwo(Player):
     def run(self):
         global level_3_part_2,level_3_dialogue_part_7_once
         self.boss_2_run_number=boss_2_run_number ; self.boss_2_run=boss_2_run ; self.boss_2_run_flip=boss_2_run_flip
-        if level_3_part_2 and ( level_3_dialogue_part_7_once or level_3_dialogue_part_8_once) and self.player_boss_two_distance>=50 and boss_2_level_3_health[0]>0:
+        if level_3_part_2 and ( level_3_dialogue_part_7_once or level_3_dialogue_part_8_once) and self.player_boss_two_distance>=50 and self.boss_2_level_3_health[0]>0:
             if self.player_rect.x<=self.boss_2_level_3_rect.x:
                 SCREEN.blit(self.boss_2_run[int(self.boss_2_run_number[0])//2],(self.boss_2_level_3_rect.x-self.camera_x_y[0],self.boss_2_level_3_rect.y-self.camera_x_y[1]))
                 if not enemy_stage_two:
@@ -2513,7 +2516,8 @@ class BossTwo(Player):
 
     def attack(self):
         self.boss_2_attack=boss_2_attack ; self.boss_2_attack_flip=boss_2_attack_flip ; self.boss_2_attack_number=boss_2_attack_number
-        if level_3_part_2 and (level_3_dialogue_part_7_once or level_3_dialogue_part_8_once) and self.player_boss_two_distance<50 and boss_2_level_3_health[0]>0:
+        if level_3_part_2 and (level_3_dialogue_part_7_once or level_3_dialogue_part_8_once) and self.player_boss_two_distance<50 and self.boss_2_level_3_health[0]>0:
+            print("HERE")
             if self.player_rect.x<=self.boss_2_level_3_rect.x:
                 SCREEN.blit(self.boss_2_attack[int(self.boss_2_attack_number[0])//2],(self.boss_2_level_3_rect.x-self.camera_x_y[0],self.boss_2_level_3_rect.y-self.camera_x_y[1]))
                 self.boss_2_level_3_x_movement[0]=0
@@ -2552,6 +2556,7 @@ class BossTwo(Player):
         self.boss_2_recover=boss_2_recover ; self.boss_2_recover_flip=boss_2_recover_flip ; self.boss_2_recover_number=boss_2_recover_number ; self.boss_2_fall=boss_2_fall ; self.boss_2_fall_flip=boss_2_fall_flip
         self.boss_2_rise_number=boss_2_rise_number
         if boss_one_fall_once:
+
             if boss_2_fall_right and self.boss_2_rise_number[0]<=10:
                 SCREEN.blit(self.boss_2_fall[0],(self.boss_2_level_3_rect.x-self.camera_x_y[0],self.boss_2_level_3_rect.y-self.camera_x_y[1]))
                 self.boss_2_level_3_x_movement[0]=0
@@ -2583,8 +2588,10 @@ class BossTwo(Player):
             if boss_2_fall_right:
                 SCREEN.blit(self.boss_2_fall[0],(self.boss_2_level_3_rect.x-self.camera_x_y[0],self.boss_2_level_3_rect.y-self.camera_x_y[1]))
                 self.boss_2_level_3_x_movement[0]=0
+
             if boss_2_fall_left:
                 SCREEN.blit(self.boss_2_fall_flip[0],(self.boss_2_level_3_rect.x-self.camera_x_y[0],self.boss_2_level_3_rect.y-self.camera_x_y[1]))
+                self.boss_2_level_3_x_movement[0]=0
 
     def reset_position(self):
         global reset_enemy_position
