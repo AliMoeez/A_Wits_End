@@ -796,6 +796,8 @@ level_3_dialogue_boss_fight=False ; boss_one_fall_once=False ; level_3_dialogue_
 level_3_part_2_lose_dialogue=False ; level_3_dialogue_part_9_once=False
 level_3_part_2_win_dialogue=False ; level_3_dialogue_part_10_once=False
 
+level_3_fade_level_2=[0] ; level_3_part_3=False
+
 
 class Menu:
     def __init__(self,camera_x_y_bg):
@@ -1206,9 +1208,9 @@ class Game:
                 change_dialogue=False ; self.level_2_dialogue_list_part_1_length[0]+=1
 
     def level_three(self):
-        global level_3,level_screen,level_3_part_2,level_3_transition_1,level_3_dialogue_boss_fight,level_3_dialogue_part_7_once,reset_enemy_position
-        self.camera_x_y=camera_x_y ; self.player_x_movement=player_x_movement ; self.mouse_button_left_image=mouse_button_left_image
-        self.list_2_bg_y_pos=list_2_bg_y_pos ; self.level_3_hill_list=level_3_hill_list ; self.level_3_bg_list=level_3_bg_list ; self.level_3_door=level_3_door
+        global level_3,level_screen,level_3_part_2,level_3_transition_1,level_3_dialogue_boss_fight,level_3_dialogue_part_7_once,reset_enemy_position,enemy_stage_two,level_3_part_3
+        self.camera_x_y=camera_x_y ; self.player_x_movement=player_x_movement ; self.mouse_button_left_image=mouse_button_left_image ; self.level_3_fade_level_2=level_3_fade_level_2
+        self.list_2_bg_y_pos=list_2_bg_y_pos ; self.level_3_hill_list=level_3_hill_list ; self.level_3_bg_list=level_3_bg_list ; self.level_3_door=level_3_door ; self.boss_2_level_3_health=boss_2_level_3_health
         self.level_3_hill_1=level_3_hill_1 ; self.level_3_hill_2=level_3_hill_2 ; self.level_3_hill_3=level_3_hill_3 ; self.level_3_hill_4=level_3_hill_4 ; self.level_3_hill_5=level_3_hill_5
         self.level_3_hill_6=level_3_hill_6 ; self.level_3_hill_7=level_3_hill_7 ; self.level_3_pillar_1=level_3_pillar_1 ; self.level_3_pillar_2=level_3_pillar_2 ; self.level_3_pillar_3=level_3_pillar_3
         self.level_3_fade_level=level_3_fade_level ; self.level_3_part_2_fade_intro=[140] ; self.level_3_bg_test=level_3_bg_test ; self.level_3_tile_1=level_3_tile_1 ; self.level_3_bg_part_2_list=level_3_bg_part_2_list
@@ -1268,7 +1270,7 @@ class Game:
                     self.camera_x_y[0]=0
                     self.player_rect.y=200
 
-        if level_3_part_2: 
+        if level_3_part_2 and not level_3_part_3: 
             self.player_rect.height=64
             level_3=False
             self.level_3_fade_level[0]-=10 ; rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  ; rectangle_blur.set_alpha(self.level_3_fade_level[0]) ; rectangle_blur.fill((0,0,0))   ; SCREEN.blit(rectangle_blur,(0,0))
@@ -1300,7 +1302,23 @@ class Game:
                     SCREEN.blit(tile[2],(x_val-self.camera_x_y[0],y_val-self.camera_x_y[1]))
                     self.level_3_tile_set_part_2_rect.append(pygame.Rect((x_val,y_val,32,40)))
 
-        if level_3 or level_3_part_2:
+        if level_3_part_2 and enemy_stage_two and self.boss_2_level_3_health[0]<=0:
+            if self.player_rect.x>=5300:
+                self.level_3_fade_level_2[0]+=10 ; rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  ; rectangle_blur.set_alpha(self.level_3_fade_level_2[0])  ; rectangle_blur.fill((0,0,0))   ; SCREEN.blit(rectangle_blur,(0,0))
+                if self.level_3_fade_level_2[0]>=200:
+                    level_3_part_3=True
+                    self.player_current_health[0]=1000
+                    self.player_rect.x=200
+                    self.camera_x_y[0]=0
+                    self.player_rect.y=200
+
+        if level_3_part_3:
+            self.level_3_fade_level_2[0]-=10 ; rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  ; rectangle_blur.set_alpha(self.level_3_fade_level_2[0])  ; rectangle_blur.fill((0,0,0))   ; SCREEN.blit(rectangle_blur,(0,0))
+            if self.level_3_fade_level_2[0]<0:
+                self.level_3_fade_level_2[0]=0
+            SCREEN.fill((200,100,200))
+
+        if level_3 or level_3_part_2 or level_3_part_3:
             health_icons=pygame.draw.rect(SCREEN,(165,42,42),pygame.Rect(10,10,self.player_current_health[0]/self.health_bar_ratio,25))
             SCREEN.blit(self.health_icon,(15,12))
             health_border=pygame.draw.rect(SCREEN,(220,220,220),pygame.Rect(10,10,self.health_bar_length,25),4) 
@@ -2517,7 +2535,6 @@ class BossTwo(Player):
     def attack(self):
         self.boss_2_attack=boss_2_attack ; self.boss_2_attack_flip=boss_2_attack_flip ; self.boss_2_attack_number=boss_2_attack_number
         if level_3_part_2 and (level_3_dialogue_part_7_once or level_3_dialogue_part_8_once) and self.player_boss_two_distance<50 and self.boss_2_level_3_health[0]>0:
-            print("HERE")
             if self.player_rect.x<=self.boss_2_level_3_rect.x:
                 SCREEN.blit(self.boss_2_attack[int(self.boss_2_attack_number[0])//2],(self.boss_2_level_3_rect.x-self.camera_x_y[0],self.boss_2_level_3_rect.y-self.camera_x_y[1]))
                 self.boss_2_level_3_x_movement[0]=0
@@ -2588,7 +2605,6 @@ class BossTwo(Player):
             if boss_2_fall_right:
                 SCREEN.blit(self.boss_2_fall[0],(self.boss_2_level_3_rect.x-self.camera_x_y[0],self.boss_2_level_3_rect.y-self.camera_x_y[1]))
                 self.boss_2_level_3_x_movement[0]=0
-
             if boss_2_fall_left:
                 SCREEN.blit(self.boss_2_fall_flip[0],(self.boss_2_level_3_rect.x-self.camera_x_y[0],self.boss_2_level_3_rect.y-self.camera_x_y[1]))
                 self.boss_2_level_3_x_movement[0]=0
