@@ -858,7 +858,7 @@ class Menu:
             if pygame.Rect.collidepoint(rectangle_level_2,pygame.mouse.get_pos()) and event.type==pygame.MOUSEBUTTONDOWN:
                 level_scren=False ; level_1=False ; level_2=True ; level_3=False ; level_4=False
             if pygame.Rect.collidepoint(rectangle_level_3,pygame.mouse.get_pos()) and event.type==pygame.MOUSEBUTTONDOWN:
-                level_scren=False ; level_1=False ; level_2=False ; level_3_part_3=True ; level_4=False #change to level_3
+                level_scren=False ; level_1=False ; level_2=False ; level_3=True ; level_4=False #change to level_3
         if level_1:
             level_screen=False
             if key[pygame.K_r]:
@@ -867,7 +867,7 @@ class Menu:
             level_screen=False
             if key[pygame.K_r]:
                 level_2=False ; level_2_part_2=False ; level_screen=True ; level_1=False ; level_3=False ; reset_enemy_position=True
-        if level_3_part_3: #change to level_3
+        if level_3: #change to level_3
             level_screen=False
             if key[pygame.K_r]:
                 level_3=False ; level_2_part_2=False ; level_screen=True ; level_1=False ; level_2=False ; reset_enemy_position=True
@@ -1284,17 +1284,19 @@ class Game:
             if level_3_transition_1:
                 self.level_3_fade_level[0]+=10 ; rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  ; rectangle_blur.set_alpha(self.level_3_fade_level[0])  ; rectangle_blur.fill((0,0,0))   ; SCREEN.blit(rectangle_blur,(0,0))
                 if self.level_3_fade_level[0]>=200:
+                    self.level_3_fade_level[0]=200
                     level_3_part_2=True
                     self.player_rect.x=200
                     self.camera_x_y[0]=0
-                    self.player_rect.y=200
+                    self.player_rect.y=600
 
         if level_3_part_2 and not level_3_part_3: 
             self.player_rect.height=64
             level_3=False
-            self.level_3_fade_level[0]-=10 ; rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  ; rectangle_blur.set_alpha(self.level_3_fade_level[0]) ; rectangle_blur.fill((0,0,0))   ; SCREEN.blit(rectangle_blur,(0,0))
-            if self.level_3_fade_level[0]<=0:
-                self.level_3_fade_level[0]=0
+          #  print(self.level_3_fade_level[0])
+          #  self.level_3_fade_level[0]-=10 ; rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  ; rectangle_blur.set_alpha(self.level_3_fade_level[0]) ; rectangle_blur.fill((0,0,0))   ; SCREEN.blit(rectangle_blur,(0,0))
+          #  if self.level_3_fade_level[0]<=0:
+          #      self.level_3_fade_level[0]=0
             if self.player_rect.x>=100 and self.player_rect.x<4540: self.camera_x_y[0]+=self.player_rect.x-self.camera_x_y[0]-210
             if self.player_rect.x<15: self.player_rect.x=15    
             if self.player_rect.x>=4540: 
@@ -1320,6 +1322,10 @@ class Game:
                     y_val=tile[1]*32
                     SCREEN.blit(tile[2],(x_val-self.camera_x_y[0],y_val-self.camera_x_y[1]))
                     self.level_3_tile_set_part_2_rect.append(pygame.Rect((x_val,y_val,32,40)))
+            
+            self.level_3_fade_level[0]-=8 ; rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  ; rectangle_blur.set_alpha(self.level_3_fade_level[0]) ; rectangle_blur.fill((0,0,0))   ; SCREEN.blit(rectangle_blur,(0,0))
+            if self.level_3_fade_level[0]<=0:
+                self.level_3_fade_level[0]=0
 
         if level_3_part_2 and enemy_stage_two and self.boss_2_level_3_health[0]<=0:
             if self.player_rect.x>=5300:
@@ -1329,13 +1335,11 @@ class Game:
                     self.player_current_health[0]=1000
                     self.player_rect.x=200
                     self.camera_x_y[0]=0
-                    self.player_rect.y=200
+                    self.player_rect.y=570
 
         if level_3_part_3:
-            self.level_3_fade_level_2[0]-=10 ; rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  ; rectangle_blur.set_alpha(self.level_3_fade_level_2[0])  ; rectangle_blur.fill((0,0,0))   ; SCREEN.blit(rectangle_blur,(0,0))
-            if self.level_3_fade_level_2[0]<0:
-                self.level_3_fade_level_2[0]=0
-        
+            self.player_rect.height=48
+            level_3_part_2=False
             if self.player_rect.x>=100 and self.player_rect.x<4500: self.camera_x_y[0]+=self.player_rect.x-self.camera_x_y[0]-210
             if self.player_rect.x<15: self.player_rect.x=15    
             if self.player_rect.x>=4500: 
@@ -1343,7 +1347,7 @@ class Game:
                 if self.player_rect.x>5300:
                     self.player_rect.x=5300
             if self.camera_x_y[0]<0: self.camera_x_y[0]=0
-           
+
             y_1=0
             for row in self.tile_level_3:
                 x_1=0
@@ -1354,13 +1358,13 @@ class Game:
                         self.tile_level_3_rect.append(pygame.Rect((x_1*48,y_1*43,48,43)))
                     x_1+=1
                 y_1+=1
-
+            
             SCREEN.blit(self.level_3_bg_test,(-self.camera_x_y[0],0))
             SCREEN.blit(self.level_3_bg_test,(-self.camera_x_y[0]+1100,0))
             SCREEN.blit(self.level_3_bg_test,(-self.camera_x_y[0]+2200,0))
             SCREEN.blit(self.level_3_bg_test,(-self.camera_x_y[0]+3300,0))
             SCREEN.blit(self.level_3_bg_test,(-self.camera_x_y[0]+4400,0))
-            
+
             self.hill_list_level_3_part_3=[
                 (self.level_3_hill_2,200,590),(self.level_3_hill_4,500,505),(self.level_3_hill_3,1000,545),(self.level_3_hill_1,1200,505),(self.level_3_hill_5,1400,545),
                 (self.level_3_hill_1,1500,505),(self.level_3_hill_4,1950,505),(self.level_3_hill_2,2100,590),(self.level_3_hill_4,2200,505),(self.level_3_hill_1,2350,505),
@@ -1370,6 +1374,10 @@ class Game:
 
             for idx,hill in enumerate(self.hill_list_level_3_part_3):
                 SCREEN.blit(self.hill_list_level_3_part_3[idx][0],(self.hill_list_level_3_part_3[idx][1]-self.camera_x_y[0],self.hill_list_level_3_part_3[idx][2]-self.camera_x_y[1]))
+
+            self.level_3_fade_level_2[0]-=10 ; rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  ; rectangle_blur.set_alpha(self.level_3_fade_level_2[0])  ; rectangle_blur.fill((0,0,0))   ; SCREEN.blit(rectangle_blur,(0,0))
+            if self.level_3_fade_level_2[0]<0:
+                self.level_3_fade_level_2[0]=0
 
         if level_3 or level_3_part_2 or level_3_part_3:
             health_icons=pygame.draw.rect(SCREEN,(165,42,42),pygame.Rect(10,10,self.player_current_health[0]/self.health_bar_ratio,25))
@@ -2693,9 +2701,9 @@ class BossTwo(Player):
                      #   boss_2_fall_left=False
 
     def fall(self):
-        global enemy_stage_two
+        global enemy_stage_two,level_3_part_3
         self.boss_2_fall=boss_2_fall ; self.boss_2_fall_flip=boss_2_fall_flip
-        if enemy_stage_two and self.boss_2_level_3_health[0]<=0:
+        if enemy_stage_two and self.boss_2_level_3_health[0]<=0 and level_3_part_2:
             if boss_2_fall_right:
                 SCREEN.blit(self.boss_2_fall[0],(self.boss_2_level_3_rect.x-self.camera_x_y[0],self.boss_2_level_3_rect.y-self.camera_x_y[1]))
                 self.boss_2_level_3_x_movement[0]=0
