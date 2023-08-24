@@ -1879,35 +1879,15 @@ class EnemyOne(Player):
             if len(self.attack_list)>len(self.enemy_1_level_3_rect):
                 del self.attack_list[-1]
             self.enemy_1_y_movement[0]=2
-            if level_3_part_3 and self.enemy_1_distance_list[idx]<=900 and self.enemy_1_distance_list[idx]>50 and self.enemy_1_health_list[idx]>0 and self.attack_list[idx] is False: 
-
-                self.enemy_1_walk_length[0]+=0.20
-                    
-                if self.enemy_1_walk_length[0]>10: self.enemy_1_walk_length[0]=0
-                    
-                if self.player_rect.x>=knight.x:
-                    self.enemy_1_x_movement[idx]=3
-                    SCREEN.blit(self.enemy_1_walk[int(self.enemy_1_walk_length[0])//2],(enemy_knight.x-self.camera_x_y[0],enemy_knight.y-self.camera_x_y[1]+25)) 
-                
-                if self.player_rect.x<knight.x:
-                    self.enemy_1_x_movement[idx]=-3
-                    SCREEN.blit(self.enemy_1_walk_flip[int(self.enemy_1_walk_length[0])//2],(enemy_knight.x-self.camera_x_y[0],enemy_knight.y-self.camera_x_y[1]+25)) 
-
-            if self.attack_list[idx] is True and self.enemy_1_distance_list[idx]>50 and self.enemy_1_health_list[idx]>0:
+            if level_3_part_3 and self.enemy_1_distance_list[idx]<=900 and self.enemy_1_distance_list[idx]>50 and self.enemy_1_health_list[idx]>0:
                 self.enemy_1_walk_length[0]+=0.20
                 if self.enemy_1_walk_length[0]>10: self.enemy_1_walk_length[0]=0
-                    
                 if self.player_rect.x>=enemy_knight.x:
                     self.enemy_1_x_movement[idx]=3
                     SCREEN.blit(self.enemy_1_walk[int(self.enemy_1_walk_length[0])//2],(enemy_knight.x-self.camera_x_y[0],enemy_knight.y-self.camera_x_y[1]+25)) 
-                
                 if self.player_rect.x<enemy_knight.x:
                     self.enemy_1_x_movement[idx]=-3
                     SCREEN.blit(self.enemy_1_walk_flip[int(self.enemy_1_walk_length[0])//2],(enemy_knight.x-self.camera_x_y[0],enemy_knight.y-self.camera_x_y[1]+25)) 
-            
-            if level_3_part_3 and self.enemy_1_distance_list[idx]<=50 and self.enemy_1_health_list[idx]>0:
-                self.attack_list[idx]=True
-            
             if level_3_part_3 and self.enemy_1_distance_list[idx]>900:
                 enemy_1_rect=self.enemy_1_level_3_rect
                 if self.player_rect.x>enemy_knight.x: SCREEN.blit(self.enemy_1_idle[int(self.enemy_1_idle_length[0]//2)],(enemy_knight.x-self.camera_x_y[0],enemy_knight.y-self.camera_x_y[1]+25))
@@ -1915,8 +1895,6 @@ class EnemyOne(Player):
                 self.enemy_1_idle_length[0]+=0.15
                 if self.enemy_1_idle_length[0]>12: self.enemy_1_idle_length[0]=0
 
-
-        
     def player_interaction(self):
         global level_1 , level_1_enemy_fight_condition , enemy_1_friendly_dialogue,change_dialogue , dialogue_start_condition , end_dialogue ,change_dialogue_cond_1,dialogue_move_condition
         self.mouse_button_left_image=mouse_button_left_image ; self.enemy_one_icon=enemy_one_icon ; self.enemy_one_dialogue_list=enemy_one_dialogue_list ; self.player_icon=player_icon
@@ -1974,7 +1952,7 @@ class EnemyOne(Player):
             if level_2_part_2 : enemy_1_rect=self.enemy_1_level_2_rect
             if level_3_part_3 : enemy_1_rect=self.enemy_1_level_3_rect
             for idx,knight in enumerate(enemy_1_rect):
-                if  (level_1 and self.enemy_1_distance_list[idx]<50 and self.enemy_1_health_list[idx]>0) or (level_2_part_2 and self.enemy_1_distance_list[idx]<=50 and self.enemy_1_health_list[idx]>0) or (level_3_part_3 and self.attack_list[idx] is True and self.enemy_1_distance_list[idx]<=50):
+                if  (level_1 and self.enemy_1_distance_list[idx]<50 and self.enemy_1_health_list[idx]>0) or (level_2_part_2 and self.enemy_1_distance_list[idx]<=50 and self.enemy_1_health_list[idx]>0) or (level_3_part_3 and self.enemy_1_distance_list[idx]<=50 and self.enemy_1_health_list[idx]>0):
                     self.enemy_1_x_movement[idx]=0
                     if level_3_part_3:
                         if self.player_rect.x>=enemy_1_rect[idx].x:
@@ -1986,17 +1964,17 @@ class EnemyOne(Player):
                             SCREEN.blit(self.enemy_1_attack[int(self.enemy_1_attack_length[idx])//2],(enemy_1_rect[idx].x-self.camera_x_y[0],enemy_1_rect[idx].y-self.camera_x_y[1]))
                         if self.player_rect.x<enemy_1_rect[idx].x:
                             SCREEN.blit(self.enemy_1_attack_flip[int(self.enemy_1_attack_length[idx])//2],(enemy_1_rect[idx].x-self.camera_x_y[0],enemy_1_rect[idx].y-self.camera_x_y[1]))
-
-                    self.enemy_1_attack_length[idx]+=0.75
+                    self.enemy_1_attack_length[idx]+=0.50
                     if self.enemy_1_attack_length[idx]>9:
                         self.enemy_1_attack_length[idx]=0
                         self.player_current_health[0]-=50
     
     def player_hit(self):
-        global level_1, attack,level_1_enemy_fight_condition,attack_done, player_idle_right, player_idle_left,level_2_part_2
-        if level_1 or level_2_part_2:
+        global level_1, attack,level_1_enemy_fight_condition,attack_done, player_idle_right, player_idle_left,level_2_part_2,level_3_part_3
+        if level_1 or level_2_part_2 or level_3_part_3:
             if level_1: enemy_1_rect=self.enemy_level_1_rect
             if level_2_part_2 : enemy_1_rect=self.enemy_1_level_2_rect
+            if level_3_part_3: enemy_1_rect=self.enemy_1_level_3_rect
             if attack_done and level_1_enemy_fight_condition or attack_done:
                 for idx,knight in enumerate(enemy_1_rect):
                     if self.enemy_1_distance_list[idx]<50:
@@ -2011,27 +1989,27 @@ class EnemyOne(Player):
     def fall(self):
         global reset_enemy_position
         self.enemy_1_fall=enemy_1_fall ; self.enemy_1_fall_flip=enemy_1_fall_flip ; self.enemy_one_fall_number=enemy_one_fall_number
-        if level_1 or level_2_part_2 and not reset_enemy_position:
+        if (level_1 or level_2_part_2 or level_3_part_3) and not reset_enemy_position:
             if level_1: enemy_1_rect=self.enemy_level_1_rect
-            if level_2_part_2 : enemy_1_rect=self.enemy_1_level_2_rect
+            if level_2_part_2 : enemy_1_rect=self.enemy_1_level_2_rect ; self.cam_y_1=10 ; self.cam_y_2=45
+            if level_3_part_3 : enemy_1_rect=self.enemy_1_level_3_rect ; self.cam_y_1=25 ; self.cam_y_2=60
             for idx,knight in enumerate(enemy_1_rect):
                 if self.enemy_1_health_list[idx]<=0:
                     self.enemy_1_x_movement[idx]=0
                     self.enemy_1_health_list[idx]=0
                     if self.enemy_one_fall_direction_set[idx]==1:
                         if self.enemy_one_fall_number[idx]<16:
-                            SCREEN.blit(self.enemy_1_fall[int(self.enemy_one_fall_number[idx])//2],(enemy_1_rect[idx].x-self.camera_x_y[0],knight.y-self.camera_x_y[1]+10))
+                            SCREEN.blit(self.enemy_1_fall[int(self.enemy_one_fall_number[idx])//2],(enemy_1_rect[idx].x-self.camera_x_y[0],knight.y-self.camera_x_y[1]+self.cam_y_1))
                         else:
                             self.enemy_one_fall_number[idx]=16  
-                            SCREEN.blit(self.enemy_1_fall[int(self.enemy_one_fall_number[idx])//2],(enemy_1_rect[idx].x-self.camera_x_y[0],knight.y-self.camera_x_y[1]+45))
+                            SCREEN.blit(self.enemy_1_fall[int(self.enemy_one_fall_number[idx])//2],(enemy_1_rect[idx].x-self.camera_x_y[0],knight.y-self.camera_x_y[1]+self.cam_y_2))
                     if self.enemy_one_fall_direction_set[idx]==2:
                         if self.enemy_one_fall_number[idx]<16:
-                            SCREEN.blit(self.enemy_1_fall_flip[int(self.enemy_one_fall_number[idx])//2],(enemy_1_rect[idx].x-self.camera_x_y[0],knight.y-self.camera_x_y[1]+10))
+                            SCREEN.blit(self.enemy_1_fall_flip[int(self.enemy_one_fall_number[idx])//2],(enemy_1_rect[idx].x-self.camera_x_y[0],knight.y-self.camera_x_y[1]+self.cam_y_1))
                         else:
                             self.enemy_one_fall_number[idx]=16  
-                            SCREEN.blit(self.enemy_1_fall_flip[int(self.enemy_one_fall_number[idx])//2],(enemy_1_rect[idx].x-self.camera_x_y[0],knight.y-self.camera_x_y[1]+45))                           
+                            SCREEN.blit(self.enemy_1_fall_flip[int(self.enemy_one_fall_number[idx])//2],(enemy_1_rect[idx].x-self.camera_x_y[0],knight.y-self.camera_x_y[1]+self.cam_y_2))                           
                     self.enemy_one_fall_number[idx]+=0.50
-    
     def reset_position(self):
         global reset_enemy_position,level_2_part_2,level_1,level_2_part_2
         self.enemy_1_level_1_x=enemy_1_level_1_x ; self.enemy_1_level_1_x_idle=enemy_1_level_1_x_idle ; self.enemy_1_level_2_x=enemy_1_level_2_x
