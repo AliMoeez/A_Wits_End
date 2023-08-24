@@ -989,10 +989,12 @@ class Game:
     def level_one_win(self):
         self.enemy_1_health_list=enemy_1_health_list ; self.enemy_two_health=enemy_two_health ; self.win_blur=win_blur ; self.boss_1_health=boss_1_health
         self.enemy_1_x_movement=enemy_1_x_movement
-        global level_1,level_win, level_2, level_3, reset_enemy_position,level_2_part_2,level_2_dialogue_part_two_once
+        global level_1,level_win, level_2, level_3, reset_enemy_position,level_2_part_2,level_2_dialogue_part_two_once,level_3_part_3
         if level_1 and all(idx<=0 for idx in self.enemy_1_health_list) and all(idx<=0 for idx in self.enemy_two_health) and self.player_rect.x>=6050:
             level_win=True
         if level_2_part_2 and self.boss_1_health[0]<=0 and self.player_rect.x>=6050:
+            level_win=True
+        if level_3_part_3 and all(idx<=0 for idx in self.enemy_1_health_list) and self.player_rect.x>=5250:
             level_win=True
         if level_win:
             self.win_blur[0]+=5
@@ -1008,12 +1010,12 @@ class Game:
             
             if pygame.Rect.collidepoint(rectangle_retry,pygame.mouse.get_pos()) and event.type==pygame.MOUSEBUTTONDOWN:
                 level_1=False ; level_2=False ; level_3=False ; reset_enemy_position=True ; level_2_part_2=False ; level_2_dialogue_part_two_once=False
-                self.player_current_health[0]=1000  ; level_1_enemy_fight_condition=False ; level_win=False
+                self.player_current_health[0]=1000  ; level_1_enemy_fight_condition=False ; level_win=False ; level_3_part_3=False
 
             if pygame.Rect.collidepoint(rectangle_main_menu,pygame.mouse.get_pos()) and event.type==pygame.MOUSEBUTTONDOWN:
                 level_selection=False ; level_1=False ; level_screen=False ; self.player_current_health[0]=1000 ; player_death=False ; reset_enemy_position=True
                 level_1_enemy_fight_condition=False ; level_2_dialogue_part_two_once=False         
-                level_2=False ; level_3=False  ; level_2_part_2=False ; level_win=False
+                level_2=False ; level_3=False  ; level_2_part_2=False ; level_win=False; level_3_part_3=False
                 
     def level_two(self):
         global level_2,level_screen,level_2_passive_condition,level_2_part_2,level_2_dialogue_part_two,level_2_dialogue_once_two,level_2_part_2_boss_dialogue,level_2_dialogue_part_two_once
@@ -2010,6 +2012,7 @@ class EnemyOne(Player):
                             self.enemy_one_fall_number[idx]=16  
                             SCREEN.blit(self.enemy_1_fall_flip[int(self.enemy_one_fall_number[idx])//2],(enemy_1_rect[idx].x-self.camera_x_y[0],knight.y-self.camera_x_y[1]+self.cam_y_2))                           
                     self.enemy_one_fall_number[idx]+=0.50
+
     def reset_position(self):
         global reset_enemy_position,level_2_part_2,level_1,level_2_part_2
         self.enemy_1_level_1_x=enemy_1_level_1_x ; self.enemy_1_level_1_x_idle=enemy_1_level_1_x_idle ; self.enemy_1_level_2_x=enemy_1_level_2_x
