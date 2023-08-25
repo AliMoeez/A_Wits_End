@@ -49,6 +49,7 @@
         "C:/Users/Owner/Desktop/A_Wits_End/A_Wit's_End/Level 3_Tileset/test.tmx",
         "tileset.tsx"
     ],
+    "resizeMap.removeObjects": false,
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
         "height": 16,
