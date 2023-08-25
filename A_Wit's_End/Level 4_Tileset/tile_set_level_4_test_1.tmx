@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="100" height="44" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="3">
+ <tileset firstgid="1" source="tileset.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="100" height="44">
+  <data encoding="base64" compression="zlib">
+   eJzt2GEKwjAMhuHWMb3/6XSoN9ChnsD8GXwrq90Y0TreB0Kg/SHrRpIaAgAAAAAAAAAAAAAAAAAA2IqjxcmiszhbXCRfk334u1ncLXqLh8VT8ivZh78YQ9hZNBatxV7yIY73gV+aquVaw3VtyF5yPUTX/1EX8ueb9sipWq41XNeG7CXXQ3T9H/Uhf75pj5yq5VrDdW3IXnI9pF3426X57duaD+fr3SNrmF9L89sa+lyl+l6DGubX0vy2hj5Xqb7XYOvzqz5Xqb57mTP3eNYk7vNjc+Yez5rkdZ9f+p3V8r7nzD2eNcnrPr/0O+P/G1/6TptYnku30P8AANiaN1h5u/Y=
+  </data>
+ </layer>
+ <objectgroup id="2" name="Object Layer 1">
+  <object id="2" gid="140" x="949" y="352" width="16" height="16"/>
+ </objectgroup>
+ <imagelayer id="3" name="Image Layer 1" offsetx="-1" offsety="3"/>
+</map>

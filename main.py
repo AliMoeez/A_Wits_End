@@ -8,7 +8,7 @@ SCREEN_WIDTH=1100 ; SCREEN_HEIGHT=700 ; SCREEN=pygame.display.set_mode((SCREEN_W
 run=True
 camera_x_y=[0,0]
 
-data=load_pygame(r"A_Wit's_End\Level 3_Tileset\test.tmx")
+#data=load_pygame(r"A_Wit's_End\Level 3_Tileset\test.tmx")
 
 test=pygame.image.load(r"A_Wit's_End\Level 3_Tileset\tiles\top_tile_3.png")
 
@@ -24,26 +24,22 @@ bg_3=pygame.transform.scale(bg_3,(SCREEN_WIDTH,SCREEN_HEIGHT))
 bg_4=pygame.transform.scale(bg_4,(SCREEN_WIDTH,SCREEN_HEIGHT))
 bg_5=pygame.transform.scale(bg_5,(SCREEN_WIDTH,SCREEN_HEIGHT))
 
-level_3_tile_set_part_2=load_pygame(r"A_Wit's_End\Level 3_Tileset\test.tmx")
+level_3_tile_set_part_2=load_pygame(r"A_Wit's_End\Level 4_Tileset\tile_set_level_4_test.tmx")
+#level_3_tile_set_part_2=load_pygame(r"A_Wit's_End\Level 3_Tileset\test.tmx")
 
 level_3_tile_set_part_2_rect=[]
 
 rect_x=200
 rect_y=100
 
-
 rects=pygame.Rect(rect_x,rect_y,45,65)
 
 rects_x_move=[0]
-rects_y_move=[0]
+rects_y_move=[2]
 
 while run:
+    level_3_tile_set_part_2_rect=[]
     SCREEN.fill((0,0,0))
-    SCREEN.blit(bg_1,(0,0))
-    SCREEN.blit(bg_2,(0,0))
-    SCREEN.blit(bg_3,(0,0))
-    SCREEN.blit(bg_4,(0,0))
-    SCREEN.blit(bg_5,(0,0))
 
     key=pygame.key.get_pressed()
     for event in pygame.event.get():
@@ -52,25 +48,35 @@ while run:
             sys.exit()
 
     for layer in level_3_tile_set_part_2:
-        for tile in layer.tiles():
-            x_val=tile[0]*32
-            y_val=tile[1]*32
-            SCREEN.blit(tile[2],(x_val-camera_x_y[0],y_val-camera_x_y[1]))
-            level_3_tile_set_part_2_rect.append(pygame.Rect((x_val,y_val,32,32)))
+       if layer.name=="Tile Layer 1":
+            for tile in layer.tiles():
+                x_val=tile[0]*16
+                y_val=tile[1]*16
+                SCREEN.blit(tile[2],(x_val-camera_x_y[0],y_val-camera_x_y[1]))
+                level_3_tile_set_part_2_rect.append(pygame.Rect((x_val-camera_x_y[0],y_val-camera_x_y[1],16,16)))
+       if layer.name=="Tile Layer 2":
+            for tile in layer.tiles():
+                x_val=tile[0]*16
+                y_val=tile[1]*16
+                SCREEN.blit(tile[2],(x_val-camera_x_y[0],y_val-camera_x_y[1]))
 
     pygame.draw.rect(SCREEN,(200,100,100),rects)
 
+    camera_x_y[0]+=rects.x-camera_x_y[0]-210
+
     if key[pygame.K_d]:
-        rects_x_move[0]=5
-        camera_x_y[0]+=5
-    if key[pygame.K_a]:
-         rects_x_move[0]=-1
-         camera_x_y[0]-=15
+        rects_x_move[0]=1
+    elif key[pygame.K_a]:
+        rects_x_move[0]=-1
     else:
         rects_x_move[0]=0
 
     rects_y_move[0]=2
 
+    if key[pygame.K_SPACE]:
+        rects_y_move[0]=-2
+    else:
+        rects_y_move[0]=2
     
     def collision_with_object(level_3_tile_set_part_2_rect):
         tile_hit=[]
@@ -78,7 +84,6 @@ while run:
             if rects.colliderect(tiles):
                 tile_hit.append(tiles)
         return tile_hit
-
 
     def collision_with_object_logic(level_3_tile_set_part_2_rect):
             rects.x+=rects_x_move[0]
@@ -100,10 +105,6 @@ while run:
 
     collision_with_object(level_3_tile_set_part_2_rect)
     collision_with_object_logic(level_3_tile_set_part_2_rect)
-    level_3_tile_set_part_2_rect=[]
-
-    
-    
 
     pygame.display.update()
             
