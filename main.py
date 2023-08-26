@@ -29,10 +29,10 @@ level_3_tile_set_part_2=load_pygame(r"A_Wit's_End\Level 4_Tileset\tile_set_level
 
 level_3_tile_set_part_2_rect=[]
 
-rect_x=200
+rect_x=20
 rect_y=200
 
-rects=pygame.Rect(rect_x,rect_y,45,65)
+rects=pygame.Rect(rect_x,rect_y,35,60)
 
 rects_x_move=[0]
 rects_y_move=[2]
@@ -54,12 +54,7 @@ while run:
                 y_val=tile[1]*16
                 SCREEN.blit(tile[2],(x_val-camera_x_y[0],y_val-camera_x_y[1]))
                 level_3_tile_set_part_2_rect.append(pygame.Rect((x_val-camera_x_y[0],y_val-camera_x_y[1],16,16)))
-       if layer.name=="Tile Layer 2":
-            for tile in layer.tiles():
-                x_val=tile[0]*16
-                y_val=tile[1]*16
-                SCREEN.blit(tile[2],(x_val-camera_x_y[0],y_val-camera_x_y[1]))
-       if layer.name=="Tile Layer 3":
+       if layer.name=="Tile Layer 2" or layer.name=="Tile Layer 3":
             for tile in layer.tiles():
                 x_val=tile[0]*16
                 y_val=tile[1]*16
@@ -67,12 +62,19 @@ while run:
 
     pygame.draw.rect(SCREEN,(200,100,100),rects)
 
-    camera_x_y[0]+=rects.x-camera_x_y[0]-210
+    if rects.x>=20 and rects.x<4850:
+        camera_x_y[0]+=rects.x-camera_x_y[0]
+    else:
+        camera_x_y[0]+=0
+    if rects.x<20:
+       rects.x=20
+    if rects.x>=4850:
+        rects.x=4850
 
     if key[pygame.K_d]:
-        rects_x_move[0]=4
+        rects_x_move[0]=5
     elif key[pygame.K_a]:
-        rects_x_move[0]=-4
+        rects_x_move[0]=-5
     else:
         rects_x_move[0]=0
 
@@ -107,7 +109,6 @@ while run:
                     rects.top=tile.bottom
             return rects
     
-
     collision_with_object(level_3_tile_set_part_2_rect)
     collision_with_object_logic(level_3_tile_set_part_2_rect)
 
