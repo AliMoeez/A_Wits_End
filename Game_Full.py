@@ -502,8 +502,27 @@ enemy_two_fall_1=pygame.transform.scale(enemy_two_fall_1,(105,105)) ; enemy_two_
 enemy_two_fall_flip_1=pygame.transform.flip(enemy_two_fall_1,True,False) ; enemy_two_fall_flip_2=pygame.transform.flip(enemy_two_fall_2,True,False) ; enemy_two_fall_flip_3=pygame.transform.flip(enemy_two_fall_3,True,False) ; enemy_two_fall_flip_4=pygame.transform.flip(enemy_two_fall_4,True,False) ; enemy_two_fall_flip_5=pygame.transform.flip(enemy_two_fall_5,True,False)
 enemy_two_fall=[enemy_two_fall_1,enemy_two_fall_2,enemy_two_fall_3,enemy_two_fall_4,enemy_two_fall_5]
 enemy_two_fall_flip=[enemy_two_fall_flip_1,enemy_two_fall_flip_2,enemy_two_fall_flip_3,enemy_two_fall_flip_4,enemy_two_fall_flip_5]
+
+
 enemy_two_level_1_x=[2700,3000] ; enemy_two_level_1_y=[557,557]
-enemy_two_level_1_rect=[pygame.Rect(enemy_two_level_1_x[0],enemy_two_level_1_y[0],45,55),pygame.Rect(enemy_two_level_1_x[1],enemy_two_level_1_y[1],45,55)] ; enemy_two_rect_list=[]
+
+enemy_two_level_4_x_1=[2000,2200,3400,3450,3500,3550,3600,4300,4325,5300,5400,5500,5500]
+
+
+enemy_two_level_4_y_1=[450,450,400,400,400,400,400,600,600,600,600,600,600]
+
+enemy_two_level_4_rect_1=[]
+
+for idx,number in enumerate(enemy_two_level_4_x_1):
+    enemy_two_level_4_rect_1.append(pygame.Rect(enemy_two_level_4_x_1[idx],enemy_two_level_4_y_1[idx],45,55))
+
+enemy_two_level_1_rect=[pygame.Rect(enemy_two_level_1_x[0],enemy_two_level_1_y[0],45,55),pygame.Rect(enemy_two_level_1_x[1],enemy_two_level_1_y[1],45,55)] 
+
+
+
+enemy_two_rect_list=[]
+
+
 enemy_two_idle_number=[0] ; enemy_two_run_number=[0] ; enemy_two_x_movement=[] ; enemy_two_y_movement=[0,0] ; enemy_two_distance_list=[] ; enemy_two_attack_type=[1] ; enemy_two_attack_number=[]
 enemy_two_fall_number=[] ; enemy_two_health=[] ; enemy_two_fall_direction_set=[]
 
@@ -699,33 +718,12 @@ boss_2_idle=[boss_2_idle_1,boss_2_idle_2,boss_2_idle_3,boss_2_idle_4] ; boss_2_i
 
 boss_2_icon_level_3=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Icon\boss_two_icon.png") ; boss_2_icon_level_3=pygame.transform.scale(boss_2_icon_level_3,(120,120))
 
-boss_2_run_1=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Run\LightBandit_Run_0.png")
-boss_2_run_2=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Run\LightBandit_Run_1.png")
-boss_2_run_3=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Run\LightBandit_Run_2.png")
-boss_2_run_4=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Run\LightBandit_Run_3.png")
-boss_2_run_5=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Run\LightBandit_Run_4.png")
-boss_2_run_6=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Run\LightBandit_Run_5.png")
-boss_2_run_7=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Run\LightBandit_Run_6.png")
-boss_2_run_8=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Run\LightBandit_Run_7.png")
-
-boss_2_run_1=pygame.transform.scale(boss_2_run_1,(75,85))
-boss_2_run_2=pygame.transform.scale(boss_2_run_2,(75,85))
-boss_2_run_3=pygame.transform.scale(boss_2_run_3,(75,85))
-boss_2_run_4=pygame.transform.scale(boss_2_run_4,(75,85))
-boss_2_run_5=pygame.transform.scale(boss_2_run_5,(75,85))
-boss_2_run_6=pygame.transform.scale(boss_2_run_6,(75,85))
-boss_2_run_7=pygame.transform.scale(boss_2_run_7,(75,85))
-boss_2_run_8=pygame.transform.scale(boss_2_run_8,(75,85))
-
-boss_2_run_flip_1=pygame.transform.flip(boss_2_run_1,True,False)
-boss_2_run_flip_2=pygame.transform.flip(boss_2_run_2,True,False)
-boss_2_run_flip_3=pygame.transform.flip(boss_2_run_3,True,False)
-boss_2_run_flip_4=pygame.transform.flip(boss_2_run_4,True,False)
-boss_2_run_flip_5=pygame.transform.flip(boss_2_run_5,True,False)
-boss_2_run_flip_6=pygame.transform.flip(boss_2_run_6,True,False)
-boss_2_run_flip_7=pygame.transform.flip(boss_2_run_7,True,False)
-boss_2_run_flip_8=pygame.transform.flip(boss_2_run_8,True,False)
-
+boss_2_run_1=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Run\LightBandit_Run_0.png") ; boss_2_run_2=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Run\LightBandit_Run_1.png") ; boss_2_run_3=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Run\LightBandit_Run_2.png") ; boss_2_run_4=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Run\LightBandit_Run_3.png")
+boss_2_run_5=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Run\LightBandit_Run_4.png") ; boss_2_run_6=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Run\LightBandit_Run_5.png") ; boss_2_run_7=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Run\LightBandit_Run_6.png") ; boss_2_run_8=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Run\LightBandit_Run_7.png")
+boss_2_run_1=pygame.transform.scale(boss_2_run_1,(75,85)) ; boss_2_run_2=pygame.transform.scale(boss_2_run_2,(75,85)) ; boss_2_run_3=pygame.transform.scale(boss_2_run_3,(75,85)) ; boss_2_run_4=pygame.transform.scale(boss_2_run_4,(75,85))
+boss_2_run_5=pygame.transform.scale(boss_2_run_5,(75,85)) ; boss_2_run_6=pygame.transform.scale(boss_2_run_6,(75,85)) ; boss_2_run_7=pygame.transform.scale(boss_2_run_7,(75,85)) ; boss_2_run_8=pygame.transform.scale(boss_2_run_8,(75,85))
+boss_2_run_flip_1=pygame.transform.flip(boss_2_run_1,True,False) ; boss_2_run_flip_2=pygame.transform.flip(boss_2_run_2,True,False) ; boss_2_run_flip_3=pygame.transform.flip(boss_2_run_3,True,False) ; boss_2_run_flip_4=pygame.transform.flip(boss_2_run_4,True,False)
+boss_2_run_flip_5=pygame.transform.flip(boss_2_run_5,True,False) ; boss_2_run_flip_6=pygame.transform.flip(boss_2_run_6,True,False) ; boss_2_run_flip_7=pygame.transform.flip(boss_2_run_7,True,False) ; boss_2_run_flip_8=pygame.transform.flip(boss_2_run_8,True,False)
 boss_2_run=[boss_2_run_1,boss_2_run_2,boss_2_run_3,boss_2_run_4,boss_2_run_5,boss_2_run_6,boss_2_run_7,boss_2_run_8]
 boss_2_run_flip=[boss_2_run_flip_1,boss_2_run_flip_2,boss_2_run_flip_3,boss_2_run_flip_4,boss_2_run_flip_5,boss_2_run_flip_6,boss_2_run_flip_7,boss_2_run_flip_8]
 
@@ -736,68 +734,20 @@ boss_2_level_3_x_movement=[0] ; boss_2_level_3_y_movement=[0]
 boss_2_level_3_health=[1000]
 boss_2_level_3_rect=pygame.Rect(boss_2_level_3_x[0],boss_2_level_3_y[0],75,80)
 
-boss_2_attack_1=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Attack\LightBandit_Attack_0.png")
-boss_2_attack_2=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Attack\LightBandit_Attack_1.png")
-boss_2_attack_3=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Attack\LightBandit_Attack_2.png")
-boss_2_attack_4=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Attack\LightBandit_Attack_3.png")
-boss_2_attack_5=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Attack\LightBandit_Attack_4.png")
-boss_2_attack_6=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Attack\LightBandit_Attack_5.png")
-boss_2_attack_7=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Attack\LightBandit_Attack_6.png")
-boss_2_attack_8=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Attack\LightBandit_Attack_7.png")
-boss_2_attack_1=pygame.transform.scale(boss_2_attack_1,(75,85))
-boss_2_attack_2=pygame.transform.scale(boss_2_attack_2,(75,85))
-boss_2_attack_3=pygame.transform.scale(boss_2_attack_3,(75,85))
-boss_2_attack_4=pygame.transform.scale(boss_2_attack_4,(75,85))
-boss_2_attack_5=pygame.transform.scale(boss_2_attack_5,(75,85))
-boss_2_attack_6=pygame.transform.scale(boss_2_attack_6,(75,85))
-boss_2_attack_7=pygame.transform.scale(boss_2_attack_7,(75,85))
-boss_2_attack_8=pygame.transform.scale(boss_2_attack_8,(75,85))
-boss_2_attack_flip_1=pygame.transform.flip(boss_2_attack_1,True,False)
-boss_2_attack_flip_2=pygame.transform.flip(boss_2_attack_2,True,False)
-boss_2_attack_flip_3=pygame.transform.flip(boss_2_attack_3,True,False)
-boss_2_attack_flip_4=pygame.transform.flip(boss_2_attack_4,True,False)
-boss_2_attack_flip_5=pygame.transform.flip(boss_2_attack_5,True,False)
-boss_2_attack_flip_6=pygame.transform.flip(boss_2_attack_6,True,False)
-boss_2_attack_flip_7=pygame.transform.flip(boss_2_attack_7,True,False)
-boss_2_attack_flip_8=pygame.transform.flip(boss_2_attack_8,True,False)
-
+boss_2_attack_1=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Attack\LightBandit_Attack_0.png") ; boss_2_attack_2=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Attack\LightBandit_Attack_1.png") ; boss_2_attack_3=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Attack\LightBandit_Attack_2.png") ; boss_2_attack_4=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Attack\LightBandit_Attack_3.png")
+boss_2_attack_5=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Attack\LightBandit_Attack_4.png") ; boss_2_attack_6=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Attack\LightBandit_Attack_5.png") ; boss_2_attack_7=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Attack\LightBandit_Attack_6.png") ; boss_2_attack_8=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Attack\LightBandit_Attack_7.png")
+boss_2_attack_1=pygame.transform.scale(boss_2_attack_1,(75,85)) ; boss_2_attack_2=pygame.transform.scale(boss_2_attack_2,(75,85)) ; boss_2_attack_3=pygame.transform.scale(boss_2_attack_3,(75,85)) ; boss_2_attack_4=pygame.transform.scale(boss_2_attack_4,(75,85)) ; boss_2_attack_5=pygame.transform.scale(boss_2_attack_5,(75,85)) ; boss_2_attack_6=pygame.transform.scale(boss_2_attack_6,(75,85)) ; boss_2_attack_7=pygame.transform.scale(boss_2_attack_7,(75,85)) ; boss_2_attack_8=pygame.transform.scale(boss_2_attack_8,(75,85))
+boss_2_attack_flip_1=pygame.transform.flip(boss_2_attack_1,True,False) ; boss_2_attack_flip_2=pygame.transform.flip(boss_2_attack_2,True,False) ; boss_2_attack_flip_3=pygame.transform.flip(boss_2_attack_3,True,False) ; boss_2_attack_flip_4=pygame.transform.flip(boss_2_attack_4,True,False) ; boss_2_attack_flip_5=pygame.transform.flip(boss_2_attack_5,True,False) ; boss_2_attack_flip_6=pygame.transform.flip(boss_2_attack_6,True,False) ; boss_2_attack_flip_7=pygame.transform.flip(boss_2_attack_7,True,False) ; boss_2_attack_flip_8=pygame.transform.flip(boss_2_attack_8,True,False)
 boss_2_attack=[boss_2_attack_1,boss_2_attack_2,boss_2_attack_3,boss_2_attack_4,boss_2_attack_5,boss_2_attack_6,boss_2_attack_7,boss_2_attack_8]
 boss_2_attack_flip=[boss_2_attack_flip_1,boss_2_attack_flip_2,boss_2_attack_flip_3,boss_2_attack_flip_4,boss_2_attack_flip_5,boss_2_attack_flip_6,boss_2_attack_flip_7,boss_2_attack_flip_8]
 
-boss_2_recover_1=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Recover\LightBandit_Recover_0.png")
-boss_2_recover_2=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Recover\LightBandit_Recover_1.png")
-boss_2_recover_3=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Recover\LightBandit_Recover_2.png")
-boss_2_recover_4=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Recover\LightBandit_Recover_3.png")
-boss_2_recover_5=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Recover\LightBandit_Recover_4.png")
-boss_2_recover_6=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Recover\LightBandit_Recover_5.png")
-boss_2_recover_7=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Recover\LightBandit_Recover_6.png")
-boss_2_recover_8=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Recover\LightBandit_Recover_7.png")
-
-boss_2_recover_1=pygame.transform.scale(boss_2_recover_1,(75,85))
-boss_2_recover_2=pygame.transform.scale(boss_2_recover_2,(75,85))
-boss_2_recover_3=pygame.transform.scale(boss_2_recover_3,(75,85))
-boss_2_recover_4=pygame.transform.scale(boss_2_recover_4,(75,85))
-boss_2_recover_5=pygame.transform.scale(boss_2_recover_5,(75,85))
-boss_2_recover_6=pygame.transform.scale(boss_2_recover_6,(75,85))
-boss_2_recover_7=pygame.transform.scale(boss_2_recover_7,(75,85))
-boss_2_recover_8=pygame.transform.scale(boss_2_recover_8,(75,85))
-
-boss_2_recover_flip_1=pygame.transform.flip(boss_2_recover_1,True,False)
-boss_2_recover_flip_2=pygame.transform.flip(boss_2_recover_2,True,False)
-boss_2_recover_flip_3=pygame.transform.flip(boss_2_recover_3,True,False)
-boss_2_recover_flip_4=pygame.transform.flip(boss_2_recover_4,True,False)
-boss_2_recover_flip_5=pygame.transform.flip(boss_2_recover_5,True,False)
-boss_2_recover_flip_6=pygame.transform.flip(boss_2_recover_6,True,False)
-boss_2_recover_flip_7=pygame.transform.flip(boss_2_recover_7,True,False)
-boss_2_recover_flip_8=pygame.transform.flip(boss_2_recover_8,True,False)
-
+boss_2_recover_1=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Recover\LightBandit_Recover_0.png") ; boss_2_recover_2=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Recover\LightBandit_Recover_1.png") ; boss_2_recover_3=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Recover\LightBandit_Recover_2.png") ; boss_2_recover_4=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Recover\LightBandit_Recover_3.png") ; boss_2_recover_5=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Recover\LightBandit_Recover_4.png") ; boss_2_recover_6=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Recover\LightBandit_Recover_5.png") ; boss_2_recover_7=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Recover\LightBandit_Recover_6.png") ; boss_2_recover_8=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Recover\LightBandit_Recover_7.png")
+boss_2_recover_1=pygame.transform.scale(boss_2_recover_1,(75,85)) ; boss_2_recover_2=pygame.transform.scale(boss_2_recover_2,(75,85)) ; boss_2_recover_3=pygame.transform.scale(boss_2_recover_3,(75,85)) ; boss_2_recover_4=pygame.transform.scale(boss_2_recover_4,(75,85)) ; boss_2_recover_5=pygame.transform.scale(boss_2_recover_5,(75,85)) ; boss_2_recover_6=pygame.transform.scale(boss_2_recover_6,(75,85)) ; boss_2_recover_7=pygame.transform.scale(boss_2_recover_7,(75,85)) ; boss_2_recover_8=pygame.transform.scale(boss_2_recover_8,(75,85))
+boss_2_recover_flip_1=pygame.transform.flip(boss_2_recover_1,True,False) ; boss_2_recover_flip_2=pygame.transform.flip(boss_2_recover_2,True,False) ; boss_2_recover_flip_3=pygame.transform.flip(boss_2_recover_3,True,False) ; boss_2_recover_flip_4=pygame.transform.flip(boss_2_recover_4,True,False) ; boss_2_recover_flip_5=pygame.transform.flip(boss_2_recover_5,True,False) ; boss_2_recover_flip_6=pygame.transform.flip(boss_2_recover_6,True,False) ; boss_2_recover_flip_7=pygame.transform.flip(boss_2_recover_7,True,False) ; boss_2_recover_flip_8=pygame.transform.flip(boss_2_recover_8,True,False)
 boss_2_recover=[boss_2_recover_1,boss_2_recover_2,boss_2_recover_3,boss_2_recover_4,boss_2_recover_5,boss_2_recover_6,boss_2_recover_7,boss_2_recover_8]
 boss_2_recover_flip=[boss_2_recover_flip_1,boss_2_recover_flip_2,boss_2_recover_flip_3,boss_2_recover_flip_4,boss_2_recover_flip_5,boss_2_recover_flip_6,boss_2_recover_flip_7,boss_2_recover_flip_8]
 
-boss_2_fall_image=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Death\LightBandit_Death_0.png")
-boss_2_fall_image=pygame.transform.scale(boss_2_fall_image,(75,85))
-boss_2_fall_flip_image=pygame.transform.flip(boss_2_fall_image,True,False)
-
+boss_2_fall_image=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Light Bandit\Death\LightBandit_Death_0.png") ; boss_2_fall_image=pygame.transform.scale(boss_2_fall_image,(75,85)) ; boss_2_fall_flip_image=pygame.transform.flip(boss_2_fall_image,True,False)
 boss_2_fall=[boss_2_fall_image]
 boss_2_fall_flip=[boss_2_fall_flip_image]
 
@@ -1571,13 +1521,14 @@ class Game:
         self.camera_x_y=camera_x_y
         global level_4
         if level_4:
+            self.player_rect.width=31
+            self.player_rect.height=45
             SCREEN.fill((39,38,56))
             for layer in self.level_4_tile_set:
                 if layer.name=="Tile Layer 1":
                         for tile in layer.tiles():
                             x_val=tile[0]*16 ; y_val=tile[1]*16 ; SCREEN.blit(tile[2],(x_val-self.camera_x_y[0],y_val-self.camera_x_y[1]))
                             self.level_4_tile_set_rect.append(pygame.Rect((x_val,y_val,16,16)))
-                            pygame.draw.rect(SCREEN,(200,100,200),pygame.Rect(x_val-self.camera_x_y[0],y_val-self.camera_x_y[1],16,16),width=1)
                 if layer.name=="Tile Layer 2" or layer.name=="Tile Layer 3":
                         for tile in layer.tiles():
                             x_val=tile[0]*16 ; y_val=tile[1]*16 ; SCREEN.blit(tile[2],(x_val-self.camera_x_y[0],y_val-self.camera_x_y[1]))
@@ -1585,7 +1536,7 @@ class Game:
             if self.player_rect.x>=100 and self.player_rect.x<4850: self.camera_x_y[0]+=self.player_rect.x-self.camera_x_y[0]-210
             if self.player_rect.x<20: self.player_rect.x=20   
             if self.player_rect.x>=4850: 
-                self.camera_x_y[0]=4540-210 
+                self.camera_x_y[0]=4850-210 
                 if self.player_rect.x>5685:
                     self.player_rect.x=5685
             if self.camera_x_y[0]<0: self.camera_x_y[0]=0
@@ -1610,7 +1561,7 @@ class Player(Game):
             if jump and jump_condition and not attack and not dialogue_move_condition:
                 self.player_y_movement[0]=+0
                 if self.player_jump_length[0]>=-17:
-                    self.player_y_movement[0]+=-7.50
+                    self.player_y_movement[0]=-9.50 #+=-7.50
                     self.player_jump_length[0]-=1
                 else: 
                     self.player_jump_length[0]=0
@@ -2119,18 +2070,26 @@ class EnemyOne(Player):
             return enemy_list     
         
 class EnemyTwo(Player):
-    def __init__(self,enemy_two_level_1_rect,enemy_two_x_movement,enemy_two_y_movement,enemy_two_rect_list,enemy_two_distance_list,enemy_two_health):
+    def __init__(self,enemy_two_level_1_rect,enemy_two_x_movement,enemy_two_y_movement,enemy_two_rect_list,enemy_two_distance_list,enemy_two_health,enemy_two_level_4_rect_1):
         self.enemy_two_level_1_rect=enemy_two_level_1_rect ; self.enemy_two_x_movement=enemy_two_x_movement ; self.enemy_two_y_movement=enemy_two_y_movement ; self.enemy_two_rect_list=enemy_two_rect_list
-        self.enemy_two_distance_list=enemy_two_distance_list ; self.enemy_two_health=enemy_two_health
+        self.enemy_two_distance_list=enemy_two_distance_list ; self.enemy_two_health=enemy_two_health ; self.enemy_two_level_4_rect_1=enemy_two_level_4_rect_1
         super().__init__(player_x_movement,player_y_movement,player_rect,player_current_health)
     
     def movement(self):
-        global level_1, level_1_enemy_fight_condition
+        global level_1, level_1_enemy_fight_condition,level_4,level_screen
         self.enemy_two_idle=enemy_two_idle ; self.enemy_two_idle_flip=enemy_two_idle_flip ; self.enemy_two_idle_number=enemy_two_idle_number ; self.enemy_two_run=enemy_two_run 
         self.enemy_two_run_flip=enemy_two_run_flip ; self.enemy_two_run_number=enemy_two_run_number ; self.enemy_two_level_1_x=enemy_two_level_1_x ; self.enemy_two_fall_number=enemy_two_fall_number
         self.enemy_two_fall_direction_set=enemy_two_fall_direction_set
-        if level_1:
-            for idx,enemy_knight in enumerate(self.enemy_two_level_1_rect):
+        if level_screen:
+            self.enemy_two_distance_list.clear() ; self.enemy_two_rect_list.clear() ; self.enemy_two_x_movement.clear() ; self.enemy_two_health.clear()
+            self.enemy_two_fall_number.clear() ; self.enemy_two_fall_direction_set.clear()
+
+        if level_1 or level_4:
+            if level_1:
+                enemy_rect=self.enemy_two_level_1_rect
+            if level_4:
+                enemy_rect=self.enemy_two_level_4_rect_1
+            for idx,enemy_knight in enumerate(enemy_rect):
                 enemy_two_player_distance=math.sqrt(math.pow(self.player_rect.x-enemy_knight.x,2)+math.pow(self.player_rect.y-enemy_knight.y,2))
                 self.enemy_two_distance_list.append(enemy_two_player_distance) ; self.enemy_two_rect_list.append(pygame.Rect(enemy_knight.x,enemy_knight.y,45,55)) 
                 self.enemy_two_x_movement.append(0) ; self.enemy_two_health.append(100), self.enemy_two_fall_number.append(0) ; self.enemy_two_fall_direction_set.append(0)
@@ -2139,15 +2098,14 @@ class EnemyTwo(Player):
                     self.enemy_two_fall_direction_set[idx]=1
                 if self.enemy_two_x_movement[idx]<0:
                     self.enemy_two_fall_direction_set[idx]=2
-                
-                if len(self.enemy_two_distance_list)>2:
+                    
+                if len(self.enemy_two_distance_list)>len(enemy_rect):
                     del self.enemy_two_x_movement[-1]
                     del self.enemy_two_distance_list[0]
                     del self.enemy_two_health[-1]
                     del self.enemy_two_fall_number[-1]
-                    
                     del self.enemy_two_fall_direction_set[-1]
-            
+                
             if not level_1_enemy_fight_condition:
                 for idx,enemy_knight in enumerate(self.enemy_two_level_1_rect):
                     self.enemy_two_x_movement[idx]=0
@@ -2167,6 +2125,8 @@ class EnemyTwo(Player):
                     if self.enemy_two_run_number[0]>10:
                         self.enemy_two_run_number[0]=0
             self.enemy_two_y_movement[0]=4
+            if level_4:
+                
         
     def attack(self):
         global level_1, level_1_enemy_fight_condition
@@ -2208,6 +2168,7 @@ class EnemyTwo(Player):
                         if player_idle_left and self.player_rect.x>self.enemy_two_level_1_rect[idx].x:
                             self.enemy_two_health[idx]-=25
                         attack_done=False   
+    
     def fall(self):
         global reset_enemy_position
         self.enemy_two_fall=enemy_two_fall ; self.enemy_two_fall_flip=enemy_two_fall_flip ; self.enemy_two_fall_number=enemy_two_fall_number
@@ -2824,7 +2785,7 @@ while run:
     enemy_one.collision_with_object(tile_level_1,tile_level_2,tile_level_3_rect)
     enemy_one.collision_with_object_logic(tile_level_1,tile_level_2,tile_level_3_rect)
     
-    enemy_two=EnemyTwo(enemy_two_level_1_rect,enemy_two_x_movement,enemy_two_y_movement,enemy_two_rect_list,enemy_two_distance_list,enemy_two_health)
+    enemy_two=EnemyTwo(enemy_two_level_1_rect,enemy_two_x_movement,enemy_two_y_movement,enemy_two_rect_list,enemy_two_distance_list,enemy_two_health,enemy_two_level_4_rect_1)
     enemy_two.movement()
     enemy_two.attack()
     enemy_two.player_hit()
