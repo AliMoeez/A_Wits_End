@@ -506,15 +506,15 @@ enemy_two_fall_flip=[enemy_two_fall_flip_1,enemy_two_fall_flip_2,enemy_two_fall_
 
 enemy_two_level_1_x=[2700,3000] ; enemy_two_level_1_y=[557,557]
 
-enemy_two_level_4_x_1=[200,2200,3400,3450,3500,3550,3600,4300,4325,5300,5400,5500,5500]
+enemy_two_level_4_x_1=[700,2200,3400] #3550,3600,4300,4325,5300,5400,5500,5500
 
-
-enemy_two_level_4_y_1=[200,400,300,300,300,300,300,500,500,500,500,500,500]
+enemy_two_level_4_y_1=[200,400,200] #600,600,500,500,500,500,500,500
 
 enemy_two_level_4_rect_1=[]
 
 for idx,number in enumerate(enemy_two_level_4_x_1):
     enemy_two_level_4_rect_1.append(pygame.Rect(enemy_two_level_4_x_1[idx],enemy_two_level_4_y_1[idx],45,55))
+
 
 enemy_two_level_1_rect=[pygame.Rect(enemy_two_level_1_x[0],enemy_two_level_1_y[0],45,55),pygame.Rect(enemy_two_level_1_x[1],enemy_two_level_1_y[1],45,55)] 
 
@@ -2072,11 +2072,11 @@ class EnemyOne(Player):
 class EnemyTwo(Player):
     def __init__(self,enemy_two_level_1_rect,enemy_two_x_movement,enemy_two_y_movement,enemy_two_rect_list,enemy_two_distance_list,enemy_two_health,enemy_two_level_4_rect_1):
         self.enemy_two_level_1_rect=enemy_two_level_1_rect ; self.enemy_two_x_movement=enemy_two_x_movement ; self.enemy_two_y_movement=enemy_two_y_movement ; self.enemy_two_rect_list=enemy_two_rect_list
-        self.enemy_two_distance_list=enemy_two_distance_list ; self.enemy_two_health=enemy_two_health ; self.enemy_two_level_4_rect_1=enemy_two_level_4_rect_1
+        self.enemy_two_distance_list=enemy_two_distance_list ; self.enemy_two_health=enemy_two_health ; self.enemy_two_level_4_rect_1=enemy_two_level_4_rect_1 ; self.enemy_two_idle=enemy_two_idle
         super().__init__(player_x_movement,player_y_movement,player_rect,player_current_health)
     
     def movement(self):
-        global level_1, level_1_enemy_fight_condition,level_4,level_screen
+        global level_1, level_1_enemy_fight_condition,level_4,level_screen,jump
         self.enemy_two_idle=enemy_two_idle ; self.enemy_two_idle_flip=enemy_two_idle_flip ; self.enemy_two_idle_number=enemy_two_idle_number ; self.enemy_two_run=enemy_two_run 
         self.enemy_two_run_flip=enemy_two_run_flip ; self.enemy_two_run_number=enemy_two_run_number ; self.enemy_two_level_1_x=enemy_two_level_1_x ; self.enemy_two_fall_number=enemy_two_fall_number
         self.enemy_two_fall_direction_set=enemy_two_fall_direction_set
@@ -2106,7 +2106,8 @@ class EnemyTwo(Player):
                     del self.enemy_two_health[-1]
                     del self.enemy_two_fall_number[-1]
                     del self.enemy_two_fall_direction_set[-1]
-                
+                    del self.enemy_two_idle_number[-1]
+        if level_1: 
             if not level_1_enemy_fight_condition:
                 for idx,enemy_knight in enumerate(self.enemy_two_level_1_rect):
                     self.enemy_two_x_movement[idx]=0
@@ -2125,14 +2126,31 @@ class EnemyTwo(Player):
                     self.enemy_two_run_number[0]+=0.35
                     if self.enemy_two_run_number[0]>10:
                         self.enemy_two_run_number[0]=0
-            self.enemy_two_y_movement[0]=4
-            if level_4:
+            self.enemy_two_y_movement[0]=8
+            
+        if level_4:
                 for idx,enemy_knight in enumerate(self.enemy_two_level_4_rect_1):
-                    self.enemy_two_y_movement[0]=2
-                    SCREEN.blit(self.enemy_two_idle_flip[int(self.enemy_two_idle_number[idx]//2)],(enemy_knight.x-self.camera_x_y[0]-25,enemy_knight.y-self.camera_x_y[1]-15))
-                    self.enemy_two_idle_number[idx]+=0.25
-                    if self.enemy_two_idle_number[idx]>4:
-                        self.enemy_two_idle_number[idx]=0
+                    self.enemy_two_y_movement[0]=4
+                    if self.enemy_two_distance_list[idx]>200 or self.player_rect.y-enemy_knight.y>10 or jump:
+                        self.enemy_two_x_movement[idx]=0
+                        if self.player_rect.x<enemy_knight.x:
+                            SCREEN.blit(self.enemy_two_idle_flip[int(self.enemy_two_idle_number[idx]//2)],(enemy_knight.x-self.camera_x_y[0],enemy_knight.y-self.camera_x_y[1]-15))
+                        if self.player_rect.x>=enemy_knight.x:
+                            SCREEN.blit(self.enemy_two_idle[int(self.enemy_two_idle_number[idx]//2)],(enemy_knight.x-self.camera_x_y[0],enemy_knight.y-self.camera_x_y[1]-15))
+                        self.enemy_two_idle_number[idx]+=0.25
+                        if self.enemy_two_idle_number[idx]>4:
+                            self.enemy_two_idle_number[idx]=0
+                    if self.player_rect.x>=enemy_knight.x and self.enemy_two_distance_list[idx]<=200 and self.enemy_two_health[idx]>0 and self.player_rect.y-enemy_knight.y<=10 and not jump:
+                        SCREEN.blit(self.enemy_two_run[int(self.enemy_two_run_number[0]//2)],(enemy_knight.x-self.camera_x_y[0],enemy_knight.y-self.camera_x_y[1]-15))
+                        self.enemy_two_x_movement[idx]=4
+                    
+                    if self.player_rect.x<enemy_knight.x  and self.enemy_two_distance_list[idx]<=200 and self.enemy_two_health[idx]>0 and self.player_rect.y-enemy_knight.y<=10 and not jump: 
+                        SCREEN.blit(self.enemy_two_run_flip[int(self.enemy_two_run_number[0]//2)],(enemy_knight.x-self.camera_x_y[0],enemy_knight.y-self.camera_x_y[1]-15))
+                        self.enemy_two_x_movement[idx]=-4
+
+                    self.enemy_two_run_number[0]+=0.35
+                    if self.enemy_two_run_number[0]>10:
+                        self.enemy_two_run_number[0]=0
  
     def attack(self):
         global level_1, level_1_enemy_fight_condition
@@ -2215,7 +2233,6 @@ class EnemyTwo(Player):
         if level_1 or level_4:
             hit_tile=[]
             for idx,enemy_knight in enumerate(enemy_rect):
-                print(self.enemy_two_level_1_rect,self.enemy_two_level_4_rect_1)
                 for tiles in tile_level:
                     if enemy_knight.colliderect(tiles):
                         hit_tile.append(tiles)
