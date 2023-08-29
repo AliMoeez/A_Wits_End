@@ -2125,7 +2125,7 @@ class EnemyTwo(Player):
         if level_4:
                 for idx,enemy_knight in enumerate(self.enemy_two_level_4_rect_1):
                     self.enemy_two_y_movement[0]=4
-                    if self.enemy_two_distance_list[idx]>400  or self.player_rect.y-enemy_knight.y>10:
+                    if self.enemy_two_distance_list[idx]>400:
                         self.enemy_two_x_movement[idx]=0
                         if self.player_rect.x<enemy_knight.x:
                             SCREEN.blit(self.enemy_two_idle_flip[int(self.enemy_two_idle_number[idx]//2)],(enemy_knight.x-self.camera_x_y[0],enemy_knight.y-self.camera_x_y[1]-15))
@@ -2135,10 +2135,10 @@ class EnemyTwo(Player):
                         if self.enemy_two_idle_number[idx]>4:
                             self.enemy_two_idle_number[idx]=0
 
-                    if self.player_rect.x>=enemy_knight.x and self.enemy_two_distance_list[idx]<=400 and self.enemy_two_health[idx]>0 and self.enemy_two_distance_list[idx]>50 and self.player_rect.y-enemy_knight.y<=10:
+                    if self.player_rect.x>=enemy_knight.x and self.enemy_two_distance_list[idx]<=400 and self.enemy_two_health[idx]>0 and self.enemy_two_distance_list[idx]>30:
                         SCREEN.blit(self.enemy_two_run[int(self.enemy_two_run_number[0]//2)],(enemy_knight.x-self.camera_x_y[0],enemy_knight.y-self.camera_x_y[1]-15))
                         self.enemy_two_x_movement[idx]=4
-                    if self.player_rect.x<enemy_knight.x  and self.enemy_two_distance_list[idx]<=400 and self.enemy_two_health[idx]>0  and self.enemy_two_distance_list[idx]>50 and  self.player_rect.y-enemy_knight.y<=10: 
+                    if self.player_rect.x<enemy_knight.x  and self.enemy_two_distance_list[idx]<=400 and self.enemy_two_health[idx]>0  and self.enemy_two_distance_list[idx]>30 :
                         SCREEN.blit(self.enemy_two_run_flip[int(self.enemy_two_run_number[0]//2)],(enemy_knight.x-self.camera_x_y[0],enemy_knight.y-self.camera_x_y[1]-15))
                         self.enemy_two_x_movement[idx]=-4
 
@@ -2166,7 +2166,7 @@ class EnemyTwo(Player):
                 if self.enemy_two_attack_number[0]>len(enemy_rect):
                     del self.enemy_two_attack_number[-1]
                 if self.enemy_two_health[idx]>0:
-                    if level_4 and self.enemy_two_distance_list[idx]<=50:
+                    if level_4 and self.enemy_two_distance_list[idx]<=30:
                         self.enemy_two_x_movement[idx]=0
                         if self.enemy_two_attack_type[0]>2:
                             self.enemy_two_attack_type[0]=1
