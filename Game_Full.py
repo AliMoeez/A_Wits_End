@@ -506,9 +506,9 @@ enemy_two_fall_flip=[enemy_two_fall_flip_1,enemy_two_fall_flip_2,enemy_two_fall_
 
 enemy_two_level_1_x=[2700,3000] ; enemy_two_level_1_y=[557,557]
 
-enemy_two_level_4_x_1=[700,2200,3400] #3550,3600,4300,4325,5300,5400,5500,5500
+enemy_two_level_4_x_1=[1200,2200,3400,3600,4300,4325,5300,5400,5500,5500] 
 
-enemy_two_level_4_y_1=[200,400,200] #600,600,500,500,500,500,500,500
+enemy_two_level_4_y_1=[200,400,200,600,600,500,500,500,500,500,500]
 
 enemy_two_level_4_rect_1=[]
 
@@ -767,7 +767,7 @@ level_3_fade_level_2=[0] ; level_3_part_3=False
 level_4_tile_set=load_pygame(r"A_Wit's_End\Level 4_Tileset\tile_set_level_4_test.tmx")
 level_4_tile_set_rect=[]
 
-
+hit_ground=False
 
 class Menu:
     def __init__(self,camera_x_y_bg):
@@ -1523,6 +1523,14 @@ class Game:
         if level_4:
             self.player_rect.width=31
             self.player_rect.height=45
+            
+            if self.player_rect.x>=100 and self.player_rect.x<4850: self.camera_x_y[0]+=self.player_rect.x-self.camera_x_y[0]-210
+            if self.player_rect.x<20: self.player_rect.x=20   
+            if self.player_rect.x>=4850: 
+                self.camera_x_y[0]=4850-210 
+                if self.player_rect.x>5685:
+                    self.player_rect.x=5685
+            if self.camera_x_y[0]<0: self.camera_x_y[0]=0
             SCREEN.fill((39,38,56))
             for layer in self.level_4_tile_set:
                 if layer.name=="Tile Layer 1":
@@ -1532,14 +1540,6 @@ class Game:
                 if layer.name=="Tile Layer 2" or layer.name=="Tile Layer 3":
                         for tile in layer.tiles():
                             x_val=tile[0]*16 ; y_val=tile[1]*16 ; SCREEN.blit(tile[2],(x_val-self.camera_x_y[0],y_val-self.camera_x_y[1]))
-
-            if self.player_rect.x>=100 and self.player_rect.x<4850: self.camera_x_y[0]+=self.player_rect.x-self.camera_x_y[0]-210
-            if self.player_rect.x<20: self.player_rect.x=20   
-            if self.player_rect.x>=4850: 
-                self.camera_x_y[0]=4850-210 
-                if self.player_rect.x>5685:
-                    self.player_rect.x=5685
-            if self.camera_x_y[0]<0: self.camera_x_y[0]=0
 
 class Player(Game):
     def __init__(self,player_x_movement,player_y_movement,player_rect,player_current_health):
@@ -1561,8 +1561,8 @@ class Player(Game):
             if jump and jump_condition and not attack and not dialogue_move_condition:
                 self.player_y_movement[0]=+0
                 if self.player_jump_length[0]>=-17:
-                    self.player_y_movement[0]=-9.50 #+=-7.50
-                    self.player_jump_length[0]-=1
+                    self.player_y_movement[0]=-7.50 #+=-7.50
+                    self.player_jump_length[0]-=1 #1
                 else: 
                     self.player_jump_length[0]=0
                 if player_idle_left: 
@@ -1570,7 +1570,7 @@ class Player(Game):
                 else: 
                     SCREEN.blit(self.player_jump[int(self.player_jump_number[0])//2],(self.player_rect.x-self.camera_x_y[0],self.player_rect.y+5)) 
 
-                self.player_jump_number[0]+=0.85
+                self.player_jump_number[0]+=0.85 #0.85
                 if self.player_jump_number[0]>9:
                     self.player_jump_number[0]=0 ; jump=False ; jump_condition=False
 
@@ -1615,20 +1615,12 @@ class Player(Game):
 
         if dialogue_move_condition:
             self.player_x_movement[0]=0
+            self.player_y_movement[0]=10
             if player_idle_right:
                 SCREEN.blit(self.player_idle[int(self.player_idle_number[0])//2],(self.player_rect.x-self.camera_x_y[0],self.player_rect.y+5)) ; self.player_idle_number[0]+=0.45
             if player_idle_left:
                 SCREEN.blit(self.player_idle_flip[int(self.player_idle_number[0])//2],(self.player_rect.x-self.camera_x_y[0],self.player_rect.y+5)) ; self.player_idle_number[0]+=0.45                        
-            if self.player_idle_number[0]>9: self.player_idle_number[0]=0  
-
-      #  if level_3_part_2:
-      #      if key[pygame.K_d]:
-      #          self.player_x_movement[0]=2
-      #      if key[pygame.K_a]:
-      #          self.player_x_movement[0]=-2
-      #      self.player_y_movement[0]=2
-      #      pygame.draw.rect(SCREEN,(200,200,200),pygame.Rect(player_rect.x-self.camera_x_y[0],player_rect.y-self.camera_x_y[1],35,60),width=1)
-      #      SCREEN.blit(self.player_jump_flip[0],(self.player_rect.x-self.camera_x_y[0],self.player_rect.y+5))          
+            if self.player_idle_number[0]>9: self.player_idle_number[0]=0       
                  
     def attack(self,player_attack_type_1,player_attack_type_1_flip,player_attack_type_2,player_attack_type_2_flip,
               player_attack_type_3,player_attack_type_3_flip,player_attack_type_4,player_attack_type_4_flip,attack_jump,attack_jump_flip):
@@ -1729,7 +1721,8 @@ class Player(Game):
                # reset_enemy_position=False
 
     def collision_with_object(self,tile_level_1_rect,tile_level_2_rect,tile_level_3_rect,level_3_tile_set_part_2_rect,level_4_tile_set_rect):
-        global level_2_part_2, level_3,level_3_part_2,level_3_part_3,level_4
+        global level_2_part_2, level_3,level_3_part_2,level_3_part_3,level_4,hit_ground
+        self.x=[0]
         if level_1:
             tile_level=self.tile_level_1_rect
         if level_2_part_2:
@@ -1742,13 +1735,20 @@ class Player(Game):
             tile_level=self.level_4_tile_set_rect
         if level_1 or level_2_part_2 or level_3 or level_3_part_2 or level_3_part_3 or level_4:
             tile_hit=[]
+            length=[]
             for tiles in tile_level:
                 if self.player_rect.colliderect(tiles):
                     tile_hit.append(tiles)
+                else:
+                    length.append(2)
+            if len(length)==8662:
+                hit_ground=True
+            if len(length)==8665:
+                hit_ground=False
             return tile_hit
 
     def collision_with_object_logic(self,tile_level_1_rect,tile_level_2_rect,tile_level_3_rect,level_3_tile_set_part_2_rect,level_4_tile_set_rect):
-        global jump_condition,level_2_part_2,level_3,level_3_part_2,level_3_part_3,level_4
+        global jump_condition,level_2_part_2,level_3,level_3_part_2,level_3_part_3,level_4,hit_ground
         if level_1 or level_2_part_2 or level_3 or level_3_part_2 or level_3_part_3 or level_4:
             self.player_rect.x+=self.player_x_movement[0]
             collision=Player.collision_with_object(self,tile_level_1_rect,tile_level_2_rect,tile_level_3_rect,level_3_tile_set_part_2_rect,level_4_tile_set_rect)
@@ -2076,7 +2076,7 @@ class EnemyTwo(Player):
         super().__init__(player_x_movement,player_y_movement,player_rect,player_current_health)
     
     def movement(self):
-        global level_1, level_1_enemy_fight_condition,level_4,level_screen,jump
+        global level_1, level_1_enemy_fight_condition,level_4,level_screen,jump,hit_ground
         self.enemy_two_idle=enemy_two_idle ; self.enemy_two_idle_flip=enemy_two_idle_flip ; self.enemy_two_idle_number=enemy_two_idle_number ; self.enemy_two_run=enemy_two_run 
         self.enemy_two_run_flip=enemy_two_run_flip ; self.enemy_two_run_number=enemy_two_run_number ; self.enemy_two_level_1_x=enemy_two_level_1_x ; self.enemy_two_fall_number=enemy_two_fall_number
         self.enemy_two_fall_direction_set=enemy_two_fall_direction_set
@@ -2131,7 +2131,7 @@ class EnemyTwo(Player):
         if level_4:
                 for idx,enemy_knight in enumerate(self.enemy_two_level_4_rect_1):
                     self.enemy_two_y_movement[0]=4
-                    if self.enemy_two_distance_list[idx]>200 or self.player_rect.y-enemy_knight.y>10 or jump:
+                    if self.enemy_two_distance_list[idx]>400 or self.player_rect.y-enemy_knight.y>10 or not hit_ground:
                         self.enemy_two_x_movement[idx]=0
                         if self.player_rect.x<enemy_knight.x:
                             SCREEN.blit(self.enemy_two_idle_flip[int(self.enemy_two_idle_number[idx]//2)],(enemy_knight.x-self.camera_x_y[0],enemy_knight.y-self.camera_x_y[1]-15))
@@ -2140,11 +2140,11 @@ class EnemyTwo(Player):
                         self.enemy_two_idle_number[idx]+=0.25
                         if self.enemy_two_idle_number[idx]>4:
                             self.enemy_two_idle_number[idx]=0
-                    if self.player_rect.x>=enemy_knight.x and self.enemy_two_distance_list[idx]<=200 and self.enemy_two_health[idx]>0 and self.player_rect.y-enemy_knight.y<=10 and not jump:
+                    if self.player_rect.x>=enemy_knight.x and self.enemy_two_distance_list[idx]<=400 and self.enemy_two_health[idx]>0 and self.player_rect.y-enemy_knight.y<=10 and hit_ground:
                         SCREEN.blit(self.enemy_two_run[int(self.enemy_two_run_number[0]//2)],(enemy_knight.x-self.camera_x_y[0],enemy_knight.y-self.camera_x_y[1]-15))
                         self.enemy_two_x_movement[idx]=4
                     
-                    if self.player_rect.x<enemy_knight.x  and self.enemy_two_distance_list[idx]<=200 and self.enemy_two_health[idx]>0 and self.player_rect.y-enemy_knight.y<=10 and not jump: 
+                    if self.player_rect.x<enemy_knight.x  and self.enemy_two_distance_list[idx]<=400 and self.enemy_two_health[idx]>0 and self.player_rect.y-enemy_knight.y<=10 and hit_ground: 
                         SCREEN.blit(self.enemy_two_run_flip[int(self.enemy_two_run_number[0]//2)],(enemy_knight.x-self.camera_x_y[0],enemy_knight.y-self.camera_x_y[1]-15))
                         self.enemy_two_x_movement[idx]=-4
 
