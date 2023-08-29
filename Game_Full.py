@@ -2131,7 +2131,7 @@ class EnemyTwo(Player):
         if level_4:
                 for idx,enemy_knight in enumerate(self.enemy_two_level_4_rect_1):
                     self.enemy_two_y_movement[0]=4
-                    if self.enemy_two_distance_list[idx]>400 or self.player_rect.y-enemy_knight.y>10 or not hit_ground:
+                    if self.enemy_two_distance_list[idx]>400 or not hit_ground:
                         self.enemy_two_x_movement[idx]=0
                         if self.player_rect.x<enemy_knight.x:
                             SCREEN.blit(self.enemy_two_idle_flip[int(self.enemy_two_idle_number[idx]//2)],(enemy_knight.x-self.camera_x_y[0],enemy_knight.y-self.camera_x_y[1]-15))
@@ -2140,11 +2140,12 @@ class EnemyTwo(Player):
                         self.enemy_two_idle_number[idx]+=0.25
                         if self.enemy_two_idle_number[idx]>4:
                             self.enemy_two_idle_number[idx]=0
-                    if self.player_rect.x>=enemy_knight.x and self.enemy_two_distance_list[idx]<=400 and self.enemy_two_health[idx]>0 and self.player_rect.y-enemy_knight.y<=10 and hit_ground:
+                            
+                    if self.player_rect.x>=enemy_knight.x and self.enemy_two_distance_list[idx]<=400 and self.enemy_two_health[idx]>0 and hit_ground and self.enemy_two_distance_list[idx]>50:
                         SCREEN.blit(self.enemy_two_run[int(self.enemy_two_run_number[0]//2)],(enemy_knight.x-self.camera_x_y[0],enemy_knight.y-self.camera_x_y[1]-15))
                         self.enemy_two_x_movement[idx]=4
                     
-                    if self.player_rect.x<enemy_knight.x  and self.enemy_two_distance_list[idx]<=400 and self.enemy_two_health[idx]>0 and self.player_rect.y-enemy_knight.y<=10 and hit_ground: 
+                    if self.player_rect.x<enemy_knight.x  and self.enemy_two_distance_list[idx]<=400 and self.enemy_two_health[idx]>0 and hit_ground and self.enemy_two_distance_list[idx]>50: 
                         SCREEN.blit(self.enemy_two_run_flip[int(self.enemy_two_run_number[0]//2)],(enemy_knight.x-self.camera_x_y[0],enemy_knight.y-self.camera_x_y[1]-15))
                         self.enemy_two_x_movement[idx]=-4
 
@@ -2153,33 +2154,61 @@ class EnemyTwo(Player):
                         self.enemy_two_run_number[0]=0
  
     def attack(self):
-        global level_1, level_1_enemy_fight_condition
+        global level_1, level_1_enemy_fight_condition,level_4,hit_ground
         self.enemy_two_attack_1=enemy_two_attack_1 ; self.enemy_two_attack_2=enemy_two_attack_2 ; self.enemy_two_attack_1_flip=enemy_two_attack_1_flip ; self.enemy_two_attack_2_flip=enemy_two_attack_2_flip
         self.enemy_two_attack_type=enemy_two_attack_type ; self.enemy_two_attack_number=enemy_two_attack_number ; self.enemy_two_attack_number=enemy_two_attack_number
-        if level_1 and level_1_enemy_fight_condition:
-            for idx,enemy_knight in enumerate(self.enemy_two_level_1_rect):
+        if level_1 and level_1_enemy_fight_condition or level_4:
+            if level_1: 
+                enemy_rect= self.enemy_two_level_1_rect 
+                self.x_offset=80 
+                self.y_offset=57
+            if level_4: 
+                enemy_rect= self.enemy_two_level_4_rect_1 
+                self.x_offset=65
+                self.y_offset=50
+            for idx,enemy_knight in enumerate(enemy_rect):
                 self.enemy_two_attack_number.append(0)
-                if self.enemy_two_attack_number[0]>len(self.enemy_two_level_1_rect):
+                if self.enemy_two_attack_number[0]>len(enemy_rect):
                     del self.enemy_two_attack_number[-1]
-                if self.enemy_two_distance_list[idx]<=30 and self.enemy_two_health[idx]>0:
-                    self.enemy_two_x_movement[idx]=0
-                    if self.enemy_two_attack_type[0]>2:
-                        self.enemy_two_attack_type[0]=1
-                    if self.enemy_two_attack_type[0]==1:
-                        if self.player_rect.x>=enemy_knight.x:
-                            SCREEN.blit(self.enemy_two_attack_1[int(self.enemy_two_attack_number[idx]//2)],(enemy_knight.x-self.camera_x_y[0]-80,enemy_knight.y-self.camera_x_y[1]-57))
-                        if self.player_rect.x<enemy_knight.x:
-                            SCREEN.blit(self.enemy_two_attack_1_flip[int(self.enemy_two_attack_number[idx]//2)],(enemy_knight.x-self.camera_x_y[0]-80,enemy_knight.y-self.camera_x_y[1]-57))
-                    if self.enemy_two_attack_type[0]==2:
-                        if self.player_rect.x>=enemy_knight.x:
-                            SCREEN.blit(self.enemy_two_attack_2[int(self.enemy_two_attack_number[idx]//2)],(enemy_knight.x-self.camera_x_y[0]-80,enemy_knight.y-self.camera_x_y[1]-57))
-                        if self.player_rect.x<enemy_knight.x:
-                            SCREEN.blit(self.enemy_two_attack_2_flip[int(self.enemy_two_attack_number[idx]//2)],(enemy_knight.x-self.camera_x_y[0]-80,enemy_knight.y-self.camera_x_y[1]-57))
-                    self.enemy_two_attack_number[idx]+=0.50
-                    if self.enemy_two_attack_number[idx]>8:
-                        self.enemy_two_attack_number[idx]=0
-                        self.player_current_health[0]-=25  #50
-                        self.enemy_two_attack_type[0]+=1
+                if self.enemy_two_health[idx]>0:
+                    if level_4 and hit_ground and self.enemy_two_distance_list[idx]<=50:
+                        self.enemy_two_x_movement[idx]=0
+                        if self.enemy_two_attack_type[0]>2:
+                            self.enemy_two_attack_type[0]=1
+                        if self.enemy_two_attack_type[0]==1:
+                            if self.player_rect.x>=enemy_knight.x:
+                                SCREEN.blit(self.enemy_two_attack_1[int(self.enemy_two_attack_number[idx]//2)],(enemy_knight.x-self.camera_x_y[0]-self.x_offset,enemy_knight.y-self.camera_x_y[1]-self.y_offset))
+                            if self.player_rect.x<enemy_knight.x:
+                                SCREEN.blit(self.enemy_two_attack_1_flip[int(self.enemy_two_attack_number[idx]//2)],(enemy_knight.x-self.camera_x_y[0]-self.x_offset,enemy_knight.y-self.camera_x_y[1]-self.y_offset))
+                        if self.enemy_two_attack_type[0]==2:
+                            if self.player_rect.x>=enemy_knight.x:
+                                SCREEN.blit(self.enemy_two_attack_2[int(self.enemy_two_attack_number[idx]//2)],(enemy_knight.x-self.camera_x_y[0]-self.x_offset,enemy_knight.y-self.camera_x_y[1]-self.y_offset))
+                            if self.player_rect.x<enemy_knight.x:
+                                SCREEN.blit(self.enemy_two_attack_2_flip[int(self.enemy_two_attack_number[idx]//2)],(enemy_knight.x-self.camera_x_y[0]-self.x_offset,enemy_knight.y-self.camera_x_y[1]-self.y_offset))
+                        self.enemy_two_attack_number[idx]+=0.50
+                        if self.enemy_two_attack_number[idx]>8:
+                            self.enemy_two_attack_number[idx]=0
+                            self.player_current_health[0]-=25  #50
+                            self.enemy_two_attack_type[0]+=1
+                    if level_1 and self.enemy_two_distance_list[idx]<=30:
+                        self.enemy_two_x_movement[idx]=0
+                        if self.enemy_two_attack_type[0]>2:
+                            self.enemy_two_attack_type[0]=1
+                        if self.enemy_two_attack_type[0]==1:
+                            if self.player_rect.x>=enemy_knight.x:
+                                SCREEN.blit(self.enemy_two_attack_1[int(self.enemy_two_attack_number[idx]//2)],(enemy_knight.x-self.camera_x_y[0]-self.x_offset,enemy_knight.y-self.camera_x_y[1]-self.y_offset))
+                            if self.player_rect.x<enemy_knight.x:
+                                SCREEN.blit(self.enemy_two_attack_1_flip[int(self.enemy_two_attack_number[idx]//2)],(enemy_knight.x-self.camera_x_y[0]-self.x_offset,enemy_knight.y-self.camera_x_y[1]-self.y_offset))
+                        if self.enemy_two_attack_type[0]==2:
+                            if self.player_rect.x>=enemy_knight.x:
+                                SCREEN.blit(self.enemy_two_attack_2[int(self.enemy_two_attack_number[idx]//2)],(enemy_knight.x-self.camera_x_y[0]-self.x_offset,enemy_knight.y-self.camera_x_y[1]-self.y_offset))
+                            if self.player_rect.x<enemy_knight.x:
+                                SCREEN.blit(self.enemy_two_attack_2_flip[int(self.enemy_two_attack_number[idx]//2)],(enemy_knight.x-self.camera_x_y[0]-self.x_offset,enemy_knight.y-self.camera_x_y[1]-self.y_offset))
+                        self.enemy_two_attack_number[idx]+=0.50
+                        if self.enemy_two_attack_number[idx]>8:
+                            self.enemy_two_attack_number[idx]=0
+                            self.player_current_health[0]-=25  #50
+                            self.enemy_two_attack_type[0]+=1
                 
     def player_hit(self):
         global level_1, attack,level_1_enemy_fight_condition,attack_done, player_idle_right, player_idle_left
