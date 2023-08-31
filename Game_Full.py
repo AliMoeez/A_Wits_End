@@ -506,9 +506,9 @@ enemy_two_fall_flip=[enemy_two_fall_flip_1,enemy_two_fall_flip_2,enemy_two_fall_
 
 enemy_two_level_1_x=[2700,3000] ; enemy_two_level_1_y=[557,557]
 
-enemy_two_level_4_x_1=[1900,1200,2100,2400,2700] 
+enemy_two_level_4_x_1=[1700,1900,2100,2400,2700,3200,3400] 
 
-enemy_two_level_4_y_1=[300,300,300,300,300]
+enemy_two_level_4_y_1=[300,300,300,300,300,300,300]
 
 enemy_two_level_4_rect_1=[]
 
@@ -767,7 +767,8 @@ level_3_fade_level_2=[0] ; level_3_part_3=False
 level_4_tile_set=load_pygame(r"A_Wit's_End\Level 4_Tileset\tile_set_level_4_test.tmx")
 level_4_tile_set_rect=[]
 
-hit_ground=False
+hit_ground=False ; level_4_dialogue_1_once=False ; level_4_begin_dialogue=False ; level_4_dialogue_length=[0] ; level_4_part_2=False
+level_4_fade_level=[0]
 
 class Menu:
     def __init__(self,camera_x_y_bg):
@@ -1162,7 +1163,6 @@ class Game:
             
             for idx, number in enumerate(level_2_dialogue):
                 
-                
                 if idx==self.level_2_dialogue_list_part_1_length[0]:
                     SCREEN.blit(level_2_dialogue[idx][2],(80,525))  ; font_game=pygame.font.SysFont("Impact",28) 
                     show_font_knight=font_game.render(level_2_dialogue[idx][1],1,colour_font) 
@@ -1255,10 +1255,7 @@ class Game:
         if level_3_part_2 and not level_3_part_3: 
             self.player_rect.height=64
             level_3=False
-          #  print(self.level_3_fade_level[0])
-          #  self.level_3_fade_level[0]-=10 ; rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  ; rectangle_blur.set_alpha(self.level_3_fade_level[0]) ; rectangle_blur.fill((0,0,0))   ; SCREEN.blit(rectangle_blur,(0,0))
-          #  if self.level_3_fade_level[0]<=0:
-          #      self.level_3_fade_level[0]=0
+
             if self.player_rect.x>=100 and self.player_rect.x<4540: self.camera_x_y[0]+=self.player_rect.x-self.camera_x_y[0]-210
             if self.player_rect.x<15: self.player_rect.x=15    
             if self.player_rect.x>=4540: 
@@ -1518,12 +1515,11 @@ class Game:
                 change_dialogue=False ; self.level_2_dialogue_list_part_1_length[0]+=1
 
     def level_four(self):
-        self.camera_x_y=camera_x_y
-        global level_4
+        self.camera_x_y=camera_x_y ; self.enemy_two_health=enemy_two_health ; self.level_4_fade_level=level_4_fade_level
+        global level_4,level_4_dialogue_1_once,level_4_begin_dialogue,level_4_part_2
         if level_4:
             self.player_rect.width=31
             self.player_rect.height=45
-    
             if self.player_rect.x>=100 and self.player_rect.x<4850: self.camera_x_y[0]+=self.player_rect.x-self.camera_x_y[0]-210
             if self.player_rect.x<20: self.player_rect.x=20   
             if self.player_rect.x>=2700: 
@@ -1540,6 +1536,65 @@ class Game:
                 if layer.name=="Tile Layer 2" or layer.name=="Tile Layer 3":
                         for tile in layer.tiles():
                             x_val=tile[0]*16 ; y_val=tile[1]*16 ; SCREEN.blit(tile[2],(x_val-self.camera_x_y[0],y_val-self.camera_x_y[1]))
+
+            if level_4 and not level_4_dialogue_1_once:
+                level_4_begin_dialogue=True
+
+            if self.player_rect.x>=3500 and any(idx<=0 for idx in self.enemy_two_health):
+                self.level_4_fade_level[0]+=10 
+                rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  
+                rectangle_blur.set_alpha(self.level_4_fade_level[0])  
+                rectangle_blur.fill((0,0,0))   
+                SCREEN.blit(rectangle_blur,(0,0))
+                if self.level_4_fade_level[0]>=200:
+                    level_4_part_2=True
+        
+        if level_4_part_2:
+            level_4=False
+            SCREEN.fill((20,20,20))
+
+            self.level_4_fade_level[0]-=10 
+            rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  
+            rectangle_blur.set_alpha(self.level_4_fade_level[0])  
+            rectangle_blur.fill((0,0,0))   
+            SCREEN.blit(rectangle_blur,(0,0))
+            if self.level_4_fade_level[0]<=0:
+                self.level_4_fade_level[0]=0
+    
+    def level_four_dialogue(self):
+        global level_4,level_4_dialogue_1_once,change_dialogue,change_dialogue_cond_1,dialogue_move_condition,level_4_begin_dialogue
+        self.player_icon=player_icon ; self.main_boss_icon=main_boss_icon ; self.level_4_dialogue_length=level_4_dialogue_length
+        
+        self.level_4_beginning_dialogue=[
+            ("I must end this once and for all.....","You",self.player_icon),
+            ("I must end this once and for all.....","You",self.player_icon)
+        ]
+                                         
+        if level_4_begin_dialogue:
+            level_4_dialogue=self.level_4_beginning_dialogue ; colour_box=(48,25,52) ; colour_font=(177,156,217)
+        
+        if level_4_begin_dialogue and not level_4_dialogue_1_once:
+            dialogue_move_condition=True ; rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  ; rectangle_blur.set_alpha(100) ; rectangle_blur.fill((0,0,0))  ; SCREEN.blit(rectangle_blur,(0,0)) 
+            rectangle_box_1=pygame.Surface((SCREEN_WIDTH,200))  ; rectangle_box_1.fill(colour_box)  ; rectangle_box_1.set_alpha(75)  ; SCREEN.blit(rectangle_box_1,(0,500))
+                
+            for idx, number in enumerate(level_4_dialogue):
+                if idx==self.level_4_dialogue_length[0]:
+                    SCREEN.blit(level_4_dialogue[idx][2],(80,525))  ; font_game=pygame.font.SysFont("Impact",28) 
+                    show_font_knight=font_game.render(level_4_dialogue[idx][1],1,colour_font) 
+                    if level_4_dialogue[idx][2]==self.player_icon: SCREEN.blit(show_font_knight,(110,645)) 
+                    font_game=pygame.font.SysFont("Impact",24) ; show_font_knight=font_game.render(level_4_dialogue[idx][0],1,colour_font) ; SCREEN.blit(show_font_knight,(200,545))
+
+                if self.level_4_dialogue_length[0]>=len(level_4_dialogue):
+                    if level_4_begin_dialogue:
+                        level_4_dialogue_1_once=True
+                    level_4_begin_dialogue=False
+                    self.level_4_dialogue_length[0]=0 ;  dialogue_move_condition=False 
+                    
+            if event.type==pygame.MOUSEBUTTONDOWN:  change_dialogue_cond_1=True
+            if event.type==pygame.MOUSEBUTTONUP and change_dialogue_cond_1:
+                change_dialogue_cond_1=False ; change_dialogue=True  
+            if change_dialogue:
+                change_dialogue=False ; self.level_4_dialogue_length[0]+=1
 
 class Player(Game):
     def __init__(self,player_x_movement,player_y_movement,player_rect,player_current_health):
@@ -1629,7 +1684,7 @@ class Player(Game):
         self.player_attack_type_4=player_attack_type_4 ; self.player_attack_type_4_flip=player_attack_type_4_flip ; self.attack_type=attack_type ; self.player_attack_number=player_attack_number
         self.attack_jump=attack_jump ; self.attack_jump_flip=attack_jump_flip ; self.player_attack_jump_number=player_attack_jump_number
         global attack,jump,jump_condition,player_idle_right,player_idle_left,attack_air, player_death,dialogue_move_condition, attack_done
-        if (level_1 or level_2_part_2 or level_3 or level_3_part_2 or level_3_part_3) and not player_death and not dialogue_move_condition:
+        if (level_1 or level_2_part_2 or level_3 or level_3_part_2 or level_3_part_3 or level_4) and not player_death and not dialogue_move_condition:
             if key[pygame.K_e]:
                 attack=True ; jump=False
             if attack and jump_condition and not attack_air:            
@@ -2125,7 +2180,7 @@ class EnemyTwo(Player):
         if level_4:
                 for idx,enemy_knight in enumerate(self.enemy_two_level_4_rect_1):
                     self.enemy_two_y_movement[0]=4
-                    if self.enemy_two_distance_list[idx]>400:
+                    if (self.enemy_two_distance_list[idx]>700 or self.player_rect.y-enemy_knight.y>12) and self.enemy_two_health[idx]>0:
                         self.enemy_two_x_movement[idx]=0
                         if self.player_rect.x<enemy_knight.x:
                             SCREEN.blit(self.enemy_two_idle_flip[int(self.enemy_two_idle_number[idx]//2)],(enemy_knight.x-self.camera_x_y[0],enemy_knight.y-self.camera_x_y[1]-15))
@@ -2135,10 +2190,10 @@ class EnemyTwo(Player):
                         if self.enemy_two_idle_number[idx]>4:
                             self.enemy_two_idle_number[idx]=0
 
-                    if self.player_rect.x>=enemy_knight.x and self.enemy_two_distance_list[idx]<=400 and self.enemy_two_health[idx]>0 and self.enemy_two_distance_list[idx]>30:
+                    if self.player_rect.x>=enemy_knight.x and self.enemy_two_distance_list[idx]<=700 and self.enemy_two_health[idx]>0 and self.enemy_two_distance_list[idx]>30  and self.player_rect.y-enemy_knight.y<=12:
                         SCREEN.blit(self.enemy_two_run[int(self.enemy_two_run_number[0]//2)],(enemy_knight.x-self.camera_x_y[0],enemy_knight.y-self.camera_x_y[1]-15))
                         self.enemy_two_x_movement[idx]=4
-                    if self.player_rect.x<enemy_knight.x  and self.enemy_two_distance_list[idx]<=400 and self.enemy_two_health[idx]>0  and self.enemy_two_distance_list[idx]>30 :
+                    if self.player_rect.x<enemy_knight.x  and self.enemy_two_distance_list[idx]<=700 and self.enemy_two_health[idx]>0  and self.enemy_two_distance_list[idx]>30 and self.player_rect.y-enemy_knight.y<=12: 
                         SCREEN.blit(self.enemy_two_run_flip[int(self.enemy_two_run_number[0]//2)],(enemy_knight.x-self.camera_x_y[0],enemy_knight.y-self.camera_x_y[1]-15))
                         self.enemy_two_x_movement[idx]=-4
 
@@ -2206,7 +2261,7 @@ class EnemyTwo(Player):
                             self.enemy_two_attack_type[0]+=1
                 
     def player_hit(self):
-        global level_1, attack,level_1_enemy_fight_condition,attack_done, player_idle_right, player_idle_left
+        global level_1, attack,level_1_enemy_fight_condition,attack_done, player_idle_right, player_idle_left,level_4
         if level_1:
             if attack_done and level_1_enemy_fight_condition:
                 for idx,knight in enumerate(self.enemy_two_level_1_rect):
@@ -2216,27 +2271,38 @@ class EnemyTwo(Player):
                         if player_idle_left and self.player_rect.x>self.enemy_two_level_1_rect[idx].x:
                             self.enemy_two_health[idx]-=25
                         attack_done=False   
-    
+        if level_4:
+            if attack_done:
+                for idx,knight in enumerate(self.enemy_two_level_4_rect_1):
+                    if self.enemy_two_distance_list[idx]<50:
+                        if player_idle_right and self.player_rect.x<=self.enemy_two_level_4_rect_1[idx].x:
+                            self.enemy_two_health[idx]-=25
+                        if player_idle_left and self.player_rect.x>self.enemy_two_level_4_rect_1[idx].x:
+                            self.enemy_two_health[idx]-=25
+                        attack_done=False  
+ 
     def fall(self):
         global reset_enemy_position
         self.enemy_two_fall=enemy_two_fall ; self.enemy_two_fall_flip=enemy_two_fall_flip ; self.enemy_two_fall_number=enemy_two_fall_number
-        if level_1 and not reset_enemy_position:
-            for idx,knight in enumerate(self.enemy_two_level_1_rect):
+        if level_1 and not reset_enemy_position or level_4 and not reset_enemy_position:
+            if level_1: enemy_rect=self.enemy_two_level_1_rect
+            if level_4: enemy_rect=self.enemy_two_level_4_rect_1
+            for idx,knight in enumerate(enemy_rect):
                 if self.enemy_two_health[idx]<=0:
                     self.enemy_two_health[idx]=0
                     self.enemy_two_x_movement[idx]=0
                     if self.enemy_two_fall_direction_set[idx]==1:
                         if self.enemy_two_fall_number[idx]<6:
-                                SCREEN.blit(self.enemy_two_fall[int(self.enemy_two_fall_number[idx])//2],(self.enemy_two_level_1_rect[idx].x-self.camera_x_y[0],knight.y-self.camera_x_y[1]-25))
+                                SCREEN.blit(self.enemy_two_fall[int(self.enemy_two_fall_number[idx])//2],(enemy_rect[idx].x-self.camera_x_y[0],knight.y-self.camera_x_y[1]-25))
                         else:
                                 self.enemy_two_fall_number[idx]=6     
-                                SCREEN.blit(self.enemy_two_fall[int(self.enemy_two_fall_number[idx])//2],(self.enemy_two_level_1_rect[idx].x-self.camera_x_y[0],knight.y-self.camera_x_y[1]-25))
+                                SCREEN.blit(self.enemy_two_fall[int(self.enemy_two_fall_number[idx])//2],(enemy_rect[idx].x-self.camera_x_y[0],knight.y-self.camera_x_y[1]-25))
                     if self.enemy_two_fall_direction_set[idx]==2:
                         if self.enemy_two_fall_number[idx]<6:
-                            SCREEN.blit(self.enemy_two_fall_flip[int(self.enemy_two_fall_number[idx])//2],(self.enemy_two_level_1_rect[idx].x-self.camera_x_y[0],knight.y-self.camera_x_y[1]-25))
+                            SCREEN.blit(self.enemy_two_fall_flip[int(self.enemy_two_fall_number[idx])//2],(enemy_rect[idx].x-self.camera_x_y[0],knight.y-self.camera_x_y[1]-25))
                         else:
                             self.enemy_two_fall_number[idx]=6
-                            SCREEN.blit(self.enemy_two_fall_flip[int(self.enemy_two_fall_number[idx])//2],(self.enemy_two_level_1_rect[idx].x-self.camera_x_y[0],knight.y-self.camera_x_y[1]-25))                         
+                            SCREEN.blit(self.enemy_two_fall_flip[int(self.enemy_two_fall_number[idx])//2],(enemy_rect[idx].x-self.camera_x_y[0],knight.y-self.camera_x_y[1]-25))                         
                     self.enemy_two_fall_number[idx]+=0.50  
                           
     def reset_position(self):
@@ -2893,6 +2959,7 @@ while run:
     game.level_one_dialogue()
     game.level_two_dialogue()
     game.level_three_dialogue()
+    game.level_four_dialogue()
     game.level_one_win()
     
     player.defeat()

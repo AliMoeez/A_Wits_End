@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "tile_set_level_4_test.tmx",
     "automapping.whileDrawing": false,
     "expandedProjectPaths": [
     ],
@@ -13,20 +13,26 @@
             "scale": 0.2865716911764706,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1873.8766477436736,
+                "x": 1870.387119535585,
                 "y": 416.99862086660914
             }
         },
         "C:/Users/Owner/Desktop/A_Wits_End/A_Wit's_End/Level 3_Tileset/x.tsx": {
             "scaleInDock": 1
         },
+        "background.tsx": {
+            "scaleInDock": 1
+        },
         "tile_set_level_4_test.tmx": {
-            "scale": 1.3386633354153652,
-            "selectedLayer": 1,
+            "scale": 2,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 568.4775102650243,
-                "y": 352.2170119447556
+                "x": 1144,
+                "y": 543.25
             }
+        },
+        "tile_set_level_4_test.tmx#tileset": {
+            "scaleInDock": 1
         },
         "tileset.tsx": {
             "scaleInDock": 1,
