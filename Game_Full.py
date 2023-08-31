@@ -216,7 +216,6 @@ level_3_tile_set_part_2=load_pygame(r"A_Wit's_End\Level 3_Tileset\test.tmx")
 level_3_tile_set_part_2_rect=[]
 
 level_3_tile_1=pygame.transform.scale(level_2_floor_2_15,(65,45))
-
     
 tile_level_1_ground=pygame.image.load(r"A_Wit's_End\Level_1_Tileset\GothicVania-town-files\GothicVania-town-files\PNG\environment\layers\sliced-tileset\ground.png") ; tile_level_1_ground=pygame.transform.scale(tile_level_1_ground,(65,45))
 
@@ -767,6 +766,9 @@ level_3_fade_level_2=[0] ; level_3_part_3=False
 level_4_tile_set=load_pygame(r"A_Wit's_End\Level 4_Tileset\tile_set_level_4_test.tmx")
 level_4_tile_set_rect=[]
 
+level_4_tile_set_part_2=load_pygame(r"A_Wit's_End\Level 4_Tileset\tile_set_level_four_part_2_test.tmx")
+level_4_tile_set_part_2_rect=[]
+
 hit_ground=False ; level_4_dialogue_1_once=False ; level_4_begin_dialogue=False ; level_4_dialogue_length=[0] ; level_4_part_2=False
 level_4_fade_level=[0]
 
@@ -836,10 +838,12 @@ class Menu:
                 level_3=False ; level_2_part_2=False ; level_screen=True ; level_1=False ; level_2=False ; reset_enemy_position=True ; level_4=False
                 
 class Game:
-    def __init__(self,level_1_bg,tile_level_1,camera_x_y,tile_level_1_rect,tile_level_2,tile_level_2_rect,tile_level_3,tile_level_3_rect,level_3_tile_set_part_2,level_3_tile_set_part_2_rect,level_4_tile_set,level_4_tile_set_rect):
+    def __init__(self,level_1_bg,tile_level_1,camera_x_y,tile_level_1_rect,tile_level_2,tile_level_2_rect,tile_level_3,tile_level_3_rect,level_3_tile_set_part_2,
+                 level_3_tile_set_part_2_rect,level_4_tile_set,level_4_tile_set_rect,level_4_tile_set_part_2,level_4_tile_set_part_2_rect):
         self.level_1_bg=level_1_bg ; self.tile_level_1=tile_level_1 ; self.camera_x_y=camera_x_y ; self.tile_level_1_rect=tile_level_1_rect
         self.tile_level_2=tile_level_2; self.tile_level_2_rect=tile_level_2_rect ; self.tile_level_3=tile_level_3 ; self.tile_level_3_rect=tile_level_3_rect
         self.level_3_tile_set_part_2=level_3_tile_set_part_2 ; self.level_3_tile_set_part_2_rect=level_3_tile_set_part_2_rect ; self.level_4_tile_set=level_4_tile_set ; self.level_4_tile_set_rect=level_4_tile_set_rect
+        self.level_4_tile_set_part_2=level_4_tile_set_part_2 ; self.level_4_tile_set_part_2_rect=level_4_tile_set_part_2_rect
     
     def level_one(self,tile_level_1_ground,tile_level_1_dirt):
         global level_1,level_one_x_border,level_2,level_2_part_2
@@ -1515,7 +1519,7 @@ class Game:
                 change_dialogue=False ; self.level_2_dialogue_list_part_1_length[0]+=1
 
     def level_four(self):
-        self.camera_x_y=camera_x_y ; self.enemy_two_health=enemy_two_health ; self.level_4_fade_level=level_4_fade_level
+        self.camera_x_y=camera_x_y ; self.enemy_two_health=enemy_two_health ; self.level_4_fade_level=level_4_fade_level 
         global level_4,level_4_dialogue_1_once,level_4_begin_dialogue,level_4_part_2
         if level_4:
             self.player_rect.width=31
@@ -1551,7 +1555,14 @@ class Game:
         
         if level_4_part_2:
             level_4=False
-            SCREEN.fill((20,20,20))
+            SCREEN.fill((39,38,56))
+            for layer in self.level_4_tile_set_part_2:
+                if layer.name=="Tile Layer 1":
+                    for tile in layer.tiles():
+                        x_val=tile[0]*16 ; y_val=tile[0]*16
+                        SCREEN.blit(tile[2],(x_val-self.camera_x_y[0],y_val-self.camera_x_y[1]))
+                        self.level_4_tile_set_part_2_rect.append(pygame.Rect(x_val,y_val,16,16))
+                        print(self.level_4_tile_set_part_2_rect)
 
             self.level_4_fade_level[0]-=10 
             rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  
@@ -1601,7 +1612,7 @@ class Player(Game):
         self.player_x_movement=player_x_movement ; self.player_y_movement=player_y_movement ; self.player_current_health=player_current_health
         self.player_rect=player_rect
         super().__init__(level_1_bg,tile_level_1,camera_x_y,tile_level_1_rect,tile_level_2,tile_level_2_rect,tile_level_3,
-                         tile_level_3_rect,level_3_tile_set_part_2,level_3_tile_set_part_2_rect,level_4_tile_set,level_4_tile_set_rect)
+                         tile_level_3_rect,level_3_tile_set_part_2,level_3_tile_set_part_2_rect,level_4_tile_set,level_4_tile_set_rect,level_4_tile_set_part_2,level_4_tile_set_part_2_rect)
     
     def movement(self,player_idle,player_idle_flip,player_run,player_run_flip,player_jump,player_jump_flip):
         global level_1,jump,jump_condition,player_idle_right,player_idle_left,attack,crouch,dialogue_move_condition,player_death,level_2,level_3,level_3_part_2,level_4
@@ -2272,7 +2283,7 @@ class EnemyTwo(Player):
                             self.enemy_two_health[idx]-=25
                         attack_done=False   
         if level_4:
-            if attack_done:
+          #  if attack_done:
                 for idx,knight in enumerate(self.enemy_two_level_4_rect_1):
                     if self.enemy_two_distance_list[idx]<50:
                         if player_idle_right and self.player_rect.x<=self.enemy_two_level_4_rect_1[idx].x:
@@ -2872,7 +2883,7 @@ class BossTwo(Player):
             
 while run:
     tile_level_1_rect=[] ; tile_level_2_rect=[] ; level_2_bg_list=[] ; level_2_dec_list=[] ; level_2_item_list=[] ; tile_level_3_rect=[]
-    level_3_bg_list=[] ; level_3_hill_list=[] ; level_3_tile_set_part_2_rect=[] ; level_4_tile_set_rect=[]
+    level_3_bg_list=[] ; level_3_hill_list=[] ; level_3_tile_set_part_2_rect=[] ; level_4_tile_set_rect=[] ; level_4_tile_set_part_2_rect=[]
 
     key=pygame.key.get_pressed()
     x=clock.tick(FPS)
@@ -2885,7 +2896,7 @@ while run:
     menu.home(level_3_bg_1,level_3_bg_2)
     menu.level_selection()
     
-    game=Game(level_1_bg,tile_level_1,camera_x_y,tile_level_1_rect,tile_level_2,tile_level_2_rect,tile_level_3,tile_level_3_rect,level_3_tile_set_part_2,level_3_tile_set_part_2_rect,level_4_tile_set,level_4_tile_set_rect)
+    game=Game(level_1_bg,tile_level_1,camera_x_y,tile_level_1_rect,tile_level_2,tile_level_2_rect,tile_level_3,tile_level_3_rect,level_3_tile_set_part_2,level_3_tile_set_part_2_rect,level_4_tile_set,level_4_tile_set_rect,level_4_tile_set_part_2,level_4_tile_set_part_2_rect)
     game.level_one(tile_level_1_ground,tile_level_1_dirt)
     game.level_two()
     game.level_three()
