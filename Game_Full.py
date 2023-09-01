@@ -1557,28 +1557,28 @@ class Game:
                 if self.level_4_fade_level[0]>=200:
                     level_4_part_2=True 
                     self.player_rect.x=40
-                    self.player_rect.y=200
+                    self.player_rect.y=400
 
         if level_4_part_2:
-            print(self.player_rect.x,self.player_rect.y)
             level_4=False
-
             SCREEN.fill((39,38,56))
             if self.player_rect.x>=220 and self.player_rect.x<4850: self.camera_x_y[0]+=self.player_rect.x-self.camera_x_y[0]-210
             if self.player_rect.x<220: 
                 self.camera_x_y[0]=220-210 
-                if self.player_rect.x<40:
-                    self.player_rect.x=40
-            if self.player_rect.x>=2700: 
-                self.camera_x_y[0]=2700-210 
-                if self.player_rect.x>3535:
-                    self.player_rect.x=3535
+                if self.player_rect.x<40: self.player_rect.x=40
+         #   if self.player_rect.x>=1500: 
+         #       self.camera_x_y[0]=1500-210 
+         #       if self.player_rect.x>2335: self.player_rect.x=2335
             for layer in self.level_4_tile_set_part_2:
                 if layer.name=="Tile Layer 1":
                     for tile in layer.tiles():
                         x_val=tile[0]*16 ; y_val=tile[1]*16
                         SCREEN.blit(tile[2],(x_val-self.camera_x_y[0],y_val-self.camera_x_y[1]))
                         self.level_4_tile_set_part_2_rect.append(pygame.Rect(x_val,y_val,16,16))
+                if layer.name=="Tile Layer 2":
+                    for tile in layer.tiles():
+                        x_val=tile[0]*16 ; y_val=tile[1]*16
+                        SCREEN.blit(tile[2],(x_val-self.camera_x_y[0],y_val-self.camera_x_y[1]))
 
 
             self.level_4_fade_level[0]-=10 

@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="150" height="44" tilewidth="16" tileheight="16" infinite="0" nextlayerid="2" nextobjectid="1">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="250" height="44" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="1">
  <tileset firstgid="1" source="tileset.tsx"/>
- <layer id="1" name="Tile Layer 1" width="150" height="44">
+ <tileset firstgid="295" source="background.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="250" height="44">
   <data encoding="base64" compression="zlib">
-   eJzt0jEKQjEURNHEj7r/1amoO1BRV+BrAr8wVk53DlwIvJTTGgAAAAAAAAAAAAAAAAAAAAC/nKtLdZ28D9WxOk3+rO8wPKtX9Z68b9W9ekz+rO8wbHtru2rfv797tamWyZ/1HYal/y8Y7IoEuyLBrkiwKxLsigS7IsGuSLArEuyKBLsiwa5IsCsSPocMJk4=
+   eJzt3TFKBFEQRdFuB3U3ugjdf6qi7kBFXYEVODDB/EyoR3kOXLqgO5jg5XPYt+0g/XFk6d6DZkaW7j1oZmTp3oNmRpab6nb4M+E3/LcnWe6q++HPhN/w354AAAAAAAAAAAAAAAAAAAAAAAAAAAAw0XP1Ur0u7ofqsXpafHP63u0+3qtd0eOz+qq+F/db9V59LL45fe92H+/VruhxuW/bVXW9n7/36uL3v3TOfXP63u0+3qtd0aP7f7g0M7J070EzI0v3HjQzsnTvQTMjS/ceNDOydO9BMyNL9x40M7J070EzI0v3HjQzsnTvQTMjS/ceNDOydO9BMyNL9x40M7L8AFd6gXA=
+  </data>
+ </layer>
+ <layer id="2" name="Tile Layer 2" width="250" height="44">
+  <data encoding="base64" compression="zlib">
+   eJzt1VdOF1EYQPH7L5pYaS7FXhLFgiZgoeiLrgALLVHsiQpS9A2sa1CwJoo9AZWmSxFsmFiOrMDMkMzgnF9yHufLTe58uSFIkiRJkiRJkiRJkiRJkiRJkiRJkiRJkhRCYy6Ew3SEjtIxaqJmaqFWasslfUpJcdxhh+/SAA3SPbpPD+ghPaLH7rkiOEiHkj6EZn1ih6domj7TF/pK3+g7zdAP91wRNFNL0ofQrJX5EFbRalpDa2kdracNtJE25aPP7+LbbuqhXrpCV52XiXkd1Bl9tObQce7kBLXTSTpFp+kMnaVzdD7GfzDGt+M0QZP0gT46LxPz3PP0eMKdPKUhekbP6QW9pFf0mt7E+A9KCiGUUhmVUwWtKDgvC/Nu0e3oozWHfrLDv+j3313mfnKUpwIVaQEtjPEf1PJtHdVTA+2nA87LxDzf8/TYzJ1soUraSttoO+2gKtpJu2L8B31820/X6DrdoJvOy8Q83/P0uMCdXKRL1EGddJm6qJt6qDfGf6Ds8j1Pj2F2eITe0jt6T6M0RuM0QZPuuSLwPU+PRcUQFtMSWkrLaDmVUCmVUXkx6VNqPvI9T49qdriGdtMe2kv7qJbqqJ4a3HNF4Hsu/f8GaDDpQ0iSJEmSJEmSJEmSJEmSJEmSJEmSJEn6Z38AC06stw==
   </data>
  </layer>
 </map>
