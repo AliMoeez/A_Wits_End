@@ -3,7 +3,7 @@
  <tileset firstgid="1" source="tileset.tsx"/>
  <layer id="1" name="Tile Layer 1" width="150" height="44">
   <data encoding="base64" compression="zlib">
-   eJzt2WtOg0AUQGGwUXfuFtWoO7BGXYH3DwkhDMPAfU09X3KTJhDawHGkdBgAAAAAAAAAWHlaDHBEraPldlrDljONrLVGb7lZXzPLBmgrn1JPWo15rSmsXXZaGjlyHVqPF3Gd6UuX97ks9ZTlHoi+dESfw2VDa2uX57WmKz1ZzmOtIY+1jO+LujKcx7X/i7X9tTsorZs4LvLvtLZG7T3GmXu01q7RJup+ubZd67no3venK30R3xP37nf2s+1d0+jKhvf3MMv9j6ArWx59ZezK833+M+u+MrZFV34sn/Fka4uuYmj3tedYnr/10FUsrd+op2NtHdcTXeW11VxtomX4DD16k3mX+Si8fpZ5kXkt7DPfri3LNc3yOXryLfMj81t4/Slzlfkq7DPfbiHDuhX9/j26H4fhQeZxXH89ytzJXAr7zLdbiry2dNXuMuqNtai1i67a9dTVxLsvumrXY1cTj+f/Ge7vetRzVxPtZxO0dN4tdLV05nkZPem4xa4Qj65gga5gga5gga5gga5gga5gga5g4Q8M/aeY
+   eJzt0jEKQjEURNHEj7r/1amoO1BRV+BrAr8wVk53DlwIvJTTGgAAAAAAAAAAAAAAAAAAAAC/nKtLdZ28D9WxOk3+rO8wPKtX9Z68b9W9ekz+rO8wbHtru2rfv797tamWyZ/1HYal/y8Y7IoEuyLBrkiwKxLsigS7IsGuSLArEuyKBLsiwa5IsCsSPocMJk4=
   </data>
  </layer>
 </map>
