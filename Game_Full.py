@@ -1546,9 +1546,9 @@ class Game:
             if level_4 and not level_4_dialogue_1_once:
                 level_4_begin_dialogue=True
 
-           # if self.player_rect.x>=3500 and any(idx<=0 for idx in self.enemy_two_health):
+           # if self.player_rect.x>=3500 and all(idx<=0 for idx in self.enemy_two_health):
 
-            if self.player_rect.x>=3500 and all(idx<=0 for idx in self.enemy_two_health):
+            if self.player_rect.x>=100:
                 self.level_4_fade_level[0]+=10 
                 rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  
                 rectangle_blur.set_alpha(self.level_4_fade_level[0])  
@@ -1556,7 +1556,7 @@ class Game:
                 SCREEN.blit(rectangle_blur,(0,0))
                 if self.level_4_fade_level[0]>=200:
                     level_4_part_2=True 
-                    self.player_rect.x=100
+                    self.player_rect.x=40
                     self.player_rect.y=200
 
         if level_4_part_2:
@@ -1564,8 +1564,11 @@ class Game:
             level_4=False
 
             SCREEN.fill((39,38,56))
-            if self.player_rect.x>=100 and self.player_rect.x<4850: self.camera_x_y[0]+=self.player_rect.x-self.camera_x_y[0]-210
-            if self.player_rect.x<20: self.player_rect.x=20   
+            if self.player_rect.x>=220 and self.player_rect.x<4850: self.camera_x_y[0]+=self.player_rect.x-self.camera_x_y[0]-210
+            if self.player_rect.x<220: 
+                self.camera_x_y[0]=220-210 
+                if self.player_rect.x<40:
+                    self.player_rect.x=40
             if self.player_rect.x>=2700: 
                 self.camera_x_y[0]=2700-210 
                 if self.player_rect.x>3535:
