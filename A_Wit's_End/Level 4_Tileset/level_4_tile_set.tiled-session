@@ -27,8 +27,8 @@
             "scale": 0.75,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 1890.6666666666665,
-                "y": 816.6666666666665
+                "x": 2714.6666666666665,
+                "y": 322
             }
         },
         "tile_set_level_4_test.tmx#tileset": {
@@ -62,8 +62,8 @@
     ],
     "project": "level_4_tile_set.tiled-project",
     "recentFiles": [
-        "tile_set_level_4_test.tmx",
         "tileset.tsx",
+        "tile_set_level_4_test.tmx",
         "C:/Users/Owner/Desktop/A_Wits_End/A_Wit's_End/Level 3_Tileset/test.tmx"
     ],
     "resizeMap.removeObjects": true,

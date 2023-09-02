@@ -505,14 +505,18 @@ enemy_two_fall_flip=[enemy_two_fall_flip_1,enemy_two_fall_flip_2,enemy_two_fall_
 
 enemy_two_level_1_x=[2700,3000] ; enemy_two_level_1_y=[557,557]
 
-enemy_two_level_4_x_1=[1700,1900,2100,2400,2700,3200,3400] 
+enemy_two_level_4_x_1=[1700,1900,2100,2400,2700,3200,3400] ; enemy_two_level_4_y_1=[300,300,300,300,300,300,300]
 
-enemy_two_level_4_y_1=[300,300,300,300,300,300,300]
+enemy_two_level_4_x_2=[300,500,700,900,1200] ; enemy_two_level_4_y_2=[300,300,300,300,300]
 
-enemy_two_level_4_rect_1=[]
+
+enemy_two_level_4_rect_1=[] ; enemy_two_level_4_rect_2=[]
 
 for idx,number in enumerate(enemy_two_level_4_x_1):
     enemy_two_level_4_rect_1.append(pygame.Rect(enemy_two_level_4_x_1[idx],enemy_two_level_4_y_1[idx],45,55))
+
+for idx,number in enumerate(enemy_two_level_4_x_2):
+    enemy_two_level_4_rect_2.append(pygame.Rect(enemy_two_level_4_x_2[idx],enemy_two_level_4_y_2[idx],45,55))
 
 
 enemy_two_level_1_rect=[pygame.Rect(enemy_two_level_1_x[0],enemy_two_level_1_y[0],45,55),pygame.Rect(enemy_two_level_1_x[1],enemy_two_level_1_y[1],45,55)] 
@@ -625,52 +629,19 @@ ally_1_idle_1=pygame.transform.scale(ally_1_idle_1,(75,85)) ; ally_1_idle_2=pyga
 ally_1_idle_flip_1=pygame.transform.flip(ally_1_idle_1,True,False) ; ally_1_idle_flip_2=pygame.transform.flip(ally_1_idle_2,True,False) ; ally_1_idle_flip_3=pygame.transform.flip(ally_1_idle_3,True,False) ; ally_1_idle_flip_4=pygame.transform.flip(ally_1_idle_4,True,False)
 ally_1_idle=[ally_1_idle_1,ally_1_idle_2,ally_1_idle_3,ally_1_idle_4]
 ally_1_idle_flip=[ally_1_idle_flip_1,ally_1_idle_flip_2,ally_1_idle_flip_3,ally_1_idle_flip_4]
-
-ally_1_run_1=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Heavy Bandit\Run\HeavyBandit_Run_0.png")
-ally_1_run_2=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Heavy Bandit\Run\HeavyBandit_Run_1.png")
-ally_1_run_3=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Heavy Bandit\Run\HeavyBandit_Run_2.png")
-ally_1_run_4=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Heavy Bandit\Run\HeavyBandit_Run_3.png")
-ally_1_run_5=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Heavy Bandit\Run\HeavyBandit_Run_4.png")
-ally_1_run_6=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Heavy Bandit\Run\HeavyBandit_Run_5.png")
-ally_1_run_7=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Heavy Bandit\Run\HeavyBandit_Run_6.png")
-ally_1_run_8=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Heavy Bandit\Run\HeavyBandit_Run_7.png")
-
-ally_1_run_1=pygame.transform.scale(ally_1_run_1,(75,85))
-ally_1_run_2=pygame.transform.scale(ally_1_run_2,(75,85))
-ally_1_run_3=pygame.transform.scale(ally_1_run_3,(75,85))
-ally_1_run_4=pygame.transform.scale(ally_1_run_4,(75,85))
-ally_1_run_5=pygame.transform.scale(ally_1_run_5,(75,85))
-ally_1_run_6=pygame.transform.scale(ally_1_run_6,(75,85))
-ally_1_run_7=pygame.transform.scale(ally_1_run_7,(75,85))
-ally_1_run_8=pygame.transform.scale(ally_1_run_8,(75,85))
-
-ally_1_run_flip_1=pygame.transform.flip(ally_1_run_1,True,False)
-ally_1_run_flip_2=pygame.transform.flip(ally_1_run_2,True,False)
-ally_1_run_flip_3=pygame.transform.flip(ally_1_run_3,True,False)
-ally_1_run_flip_4=pygame.transform.flip(ally_1_run_4,True,False)
-ally_1_run_flip_5=pygame.transform.flip(ally_1_run_5,True,False)
-ally_1_run_flip_6=pygame.transform.flip(ally_1_run_6,True,False)
-ally_1_run_flip_7=pygame.transform.flip(ally_1_run_7,True,False)
-ally_1_run_flip_8=pygame.transform.flip(ally_1_run_8,True,False)
-
-ally_1_icon=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Heavy Bandit\Icon\HeavyBandit_Icon.png")
-ally_1_icon=pygame.transform.scale(ally_1_icon,(120,120))
-
+ally_1_run_1=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Heavy Bandit\Run\HeavyBandit_Run_0.png") ; ally_1_run_2=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Heavy Bandit\Run\HeavyBandit_Run_1.png") ; ally_1_run_3=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Heavy Bandit\Run\HeavyBandit_Run_2.png")
+ally_1_run_4=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Heavy Bandit\Run\HeavyBandit_Run_3.png") ; ally_1_run_5=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Heavy Bandit\Run\HeavyBandit_Run_4.png") ; ally_1_run_6=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Heavy Bandit\Run\HeavyBandit_Run_5.png") ; ally_1_run_7=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Heavy Bandit\Run\HeavyBandit_Run_6.png") ; ally_1_run_8=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Heavy Bandit\Run\HeavyBandit_Run_7.png")
+ally_1_run_1=pygame.transform.scale(ally_1_run_1,(75,85)) ; ally_1_run_2=pygame.transform.scale(ally_1_run_2,(75,85)) ; ally_1_run_3=pygame.transform.scale(ally_1_run_3,(75,85)) ; ally_1_run_4=pygame.transform.scale(ally_1_run_4,(75,85)) ; ally_1_run_5=pygame.transform.scale(ally_1_run_5,(75,85)) ; ally_1_run_6=pygame.transform.scale(ally_1_run_6,(75,85)) ; ally_1_run_7=pygame.transform.scale(ally_1_run_7,(75,85)) ; ally_1_run_8=pygame.transform.scale(ally_1_run_8,(75,85))
+ally_1_run_flip_1=pygame.transform.flip(ally_1_run_1,True,False) ; ally_1_run_flip_2=pygame.transform.flip(ally_1_run_2,True,False) ; ally_1_run_flip_3=pygame.transform.flip(ally_1_run_3,True,False) ; ally_1_run_flip_4=pygame.transform.flip(ally_1_run_4,True,False) ; ally_1_run_flip_5=pygame.transform.flip(ally_1_run_5,True,False) ; ally_1_run_flip_6=pygame.transform.flip(ally_1_run_6,True,False) ; ally_1_run_flip_7=pygame.transform.flip(ally_1_run_7,True,False) ; ally_1_run_flip_8=pygame.transform.flip(ally_1_run_8,True,False)
+ally_1_icon=pygame.image.load(r"A_Wit's_End\Allies_1\Sprites\Heavy Bandit\Icon\HeavyBandit_Icon.png") ; ally_1_icon=pygame.transform.scale(ally_1_icon,(120,120))
 ally_1_run=[ally_1_run_1,ally_1_run_2,ally_1_run_3,ally_1_run_4,ally_1_run_5,ally_1_run_6,ally_1_run_7,ally_1_run_8]
 ally_1_run_flip=[ally_1_run_flip_1,ally_1_run_flip_2,ally_1_run_flip_3,ally_1_run_flip_4,ally_1_run_flip_5,ally_1_run_flip_6,ally_1_run_flip_7,ally_1_run_flip_8]
 
 
-ally_1_level_3_part_1_x_idle=[1710,3795,3910]
-ally_1_level_3_part_1_y_idle=[570,570,570]
-
-ally_1_level_3_part_1_x_run=[3200,4300]
-ally_1_level_3_part_1_y_run=[570,570]
-
-ally_1_level_3_part_2_x_idle=[400,1500,2050,2700,3100]
-ally_1_level_3_part_2_y_idle=[570,570,570,570,570]
-
-ally_1_level_3_part_2_x_run=[800,1200,1700,2100,2200]
-ally_1_level_3_part_2_y_run=[570,570,570,570,570]
+ally_1_level_3_part_1_x_idle=[1710,3795,3910] ; ally_1_level_3_part_1_y_idle=[570,570,570]
+ally_1_level_3_part_1_x_run=[3200,4300] ; ally_1_level_3_part_1_y_run=[570,570]
+ally_1_level_3_part_2_x_idle=[400,1500,2050,2700,3100] ; ally_1_level_3_part_2_y_idle=[570,570,570,570,570]
+ally_1_level_3_part_2_x_run=[800,1200,1700,2100,2200] ; ally_1_level_3_part_2_y_run=[570,570,570,570,570]
 
 ally_1_level_3_part_1_idle_rect=[pygame.Rect(ally_1_level_3_part_1_x_idle[0],ally_1_level_3_part_1_y_idle[0],75,85), 
                             pygame.Rect(ally_1_level_3_part_1_x_idle[1],ally_1_level_3_part_1_y_idle[1],75,85), 
@@ -1566,20 +1537,19 @@ class Game:
             if self.player_rect.x<220: 
                 self.camera_x_y[0]=220-210 
                 if self.player_rect.x<40: self.player_rect.x=40
-         #   if self.player_rect.x>=1500: 
-         #       self.camera_x_y[0]=1500-210 
-         #       if self.player_rect.x>2335: self.player_rect.x=2335
+            if self.player_rect.x>=3050: 
+                self.camera_x_y[0]=3050-210 
+                if self.player_rect.x>3885: self.player_rect.x=3885
             for layer in self.level_4_tile_set_part_2:
                 if layer.name=="Tile Layer 1":
                     for tile in layer.tiles():
                         x_val=tile[0]*16 ; y_val=tile[1]*16
                         SCREEN.blit(tile[2],(x_val-self.camera_x_y[0],y_val-self.camera_x_y[1]))
                         self.level_4_tile_set_part_2_rect.append(pygame.Rect(x_val,y_val,16,16))
-                if layer.name=="Tile Layer 2":
+                if layer.name=="Tile Layer 2" or  layer.name=="Tile Layer 3":
                     for tile in layer.tiles():
                         x_val=tile[0]*16 ; y_val=tile[1]*16
                         SCREEN.blit(tile[2],(x_val-self.camera_x_y[0],y_val-self.camera_x_y[1]))
-
 
             self.level_4_fade_level[0]-=10 
             rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  
@@ -2149,9 +2119,10 @@ class EnemyOne(Player):
             return enemy_list     
         
 class EnemyTwo(Player):
-    def __init__(self,enemy_two_level_1_rect,enemy_two_x_movement,enemy_two_y_movement,enemy_two_rect_list,enemy_two_distance_list,enemy_two_health,enemy_two_level_4_rect_1):
+    def __init__(self,enemy_two_level_1_rect,enemy_two_x_movement,enemy_two_y_movement,enemy_two_rect_list,enemy_two_distance_list,enemy_two_health,enemy_two_level_4_rect_1,enemy_two_level_4_rect_2):
         self.enemy_two_level_1_rect=enemy_two_level_1_rect ; self.enemy_two_x_movement=enemy_two_x_movement ; self.enemy_two_y_movement=enemy_two_y_movement ; self.enemy_two_rect_list=enemy_two_rect_list
-        self.enemy_two_distance_list=enemy_two_distance_list ; self.enemy_two_health=enemy_two_health ; self.enemy_two_level_4_rect_1=enemy_two_level_4_rect_1 ; self.enemy_two_idle=enemy_two_idle
+        self.enemy_two_distance_list=enemy_two_distance_list ; self.enemy_two_health=enemy_two_health ; self.enemy_two_level_4_rect_1=enemy_two_level_4_rect_1 ; self.enemy_two_idle=enemy_two_idle 
+        self.enemy_two_level_4_rect_2=enemy_two_level_4_rect_2
         super().__init__(player_x_movement,player_y_movement,player_rect,player_current_health)
     
     def movement(self):
@@ -2163,10 +2134,12 @@ class EnemyTwo(Player):
             self.enemy_two_distance_list.clear() ; self.enemy_two_rect_list.clear() ; self.enemy_two_x_movement.clear() ; self.enemy_two_health.clear()
             self.enemy_two_fall_number.clear() ; self.enemy_two_fall_direction_set.clear()
 
-        if level_1 or level_4:
+        if level_1 or level_4 or level_4_part_2:
             if level_1:
                 enemy_rect=self.enemy_two_level_1_rect
             if level_4:
+                enemy_rect=self.enemy_two_level_4_rect_1
+            if level_4_part_2:
                 enemy_rect=self.enemy_two_level_4_rect_1
             for idx,enemy_knight in enumerate(enemy_rect):
                 enemy_two_player_distance=math.sqrt(math.pow(self.player_rect.x-enemy_knight.x,2)+math.pow(self.player_rect.y-enemy_knight.y,2))
@@ -2207,8 +2180,12 @@ class EnemyTwo(Player):
                         self.enemy_two_run_number[0]=0
             self.enemy_two_y_movement[0]=8
             
-        if level_4:
-                for idx,enemy_knight in enumerate(self.enemy_two_level_4_rect_1):
+        if level_4 or level_4_part_2:
+                if level_4:
+                    enemy_rect=self.enemy_two_level_4_rect_1
+                if level_4_part_2:
+                    enemy_rect=self.enemy_two_level_4_rect_2
+                for idx,enemy_knight in enumerate(enemy_rect):
                     self.enemy_two_y_movement[0]=4
                     if (self.enemy_two_distance_list[idx]>700 or self.player_rect.y-enemy_knight.y>12) and self.enemy_two_health[idx]>0:
                         self.enemy_two_x_movement[idx]=0
@@ -2232,17 +2209,20 @@ class EnemyTwo(Player):
                         self.enemy_two_run_number[0]=0
  
     def attack(self):
-        global level_1, level_1_enemy_fight_condition,level_4,hit_ground
+        global level_1, level_1_enemy_fight_condition,level_4,hit_ground,level_4_part_2
         self.enemy_two_attack_1=enemy_two_attack_1 ; self.enemy_two_attack_2=enemy_two_attack_2 ; self.enemy_two_attack_1_flip=enemy_two_attack_1_flip ; self.enemy_two_attack_2_flip=enemy_two_attack_2_flip
         self.enemy_two_attack_type=enemy_two_attack_type ; self.enemy_two_attack_number=enemy_two_attack_number ; self.enemy_two_attack_number=enemy_two_attack_number
-        if level_1 and level_1_enemy_fight_condition or level_4:
+        if level_1 and level_1_enemy_fight_condition or level_4 or level_4_part_2:
             if level_1: 
                 enemy_rect= self.enemy_two_level_1_rect 
                 self.x_offset=80 
                 self.x_1_offset=80
                 self.y_offset=57
-            if level_4: 
-                enemy_rect= self.enemy_two_level_4_rect_1 
+            if level_4 or level_4_part_2:
+                if level_4:
+                    enemy_rect=self.enemy_two_level_4_rect_1
+                if level_4_part_2:
+                    enemy_rect=self.enemy_two_level_4_rect_2 
                 self.x_offset=80
                 self.x_1_offset=50
                 self.y_offset=50
@@ -2251,7 +2231,7 @@ class EnemyTwo(Player):
                 if self.enemy_two_attack_number[0]>len(enemy_rect):
                     del self.enemy_two_attack_number[-1]
                 if self.enemy_two_health[idx]>0:
-                    if level_4 and self.enemy_two_distance_list[idx]<=30:
+                    if (level_1 or level_4 or level_4_part_2) and self.enemy_two_distance_list[idx]<=30:
                         self.enemy_two_x_movement[idx]=0
                         if self.enemy_two_attack_type[0]>2:
                             self.enemy_two_attack_type[0]=1
@@ -2263,25 +2243,6 @@ class EnemyTwo(Player):
                         if self.enemy_two_attack_type[0]==2:
                             if self.player_rect.x>=enemy_knight.x:
                                 SCREEN.blit(self.enemy_two_attack_2[int(self.enemy_two_attack_number[idx]//2)],(enemy_knight.x-self.camera_x_y[0]-self.x_1_offset,enemy_knight.y-self.camera_x_y[1]-self.y_offset))
-                            if self.player_rect.x<enemy_knight.x:
-                                SCREEN.blit(self.enemy_two_attack_2_flip[int(self.enemy_two_attack_number[idx]//2)],(enemy_knight.x-self.camera_x_y[0]-self.x_offset,enemy_knight.y-self.camera_x_y[1]-self.y_offset))
-                        self.enemy_two_attack_number[idx]+=0.50
-                        if self.enemy_two_attack_number[idx]>8:
-                            self.enemy_two_attack_number[idx]=0
-                            self.player_current_health[0]-=25  #50
-                            self.enemy_two_attack_type[0]+=1
-                    if level_1 and self.enemy_two_distance_list[idx]<=30:
-                        self.enemy_two_x_movement[idx]=0
-                        if self.enemy_two_attack_type[0]>2:
-                            self.enemy_two_attack_type[0]=1
-                        if self.enemy_two_attack_type[0]==1:
-                            if self.player_rect.x>=enemy_knight.x:
-                                SCREEN.blit(self.enemy_two_attack_1[int(self.enemy_two_attack_number[idx]//2)],(enemy_knight.x-self.camera_x_y[0]-self.x_offset,enemy_knight.y-self.camera_x_y[1]-self.y_offset))
-                            if self.player_rect.x<enemy_knight.x:
-                                SCREEN.blit(self.enemy_two_attack_1_flip[int(self.enemy_two_attack_number[idx]//2)],(enemy_knight.x-self.camera_x_y[0]-self.x_offset,enemy_knight.y-self.camera_x_y[1]-self.y_offset))
-                        if self.enemy_two_attack_type[0]==2:
-                            if self.player_rect.x>=enemy_knight.x:
-                                SCREEN.blit(self.enemy_two_attack_2[int(self.enemy_two_attack_number[idx]//2)],(enemy_knight.x-self.camera_x_y[0]-self.x_offset,enemy_knight.y-self.camera_x_y[1]-self.y_offset))
                             if self.player_rect.x<enemy_knight.x:
                                 SCREEN.blit(self.enemy_two_attack_2_flip[int(self.enemy_two_attack_number[idx]//2)],(enemy_knight.x-self.camera_x_y[0]-self.x_offset,enemy_knight.y-self.camera_x_y[1]-self.y_offset))
                         self.enemy_two_attack_number[idx]+=0.50
@@ -2344,13 +2305,15 @@ class EnemyTwo(Player):
             for idx,knight in enumerate(self.enemy_two_level_1_rect):
                 self.enemy_two_health[idx]=150
                 
-    def collision_with_object(self,tile_level_1,level_4_tile_set_rect):
-        global level_4
+    def collision_with_object(self,tile_level_1,level_4_tile_set_rect,level_4_tile_set_part_2_rect):
+        global level_4,level_4_part_2
         if level_1:
             tile_level=self.tile_level_1_rect ; enemy_rect=self.enemy_two_level_1_rect
         if level_4:
             tile_level=self.level_4_tile_set_rect ; enemy_rect=self.enemy_two_level_4_rect_1
-        if level_1 or level_4:
+        if level_4_part_2:
+            tile_level= self.level_4_tile_set_part_2_rect ; enemy_rect=self.enemy_two_level_4_rect_2
+        if level_1 or level_4 or level_4_part_2:
             hit_tile=[]
             for idx,enemy_knight in enumerate(enemy_rect):
                 for tiles in tile_level:
@@ -2358,16 +2321,18 @@ class EnemyTwo(Player):
                         hit_tile.append(tiles)
             return hit_tile
         
-    def collision_with_object_logic(self,tile_level_1,level_4_tile_set_rect):
+    def collision_with_object_logic(self,tile_level_1,level_4_tile_set_rect,level_4_tile_set_part_2_rect):
         global level_1_enemy_fight_condition,level_4
         if level_1:
             tile_level=self.level_4_tile_set_rect ; enemy_rect=self.enemy_two_level_1_rect
         if level_4:
             tile_level=self.tile_level_1_rect ; enemy_rect=self.enemy_two_level_4_rect_1
-        if level_1 or level_4:
+        if level_4_part_2:
+            tile_level= self.level_4_tile_set_part_2_rect ; enemy_rect=self.enemy_two_level_4_rect_2
+        if level_1 or level_4 or level_4_part_2:
             for idx,enemy_knight in enumerate(enemy_rect):
                     enemy_knight.x+=self.enemy_two_x_movement[idx]
-            collision=EnemyTwo.collision_with_object(self,tile_level_1,level_4_tile_set_rect)
+            collision=EnemyTwo.collision_with_object(self,tile_level_1,level_4_tile_set_rect,level_4_tile_set_part_2_rect)
             for tile in collision:
                 for idx,enemy_knight in enumerate(enemy_rect):
                     if self.enemy_two_x_movement[idx]>0:
@@ -2376,7 +2341,7 @@ class EnemyTwo(Player):
                         enemy_knight.left=tile.right
             for idx,enemy_knight in enumerate(enemy_rect):
                 enemy_knight.y+=self.enemy_two_y_movement[0]
-            collision=EnemyTwo.collision_with_object(self,tile_level_1,level_4_tile_set_rect)
+            collision=EnemyTwo.collision_with_object(self,tile_level_1,level_4_tile_set_rect,level_4_tile_set_part_2_rect)
             for tile in collision:
                 for idx,enemy_knight in enumerate(enemy_rect):
                     if enemy_knight.colliderect(tile):
@@ -2939,14 +2904,14 @@ while run:
     enemy_one.collision_with_object(tile_level_1,tile_level_2,tile_level_3_rect)
     enemy_one.collision_with_object_logic(tile_level_1,tile_level_2,tile_level_3_rect)
     
-    enemy_two=EnemyTwo(enemy_two_level_1_rect,enemy_two_x_movement,enemy_two_y_movement,enemy_two_rect_list,enemy_two_distance_list,enemy_two_health,enemy_two_level_4_rect_1)
+    enemy_two=EnemyTwo(enemy_two_level_1_rect,enemy_two_x_movement,enemy_two_y_movement,enemy_two_rect_list,enemy_two_distance_list,enemy_two_health,enemy_two_level_4_rect_1,enemy_two_level_4_rect_2)
     enemy_two.movement()
     enemy_two.attack()
     enemy_two.player_hit()
     enemy_two.fall()
     enemy_two.reset_position()
-    enemy_two.collision_with_object(tile_level_1,level_4_tile_set_rect)
-    enemy_two.collision_with_object_logic(tile_level_1,level_4_tile_set_rect)
+    enemy_two.collision_with_object(tile_level_1,level_4_tile_set_rect,level_4_tile_set_part_2_rect)
+    enemy_two.collision_with_object_logic(tile_level_1,level_4_tile_set_rect,level_4_tile_set_part_2_rect)
 
     allyone=AllyOne(ally_1_x_movement,ally_1_y_movement,ally_1_level_3_part_1_idle_rect,ally_1_level_3_part_1_run_rect,ally_1_rect_list,ally_1_level_3_part_2_idle_rect,ally_1_level_3_part_2_run_rect)
     allyone.idle()
