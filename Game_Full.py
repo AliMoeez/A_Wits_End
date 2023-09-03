@@ -507,7 +507,7 @@ enemy_two_level_1_x=[2700,3000] ; enemy_two_level_1_y=[557,557]
 
 enemy_two_level_4_x_1=[1700,1900,2100,2400,2700,3200,3400] ; enemy_two_level_4_y_1=[300,300,300,300,300,300,300]
 
-enemy_two_level_4_x_2=[300,500,700,900,1200] ; enemy_two_level_4_y_2=[300,300,300,300,300]
+enemy_two_level_4_x_2=[800,900,1100,1300,1500,2500,2700,2900] ; enemy_two_level_4_y_2=[300,300,300,300,300,300,300,300]
 
 
 enemy_two_level_4_rect_1=[] ; enemy_two_level_4_rect_2=[]
@@ -552,12 +552,79 @@ main_boss_run_flip_5=pygame.transform.flip(main_boss_run_5,True,False) ; main_bo
 main_boss_run=[main_boss_run_1,main_boss_run_2,main_boss_run_3,main_boss_run_4,main_boss_run_5,main_boss_run_6,main_boss_run_7,main_boss_run_8]
 main_boss_run_flip=[main_boss_run_flip_1,main_boss_run_flip_2,main_boss_run_flip_3,main_boss_run_flip_4,main_boss_run_flip_5,main_boss_run_flip_6,main_boss_run_flip_7,main_boss_run_flip_8]
 
-main_boss_idle_number=[0] ; main_boss_run_number=[0]
+
+main_boss_attack_1_1=pygame.image.load(r"A_Wit's_End\Enemy_Boss_2\Attack_1\attack_1.png")
+main_boss_attack_1_2=pygame.image.load(r"A_Wit's_End\Enemy_Boss_2\Attack_1\attack_2.png")
+main_boss_attack_1_3=pygame.image.load(r"A_Wit's_End\Enemy_Boss_2\Attack_1\attack_3.png")
+main_boss_attack_1_4=pygame.image.load(r"A_Wit's_End\Enemy_Boss_2\Attack_1\attack_4.png")
+main_boss_attack_1_5=pygame.image.load(r"A_Wit's_End\Enemy_Boss_2\Attack_1\attack_5.png")
+main_boss_attack_1_1=pygame.transform.scale(main_boss_attack_1_1,(55,65))
+main_boss_attack_1_2=pygame.transform.scale(main_boss_attack_1_2,(55,65))
+main_boss_attack_1_3=pygame.transform.scale(main_boss_attack_1_3,(55,65))
+main_boss_attack_1_4=pygame.transform.scale(main_boss_attack_1_4,(55,65))
+main_boss_attack_1_5=pygame.transform.scale(main_boss_attack_1_5,(55,65))
+main_boss_attack_1_flip_1=pygame.transform.flip(main_boss_attack_1_1,True,False)
+main_boss_attack_1_flip_2=pygame.transform.flip(main_boss_attack_1_2,True,False)
+main_boss_attack_1_flip_3=pygame.transform.flip(main_boss_attack_1_3,True,False)
+main_boss_attack_1_flip_4=pygame.transform.flip(main_boss_attack_1_4,True,False)
+main_boss_attack_1_flip_5=pygame.transform.flip(main_boss_attack_1_5,True,False)
+
+main_boss_attack_1=[main_boss_attack_1_1,main_boss_attack_1_2,main_boss_attack_1_3,main_boss_attack_1_4,main_boss_attack_1_5]
+main_boss_attack_1_flip=[main_boss_attack_1_flip_1,main_boss_attack_1_flip_2,main_boss_attack_1_flip_3,main_boss_attack_1_flip_4,main_boss_attack_1_flip_5]
+
+main_boss_attack_2_1=pygame.image.load(r"A_Wit's_End\Enemy_Boss_2\Attack_2\attack_1.png")
+main_boss_attack_2_2=pygame.image.load(r"A_Wit's_End\Enemy_Boss_2\Attack_2\attack_2.png")
+main_boss_attack_2_3=pygame.image.load(r"A_Wit's_End\Enemy_Boss_2\Attack_2\attack_3.png")
+main_boss_attack_2_4=pygame.image.load(r"A_Wit's_End\Enemy_Boss_2\Attack_2\attack_4.png")
+main_boss_attack_2_5=pygame.image.load(r"A_Wit's_End\Enemy_Boss_2\Attack_2\attack_5.png")
+main_boss_attack_2_6=pygame.image.load(r"A_Wit's_End\Enemy_Boss_2\Attack_2\attack_6.png")
+main_boss_attack_2_1=pygame.transform.scale(main_boss_attack_2_1,(55,65))
+main_boss_attack_2_2=pygame.transform.scale(main_boss_attack_2_2,(55,65))
+main_boss_attack_2_3=pygame.transform.scale(main_boss_attack_2_3,(55,65))
+main_boss_attack_2_4=pygame.transform.scale(main_boss_attack_2_4,(55,65))
+main_boss_attack_2_5=pygame.transform.scale(main_boss_attack_2_5,(55,65))
+main_boss_attack_2_6=pygame.transform.scale(main_boss_attack_2_6,(55,65))
+main_boss_attack_2_flip_1=pygame.transform.flip(main_boss_attack_2_1,True,False)
+main_boss_attack_2_flip_2=pygame.transform.flip(main_boss_attack_2_2,True,False)
+main_boss_attack_2_flip_3=pygame.transform.flip(main_boss_attack_2_3,True,False)
+main_boss_attack_2_flip_4=pygame.transform.flip(main_boss_attack_2_4,True,False)
+main_boss_attack_2_flip_5=pygame.transform.flip(main_boss_attack_2_5,True,False)
+main_boss_attack_2_flip_6=pygame.transform.flip(main_boss_attack_2_6,True,False)
+
+main_boss_attack_2=[main_boss_attack_2_1,main_boss_attack_2_2,main_boss_attack_2_3,main_boss_attack_2_4,main_boss_attack_2_5,main_boss_attack_2_6]
+main_boss_attack_2_flip=[main_boss_attack_2_flip_1,main_boss_attack_2_flip_2,main_boss_attack_2_flip_3,main_boss_attack_2_flip_4,main_boss_attack_2_flip_5,main_boss_attack_2_flip_6]
+
+main_boss_fall_1=pygame.image.load(r"A_Wit's_End\Enemy_Boss_2\Fall\fall_1.png")
+main_boss_fall_2=pygame.image.load(r"A_Wit's_End\Enemy_Boss_2\Fall\fall_2.png")
+main_boss_fall_3=pygame.image.load(r"A_Wit's_End\Enemy_Boss_2\Fall\fall_3.png")
+main_boss_fall_4=pygame.image.load(r"A_Wit's_End\Enemy_Boss_2\Fall\fall_4.png")
+main_boss_fall_5=pygame.image.load(r"A_Wit's_End\Enemy_Boss_2\Fall\fall_5.png")
+main_boss_fall_6=pygame.image.load(r"A_Wit's_End\Enemy_Boss_2\Fall\fall_6.png")
+main_boss_fall_1=pygame.transform.scale(main_boss_fall_1,(55,65))
+main_boss_fall_2=pygame.transform.scale(main_boss_fall_2,(55,65))
+main_boss_fall_3=pygame.transform.scale(main_boss_fall_3,(55,65))
+main_boss_fall_4=pygame.transform.scale(main_boss_fall_4,(55,65))
+main_boss_fall_5=pygame.transform.scale(main_boss_fall_5,(55,65))
+main_boss_fall_6=pygame.transform.scale(main_boss_fall_6,(55,65))
+main_boss_fall_flip_1=pygame.transform.flip(main_boss_fall_1,True,False)
+main_boss_fall_flip_2=pygame.transform.flip(main_boss_fall_2,True,False)
+main_boss_fall_flip_3=pygame.transform.flip(main_boss_fall_3,True,False)
+main_boss_fall_flip_4=pygame.transform.flip(main_boss_fall_4,True,False)
+main_boss_fall_flip_5=pygame.transform.flip(main_boss_fall_5,True,False)
+main_boss_fall_flip_6=pygame.transform.flip(main_boss_fall_6,True,False)
+
+main_boss_fall=[main_boss_fall_1,main_boss_fall_2,main_boss_fall_3,main_boss_fall_4,main_boss_fall_5,main_boss_fall_6]
+main_boss_fall_flip=[main_boss_fall_flip_1,main_boss_fall_flip_2,main_boss_fall_flip_3,main_boss_fall_flip_4,main_boss_fall_flip_5,main_boss_fall_flip_6]
+
+
+main_boss_idle_number=[0] ; main_boss_run_number=[0] ; main_boss_attack_number=[0] ; main_boss_fall_number=[0]
 
 main_boss_level_1_x=[2850] ; main_boss_level_1_y=[577] ; main_boss_x_movement=[0] ; main_boss_y_movement=[0]
 
-main_boss_rect_level_1=pygame.Rect(main_boss_level_1_x[0],main_boss_level_1_y[0],55,65)
+main_boss_level_4_x=[4000] ; main_boss_level_4_y=[370] #370
 
+main_boss_rect_level_1=pygame.Rect(main_boss_level_1_x[0],main_boss_level_1_y[0],55,65)
+main_boss_rect_level_4_part_2=pygame.Rect(main_boss_level_4_x[0],main_boss_level_4_y[0],55,65)
 
 general_boss_idle_1=pygame.image.load(r"A_Wit's_End\Level_2_General\Idle\sprite_1.png") ; general_boss_idle_2=pygame.image.load(r"A_Wit's_End\Level_2_General\Idle\sprite_2.png") ; general_boss_idle_3=pygame.image.load(r"A_Wit's_End\Level_2_General\Idle\sprite_3.png") ; general_boss_idle_4=pygame.image.load(r"A_Wit's_End\Level_2_General\Idle\sprite_4.png")
 general_boss_idle_5=pygame.image.load(r"A_Wit's_End\Level_2_General\Idle\sprite_5.png") ; general_boss_idle_6=pygame.image.load(r"A_Wit's_End\Level_2_General\Idle\sprite_6.png") ; general_boss_idle_7=pygame.image.load(r"A_Wit's_End\Level_2_General\Idle\sprite_7.png")
@@ -741,7 +808,7 @@ level_4_tile_set_part_2=load_pygame(r"A_Wit's_End\Level 4_Tileset\tile_set_level
 level_4_tile_set_part_2_rect=[]
 
 hit_ground=False ; level_4_dialogue_1_once=False ; level_4_begin_dialogue=False ; level_4_dialogue_length=[0] ; level_4_part_2=False
-level_4_fade_level=[0]
+level_4_fade_level=[0] ; level_4_dialogue_2_once=False ; level_4_player_boss_dialogue=False
 
 class Menu:
     def __init__(self,camera_x_y_bg):
@@ -1560,18 +1627,26 @@ class Game:
                 self.level_4_fade_level[0]=0
     
     def level_four_dialogue(self):
-        global level_4,level_4_dialogue_1_once,change_dialogue,change_dialogue_cond_1,dialogue_move_condition,level_4_begin_dialogue
+        global level_4,level_4_dialogue_1_once,change_dialogue,change_dialogue_cond_1,dialogue_move_condition,level_4_begin_dialogue,level_4_dialogue_2_once,level_4_player_boss_dialogue
         self.player_icon=player_icon ; self.main_boss_icon=main_boss_icon ; self.level_4_dialogue_length=level_4_dialogue_length
         
         self.level_4_beginning_dialogue=[
             ("I must end this once and for all.....","You",self.player_icon),
             ("I must end this once and for all.....","You",self.player_icon)
         ]
+
+        self.player_boss_dialogue=[
+            ("It's not to late.....It's never to late to look back, we can talk.","Kornos",self.main_boss_icon),
+            ("I can never look back at what you did to Onis. I must defeat you now...... ","You",self.player_icon),
+        ]
                                          
         if level_4_begin_dialogue:
             level_4_dialogue=self.level_4_beginning_dialogue ; colour_box=(48,25,52) ; colour_font=(177,156,217)
         
-        if level_4_begin_dialogue and not level_4_dialogue_1_once:
+        if level_4_player_boss_dialogue:
+            level_4_dialogue=self.player_boss_dialogue ; colour_box=(48,25,52) ; colour_font=(177,156,217)
+
+        if level_4_begin_dialogue and not level_4_dialogue_1_once or level_4_player_boss_dialogue and not level_4_dialogue_2_once:
             dialogue_move_condition=True ; rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  ; rectangle_blur.set_alpha(100) ; rectangle_blur.fill((0,0,0))  ; SCREEN.blit(rectangle_blur,(0,0)) 
             rectangle_box_1=pygame.Surface((SCREEN_WIDTH,200))  ; rectangle_box_1.fill(colour_box)  ; rectangle_box_1.set_alpha(75)  ; SCREEN.blit(rectangle_box_1,(0,500))
                 
@@ -1580,12 +1655,15 @@ class Game:
                     SCREEN.blit(level_4_dialogue[idx][2],(80,525))  ; font_game=pygame.font.SysFont("Impact",28) 
                     show_font_knight=font_game.render(level_4_dialogue[idx][1],1,colour_font) 
                     if level_4_dialogue[idx][2]==self.player_icon: SCREEN.blit(show_font_knight,(110,645)) 
+                    if level_4_dialogue[idx][2]==self.main_boss_icon: SCREEN.blit(show_font_knight,(100,645)) 
                     font_game=pygame.font.SysFont("Impact",24) ; show_font_knight=font_game.render(level_4_dialogue[idx][0],1,colour_font) ; SCREEN.blit(show_font_knight,(200,545))
-
                 if self.level_4_dialogue_length[0]>=len(level_4_dialogue):
                     if level_4_begin_dialogue:
                         level_4_dialogue_1_once=True
                     level_4_begin_dialogue=False
+                    if level_4_player_boss_dialogue:
+                        level_4_dialogue_2_once=True
+                    level_4_player_boss_dialogue=False
                     self.level_4_dialogue_length[0]=0 ;  dialogue_move_condition=False 
                     
             if event.type==pygame.MOUSEBUTTONDOWN:  change_dialogue_cond_1=True
@@ -2122,7 +2200,7 @@ class EnemyTwo(Player):
     def __init__(self,enemy_two_level_1_rect,enemy_two_x_movement,enemy_two_y_movement,enemy_two_rect_list,enemy_two_distance_list,enemy_two_health,enemy_two_level_4_rect_1,enemy_two_level_4_rect_2):
         self.enemy_two_level_1_rect=enemy_two_level_1_rect ; self.enemy_two_x_movement=enemy_two_x_movement ; self.enemy_two_y_movement=enemy_two_y_movement ; self.enemy_two_rect_list=enemy_two_rect_list
         self.enemy_two_distance_list=enemy_two_distance_list ; self.enemy_two_health=enemy_two_health ; self.enemy_two_level_4_rect_1=enemy_two_level_4_rect_1 ; self.enemy_two_idle=enemy_two_idle 
-        self.enemy_two_level_4_rect_2=enemy_two_level_4_rect_2
+        self.enemy_two_level_4_rect_2=enemy_two_level_4_rect_2 ; self.level_4_fade_level=level_4_fade_level
         super().__init__(player_x_movement,player_y_movement,player_rect,player_current_health)
     
     def movement(self):
@@ -2133,6 +2211,9 @@ class EnemyTwo(Player):
         if level_screen:
             self.enemy_two_distance_list.clear() ; self.enemy_two_rect_list.clear() ; self.enemy_two_x_movement.clear() ; self.enemy_two_health.clear()
             self.enemy_two_fall_number.clear() ; self.enemy_two_fall_direction_set.clear()
+        if self.level_4_fade_level[0]>0:
+            self.enemy_two_distance_list.clear() ; self.enemy_two_rect_list.clear() ; self.enemy_two_x_movement.clear() ; self.enemy_two_health.clear()
+            self.enemy_two_fall_number.clear() ; self.enemy_two_fall_direction_set.clear()
 
         if level_1 or level_4 or level_4_part_2:
             if level_1:
@@ -2140,7 +2221,7 @@ class EnemyTwo(Player):
             if level_4:
                 enemy_rect=self.enemy_two_level_4_rect_1
             if level_4_part_2:
-                enemy_rect=self.enemy_two_level_4_rect_1
+                enemy_rect=self.enemy_two_level_4_rect_2
             for idx,enemy_knight in enumerate(enemy_rect):
                 enemy_two_player_distance=math.sqrt(math.pow(self.player_rect.x-enemy_knight.x,2)+math.pow(self.player_rect.y-enemy_knight.y,2))
                 self.enemy_two_distance_list.append(enemy_two_player_distance) ; self.enemy_two_rect_list.append(pygame.Rect(enemy_knight.x,enemy_knight.y,45,55)) 
@@ -2207,7 +2288,7 @@ class EnemyTwo(Player):
                     self.enemy_two_run_number[0]+=0.35
                     if self.enemy_two_run_number[0]>10:
                         self.enemy_two_run_number[0]=0
- 
+                    
     def attack(self):
         global level_1, level_1_enemy_fight_condition,level_4,hit_ground,level_4_part_2
         self.enemy_two_attack_1=enemy_two_attack_1 ; self.enemy_two_attack_2=enemy_two_attack_2 ; self.enemy_two_attack_1_flip=enemy_two_attack_1_flip ; self.enemy_two_attack_2_flip=enemy_two_attack_2_flip
@@ -2252,7 +2333,7 @@ class EnemyTwo(Player):
                             self.enemy_two_attack_type[0]+=1
                 
     def player_hit(self):
-        global level_1, attack,level_1_enemy_fight_condition,attack_done, player_idle_right, player_idle_left,level_4
+        global level_1, attack,level_1_enemy_fight_condition,attack_done, player_idle_right, player_idle_left,level_4,level_4_part_2
         if level_1:
             if attack_done and level_1_enemy_fight_condition:
                 for idx,knight in enumerate(self.enemy_two_level_1_rect):
@@ -2262,22 +2343,27 @@ class EnemyTwo(Player):
                         if player_idle_left and self.player_rect.x>self.enemy_two_level_1_rect[idx].x:
                             self.enemy_two_health[idx]-=25
                         attack_done=False   
-        if level_4:
+        if level_4 or level_4_part_2:
+            if level_4:
+                enemy_rect=self.enemy_two_level_4_rect_1
+            if level_4_part_2:
+                enemy_rect=self.enemy_two_level_4_rect_2
           #  if attack_done:
-                for idx,knight in enumerate(self.enemy_two_level_4_rect_1):
-                    if self.enemy_two_distance_list[idx]<50:
-                        if player_idle_right and self.player_rect.x<=self.enemy_two_level_4_rect_1[idx].x:
-                            self.enemy_two_health[idx]-=25
-                        if player_idle_left and self.player_rect.x>self.enemy_two_level_4_rect_1[idx].x:
-                            self.enemy_two_health[idx]-=25
-                        attack_done=False  
+            for idx,knight in enumerate(enemy_rect):
+                if self.enemy_two_distance_list[idx]<50:
+                    if player_idle_right and self.player_rect.x<=enemy_rect[idx].x:
+                        self.enemy_two_health[idx]-=25
+                    if player_idle_left and self.player_rect.x>enemy_rect[idx].x:
+                        self.enemy_two_health[idx]-=25
+                    attack_done=False  
  
     def fall(self):
         global reset_enemy_position
         self.enemy_two_fall=enemy_two_fall ; self.enemy_two_fall_flip=enemy_two_fall_flip ; self.enemy_two_fall_number=enemy_two_fall_number
-        if level_1 and not reset_enemy_position or level_4 and not reset_enemy_position:
+        if level_1 and not reset_enemy_position or level_4 and not reset_enemy_position or level_4_part_2 and not reset_enemy_position:
             if level_1: enemy_rect=self.enemy_two_level_1_rect
             if level_4: enemy_rect=self.enemy_two_level_4_rect_1
+            if level_4_part_2: enemy_rect=self.enemy_two_level_4_rect_2
             for idx,knight in enumerate(enemy_rect):
                 if self.enemy_two_health[idx]<=0:
                     self.enemy_two_health[idx]=0
@@ -2493,14 +2579,28 @@ class AllyOne(Player):
             return self.ally_1_rect_list  
 
 class MainBoss(Player):
-    def __init__(self,main_boss_rect_level_1,main_boss_x_movement,main_boss_y_movement,):
+    def __init__(self,main_boss_rect_level_1,main_boss_x_movement,main_boss_y_movement,main_boss_rect_level_4_part_2):
         super().__init__(player_x_movement,player_y_movement,player_rect,player_current_health)
-        self.main_boss_rect_level_1=main_boss_rect_level_1 ; self.main_boss_x_movement=main_boss_x_movement ; self.main_boss_y_movement=main_boss_y_movement
-        
+        self.main_boss_rect_level_1=main_boss_rect_level_1 ; self.main_boss_x_movement=main_boss_x_movement ; self.main_boss_y_movement=main_boss_y_movement ; self.main_boss_rect_level_4_part_2=main_boss_rect_level_4_part_2
+    
+
+    def idle(self):
+        global level_4_player_boss_dialogue,level_4_dialogue_2_once
+        self.main_boss_idle=main_boss_idle ; self.main_boss_idle_flip=main_boss_idle_flip ; self.main_boss_idle_number=main_boss_idle_number 
+        if level_4_player_boss_dialogue and not level_4_dialogue_2_once:
+            if self.player_rect.x<self.main_boss_rect_level_1.x:
+                SCREEN.blit(self.main_boss_idle[int(self.main_boss_idle_number[0])//2],(self.main_boss_rect_level_4_part_2.x-self.camera_x_y[0],self.main_boss_rect_level_4_part_2.y-self.camera_x_y[1]+20))
+            if self.player_rect.x>=self.main_boss_rect_level_1.x:
+                    SCREEN.blit(self.main_boss_idle_flip[int(self.main_boss_idle_number[0])//2],(self.main_boss_rect_level_4_part_2.x-self.camera_x_y[0],self.main_boss_rect_level_4_part_2.y-self.camera_x_y[1]+20))
+            self.main_boss_idle_number[0]+=0.30
+            if self.main_boss_idle_number[0]>9:
+                self.main_boss_idle_number[0]=0
+
+
     def movement(self):
-        global level_1,level_1_dialogue_part_two,level_one_dialogue_part_three,end_level_1_dialogue
+        global level_1,level_1_dialogue_part_two,level_one_dialogue_part_three,end_level_1_dialogue,level_4_player_boss_dialogue,level_4_dialogue_2_once
         self.main_boss_idle=main_boss_idle ; self.main_boss_idle_flip=main_boss_idle_flip ; self.main_boss_idle_number=main_boss_idle_number ; self.main_boss_run=main_boss_run ; self.main_boss_run_flip=main_boss_run_flip 
-        self.main_boss_run_number=main_boss_run_number; self.main_boss_level_1_x=main_boss_level_1_x
+        self.main_boss_run_number=main_boss_run_number; self.main_boss_level_1_x=main_boss_level_1_x ; self.enemy_two_health=enemy_two_health ; self.main_boss_level_1_y=main_boss_level_1_y
         if level_1:
             if not level_1_dialogue_part_two:
                 self.main_boss_x_movement[0]=0
@@ -2520,39 +2620,60 @@ class MainBoss(Player):
                     self.main_boss_run_number[0]=0
                 if self.main_boss_rect_level_1.x<2100:
                     level_one_dialogue_part_three=True
-                    
+        if level_4_part_2 and all(idx<=0 for idx in self.enemy_two_health):
+            self.main_boss_y_movement[0]=2
+            if not level_4_player_boss_dialogue and not level_4_dialogue_2_once:
+                if self.player_rect.x>=self.main_boss_rect_level_4_part_2.x:
+                    SCREEN.blit(self.main_boss_run[int(self.main_boss_run_number[0])//2],(self.main_boss_rect_level_4_part_2.x-self.camera_x_y[0],self.main_boss_rect_level_4_part_2.y-self.camera_x_y[1]+20))
+                    self.main_boss_x_movement[0]=4
+                if self.player_rect.x<self.main_boss_rect_level_4_part_2.x:
+                    SCREEN.blit(self.main_boss_run_flip[int(self.main_boss_run_number[0])//2],(self.main_boss_rect_level_4_part_2.x-self.camera_x_y[0],self.main_boss_rect_level_4_part_2.y-self.camera_x_y[1]+20))
+                    self.main_boss_x_movement[0]=-4
+                self.main_boss_run_number[0]+=0.45
+                if self.main_boss_run_number[0]>8:
+                    self.main_boss_run_number[0]=0
+                self.player_boss_distance=math.sqrt(math.pow(self.player_rect.x-self.main_boss_rect_level_4_part_2.x,2)+math.pow(self.player_rect.y-self.main_boss_rect_level_4_part_2.y,2))
+                if self.player_boss_distance<200:
+                    self.main_boss_x_movement[0]=0
+                    level_4_player_boss_dialogue=True
+
     def reset_position(self):
         global reset_enemy_position,level_1_enemy_fight_condition
         self.main_boss_level_1_x=main_boss_level_1_x ; self.main_boss_level_1_y=main_boss_level_1_y
         if level_1 and reset_enemy_position:
             self.main_boss_rect_level_1.x=self.main_boss_level_1_x[0]
-            self.main_boss_rect_level_1.y=600
+            self.main_boss_rect_level_1.y=250
             reset_enemy_position=False
                     
     def collision_with_object(self,tile_level_1):
-        if level_1:
+        if level_1 or level_4_part_2:
+            if level_1:
+                tile_level=self.tile_level_1_rect ; enemy_rect=self.main_boss_rect_level_1
+            if level_4_part_2:
+                tile_level=self.level_4_tile_set_part_2_rect ; enemy_rect=self.main_boss_rect_level_4_part_2
             hit_tile=[]
-            for tiles in self.tile_level_1_rect:
-                if self.main_boss_rect_level_1.colliderect(tiles):
+            for tiles in tile_level:
+                if enemy_rect.colliderect(tiles):
                     hit_tile.append(tiles)
             return hit_tile
         
     def collision_with_object_logic(self,tile_level_1):
-        if level_1:
-            if level_1_dialogue_part_two:
-                self.main_boss_rect_level_1.x+=self.main_boss_x_movement[0]
+        if level_1 and level_1_dialogue_part_two or level_4_part_2:
+            if level_1: enemy_rect=self.main_boss_rect_level_1
+            if level_4_part_2: enemy_rect=self.main_boss_rect_level_4_part_2
+            enemy_rect.x+=self.main_boss_x_movement[0]
             collision=MainBoss.collision_with_object(self,tile_level_1)
             for tile in collision:
                 if self.main_boss_x_movement[0]>0:
-                    self.main_boss_rect_level_1.right=tile.left
+                    enemy_rect.right=tile.left
                 if self.main_boss_x_movement[0]<0:
-                    self.main_boss_rect_level_1.left=tile.right
-            self.main_boss_rect_level_1.y+=self.main_boss_y_movement[0]
+                    enemy_rect.left=tile.right
+            enemy_rect.y+=self.main_boss_y_movement[0]
             collision=MainBoss.collision_with_object(self,tile_level_1)
             for tile in collision:
-                if self.main_boss_rect_level_1.colliderect(tile):
-                    self.main_boss_rect_level_1.bottom=tile.top
-            return self.main_boss_rect_level_1  
+                if enemy_rect.colliderect(tile):
+                    enemy_rect.bottom=tile.top
+            return enemy_rect  
         
 class GeneralBoss(Player):
     def __init__(self):
@@ -2921,7 +3042,8 @@ while run:
     allyone.collision_with_object(tile_level_3,level_3_tile_set_part_2)
     allyone.collision_with_object_logic(tile_level_3,level_3_tile_set_part_2)
     
-    main_boss=MainBoss(main_boss_rect_level_1,main_boss_x_movement,main_boss_y_movement)
+    main_boss=MainBoss(main_boss_rect_level_1,main_boss_x_movement,main_boss_y_movement,main_boss_rect_level_4_part_2)
+    main_boss.idle()
     main_boss.movement()
     main_boss.reset_position()
     main_boss.collision_with_object(tile_level_1)
