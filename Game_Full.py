@@ -833,7 +833,7 @@ class Menu:
             if pygame.Rect.collidepoint(rect_play_show,pygame.mouse.get_pos()) and event.type==pygame.MOUSEBUTTONDOWN: level_screen=True
 
     def level_selection(self):
-        self.camera_x_y=camera_x_y ; self.player_rect=player_rect
+        self.camera_x_y=camera_x_y ; self.player_rect=player_rect ; self.main_boss_rect_level_4_part_2=main_boss_rect_level_4_part_2
         global level_screen, level_1, level_2, level_2_part_2, level_3, level_4 , level_3_part_3,level_4_part_2
         if level_screen:
             self.player_rect.x=0
@@ -858,7 +858,6 @@ class Menu:
             if pygame.Rect.collidepoint(rectangle_level_4,pygame.mouse.get_pos()) and event.type==pygame.MOUSEBUTTONDOWN:
                 level_scren=False ; level_1=False ; level_2=False ; level_3=False ; level_4=True
                 self.player_rect.x=20 ; self.player_rect.y=200
-               # self.player_rect.x=20 ; self.player_rect.y=200
         if level_1:
             level_screen=False
             if key[pygame.K_r]:
@@ -2585,16 +2584,29 @@ class MainBoss(Player):
     
 
     def idle(self):
-        global level_4_player_boss_dialogue,level_4_dialogue_2_once
+        global level_1,level_1_dialogue_part_two,level_4_player_boss_dialogue,level_4_dialogue_2_once,level_4_part_2
         self.main_boss_idle=main_boss_idle ; self.main_boss_idle_flip=main_boss_idle_flip ; self.main_boss_idle_number=main_boss_idle_number 
-        if level_4_player_boss_dialogue and not level_4_dialogue_2_once:
-            if self.player_rect.x<self.main_boss_rect_level_1.x:
-                SCREEN.blit(self.main_boss_idle[int(self.main_boss_idle_number[0])//2],(self.main_boss_rect_level_4_part_2.x-self.camera_x_y[0],self.main_boss_rect_level_4_part_2.y-self.camera_x_y[1]+20))
-            if self.player_rect.x>=self.main_boss_rect_level_1.x:
-                    SCREEN.blit(self.main_boss_idle_flip[int(self.main_boss_idle_number[0])//2],(self.main_boss_rect_level_4_part_2.x-self.camera_x_y[0],self.main_boss_rect_level_4_part_2.y-self.camera_x_y[1]+20))
-            self.main_boss_idle_number[0]+=0.30
-            if self.main_boss_idle_number[0]>9:
-                self.main_boss_idle_number[0]=0
+        if level_1:
+           # self.main_boss_y_movement[0]=8
+            if not level_1_dialogue_part_two:
+                self.main_boss_x_movement[0]=0
+                if self.player_rect.x>=self.main_boss_rect_level_1.x:
+                    SCREEN.blit(self.main_boss_idle[int(self.main_boss_idle_number[0])//2],(self.main_boss_rect_level_1.x-self.camera_x_y[0],self.main_boss_rect_level_1.y-self.camera_x_y[1]))
+                if self.player_rect.x<self.main_boss_rect_level_1.x:
+                    SCREEN.blit(self.main_boss_idle_flip[int(self.main_boss_idle_number[0])//2],(self.main_boss_rect_level_1.x-self.camera_x_y[0],self.main_boss_rect_level_1.y-self.camera_x_y[1]))
+                self.main_boss_idle_number[0]+=0.30
+                if self.main_boss_idle_number[0]>9:
+                    self.main_boss_idle_number[0]=0
+                self.main_boss_y_movement[0]=8
+        if level_4_part_2:
+            if level_4_player_boss_dialogue and not level_4_dialogue_2_once:
+                if self.player_rect.x<self.main_boss_rect_level_1.x:
+                    SCREEN.blit(self.main_boss_idle[int(self.main_boss_idle_number[0])//2],(self.main_boss_rect_level_4_part_2.x-self.camera_x_y[0],self.main_boss_rect_level_4_part_2.y-self.camera_x_y[1]+20))
+                if self.player_rect.x>=self.main_boss_rect_level_1.x:
+                        SCREEN.blit(self.main_boss_idle_flip[int(self.main_boss_idle_number[0])//2],(self.main_boss_rect_level_4_part_2.x-self.camera_x_y[0],self.main_boss_rect_level_4_part_2.y-self.camera_x_y[1]+20))
+                self.main_boss_idle_number[0]+=0.30
+                if self.main_boss_idle_number[0]>9:
+                    self.main_boss_idle_number[0]=0
 
 
     def movement(self):
@@ -2602,16 +2614,7 @@ class MainBoss(Player):
         self.main_boss_idle=main_boss_idle ; self.main_boss_idle_flip=main_boss_idle_flip ; self.main_boss_idle_number=main_boss_idle_number ; self.main_boss_run=main_boss_run ; self.main_boss_run_flip=main_boss_run_flip 
         self.main_boss_run_number=main_boss_run_number; self.main_boss_level_1_x=main_boss_level_1_x ; self.enemy_two_health=enemy_two_health ; self.main_boss_level_1_y=main_boss_level_1_y
         if level_1:
-            if not level_1_dialogue_part_two:
-                self.main_boss_x_movement[0]=0
-                if self.player_rect.x>=self.main_boss_rect_level_1.x:
-                    SCREEN.blit(self.main_boss_idle[int(self.main_boss_idle_number[0])//2],(self.main_boss_rect_level_1.x-self.camera_x_y[0],self.main_boss_rect_level_1.y-self.camera_x_y[1]+15))
-                if self.player_rect.x<self.main_boss_rect_level_1.x:
-                     SCREEN.blit(self.main_boss_idle_flip[int(self.main_boss_idle_number[0])//2],(self.main_boss_rect_level_1.x-self.camera_x_y[0],self.main_boss_rect_level_1.y-self.camera_x_y[1]+15))
-                self.main_boss_idle_number[0]+=0.30
-                if self.main_boss_idle_number[0]>9:
-                    self.main_boss_idle_number[0]=0
-                self.main_boss_y_movement[0]=8
+            self.main_boss_y_movement[0]=8
             if level_1_dialogue_part_two and not end_level_1_dialogue:
                 self.main_boss_x_movement[0]=-20
                 SCREEN.blit(self.main_boss_run_flip[int(self.main_boss_run_number[0])//2],(self.main_boss_rect_level_1.x-self.camera_x_y[0],self.main_boss_rect_level_1.y-self.camera_x_y[1]+15))
@@ -2620,7 +2623,10 @@ class MainBoss(Player):
                     self.main_boss_run_number[0]=0
                 if self.main_boss_rect_level_1.x<2100:
                     level_one_dialogue_part_three=True
+        if level_4_part_2 and not all(idx<=0 for idx in self.enemy_two_health):
+            self.main_boss_rect_level_4_part_2.x=4000 ; self.main_boss_rect_level_4_part_2.y=370
         if level_4_part_2 and all(idx<=0 for idx in self.enemy_two_health):
+            print(self.main_boss_rect_level_4_part_2.x,self.main_boss_rect_level_4_part_2.y)
             self.main_boss_y_movement[0]=2
             if not level_4_player_boss_dialogue and not level_4_dialogue_2_once:
                 if self.player_rect.x>=self.main_boss_rect_level_4_part_2.x:
