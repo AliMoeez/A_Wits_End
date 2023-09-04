@@ -619,7 +619,7 @@ main_boss_fall_flip=[main_boss_fall_flip_1,main_boss_fall_flip_2,main_boss_fall_
 
 main_boss_idle_number=[0] ; main_boss_run_number=[0] ; main_boss_attack_number=[0] ; main_boss_fall_number=[0] ; main_boss_dash_frequency=[]
 
-main_boss_level_1_x=[2850] ; main_boss_level_1_y=[577] ; main_boss_x_movement=[0] ; main_boss_y_movement=[0]
+main_boss_level_1_x=[2850] ; main_boss_level_1_y=[577] ; main_boss_x_movement=[0] ; main_boss_y_movement=[0] ; main_boss_health=[1000]
 
 main_boss_level_4_x=[4000] ; main_boss_level_4_y=[370] ; main_boss_attack_type=[] ; main_boss_dash_number=[0]
 
@@ -2685,7 +2685,7 @@ class MainBoss(Player):
                 self.main_boss_attack_type[0]=random.randint(1,2)
 
     def dash(self):
-        self.main_boss_dash_number=main_boss_dash_number ; self.main_boss_dash_frequency=main_boss_dash_frequency
+        self.main_boss_dash_number=main_boss_dash_number ; self.main_boss_dash_frequency=main_boss_dash_frequency ; self.main_boss_health=main_boss_health
         if level_4_part_2 and level_4_dialogue_2_once and self.player_boss_distance<500:
             self.main_boss_dash_number[0]+=1
             self.main_boss_dash_frequency.append(random.randint(55,70))
@@ -2694,7 +2694,27 @@ class MainBoss(Player):
                 self.main_boss_dash_frequency[0]=random.randint(55,70)
                 self.main_boss_rect_level_4_part_2.x=self.player_rect.x-50
                 self.main_boss_dash_number[0]=0
-
+                if self.main_boss_health[0]>400:
+                    if self.player_rect.x<self.main_boss_rect_level_4_part_2.x:
+                        self.main_boss_rect_level_4_part_2.x=self.player_rect.x-100
+                    if self.player_rect.x>=self.main_boss_rect_level_4_part_2.x:
+                        self.main_boss_rect_level_4_part_2.x=self.player_rect.x+50
+                else:
+                    if  self.player_rect.x<self.main_boss_rect_level_4_part_2.x or player_idle_left:
+                        self.main_boss_rect_level_4_part_2.x=self.player_rect.x+250
+                    if self.player_rect.x>=self.main_boss_rect_level_4_part_2.x or player_idle_right:
+                        self.main_boss_rect_level_4_part_2.x=self.player_rect.x-250
+    
+    def health(self):
+        global attack,player_idle_left,player_idle_right
+        self.main_boss_health=main_boss_health ; self.maximum_health=1000 ; self.health_bar_length=500
+        self.health_bar_ratio=self.maximum_health/self.health_bar_length ; self.health_icon=health_icon
+        if level_4_part_2 and level_4_dialogue_2_once and self.main_boss_health[0]>0:
+            health_icons=pygame.draw.rect(SCREEN,(75,0,130),pygame.Rect(590,10,self.main_boss_health[0]/self.health_bar_ratio,25))
+            SCREEN.blit(self.health_icon,(605,12))
+            health_border=pygame.draw.rect(SCREEN,(220,220,220),pygame.Rect(590,10,self.health_bar_length,25),4) 
+            if attack and player_idle_left or attack and player_idle_right:
+                self.main_boss_health[0]-=50
 
     def reset_position(self):
         global reset_enemy_position,level_1_enemy_fight_condition
@@ -3106,6 +3126,7 @@ while run:
     main_boss.movement()
     main_boss.attack()
     main_boss.dash()
+    main_boss.health()
     main_boss.reset_position()
     main_boss.collision_with_object(tile_level_1)
     main_boss.collision_with_object_logic(tile_level_1)
