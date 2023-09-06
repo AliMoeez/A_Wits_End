@@ -809,6 +809,7 @@ level_4_tile_set_part_2_rect=[]
 
 hit_ground=False ; level_4_dialogue_1_once=False ; level_4_begin_dialogue=False ; level_4_dialogue_length=[0] ; level_4_part_2=False
 level_4_fade_level=[0] ; level_4_dialogue_2_once=False ; level_4_player_boss_dialogue=False ; fall_type_right=False ; fall_type_left=False
+player_lose_level_4_dialogue=False ; player_win_level_4_dialogue=False ; level_4_dialogue_3_once=False ; level_4_dialogue_4_once=False
 
 class Menu:
     def __init__(self,camera_x_y_bg):
@@ -1559,7 +1560,7 @@ class Game:
     def level_four(self):
         self.camera_x_y=camera_x_y ; self.enemy_two_health=enemy_two_health ; self.level_4_fade_level=level_4_fade_level  ; self.player_current_health=player_current_health
 
-        global level_4,level_4_dialogue_1_once,level_4_begin_dialogue,level_4_part_2,level_screen
+        global level_4,level_4_dialogue_1_once,level_4_begin_dialogue,level_4_part_2,level_screen,player_lose_level_4_dialogue,level_4_dialogue_3_once
         if level_4 and not level_4_part_2:
             level_screen=False
             self.player_rect.width=31
@@ -1625,15 +1626,18 @@ class Game:
             SCREEN.blit(rectangle_blur,(0,0))
             if self.level_4_fade_level[0]<=0:
                 self.level_4_fade_level[0]=0
+            
+            if self.player_current_health[0]<0 and not level_4_dialogue_3_once:
+                player_lose_level_4_dialogue=True
 
         if level_4 or level_4_part_2:
             health_icons=pygame.draw.rect(SCREEN,(165,42,42),pygame.Rect(10,10,self.player_current_health[0]/self.health_bar_ratio,25))
             SCREEN.blit(self.health_icon,(15,12))
             health_border=pygame.draw.rect(SCREEN,(220,220,220),pygame.Rect(10,10,self.health_bar_length,25),4) 
 
-    
     def level_four_dialogue(self):
         global level_4,level_4_dialogue_1_once,change_dialogue,change_dialogue_cond_1,dialogue_move_condition,level_4_begin_dialogue,level_4_dialogue_2_once,level_4_player_boss_dialogue
+        global player_lose_level_4_dialogue,level_4_dialogue_3_once
         self.player_icon=player_icon ; self.main_boss_icon=main_boss_icon ; self.level_4_dialogue_length=level_4_dialogue_length ; self.player_current_health=player_current_health
         
         self.level_4_beginning_dialogue=[
@@ -1649,14 +1653,28 @@ class Game:
             ("Now I will do the same to you as I did to Onis.... Unfortunate really.","Kornos",self.main_boss_icon),
             ("We'll see about that.","You",self.player_icon)
         ]
+
+        self.player_boss_lose=[
+            ("Your fate will be the one Onis suffered....","Kornos",self.main_boss_icon),
+            ("Your fate will be the one Onis suffered....","Kornos",self.main_boss_icon)
+        ]
+
+        self.player_boss_win=[
+            ("You have made a grave mist--","Kornos",self.main_boss_icon),
+            ("You have made a grave mist--","Kornos",self.main_boss_icon),
+            ("So be it","You",self.player_icon)
+        ]
                                          
         if level_4_begin_dialogue:
             level_4_dialogue=self.level_4_beginning_dialogue ; colour_box=(48,25,52) ; colour_font=(177,156,217)
         
         if level_4_player_boss_dialogue:
             level_4_dialogue=self.player_boss_dialogue ; colour_box=(48,25,52) ; colour_font=(177,156,217)
+        
+        if player_lose_level_4_dialogue:
+            level_4_dialogue=self.player_boss_lose ; colour_box=(48,25,52) ; colour_font=(177,156,217)
 
-        if level_4_begin_dialogue and not level_4_dialogue_1_once or level_4_player_boss_dialogue and not level_4_dialogue_2_once:
+        if level_4_begin_dialogue and not level_4_dialogue_1_once or level_4_player_boss_dialogue and not level_4_dialogue_2_once or player_lose_level_4_dialogue and not level_4_dialogue_3_once :
             dialogue_move_condition=True ; rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  ; rectangle_blur.set_alpha(100) ; rectangle_blur.fill((0,0,0))  ; SCREEN.blit(rectangle_blur,(0,0)) 
             rectangle_box_1=pygame.Surface((SCREEN_WIDTH,200))  ; rectangle_box_1.fill(colour_box)  ; rectangle_box_1.set_alpha(75)  ; SCREEN.blit(rectangle_box_1,(0,500))
                 
@@ -1673,6 +1691,9 @@ class Game:
                     level_4_begin_dialogue=False
                     if level_4_player_boss_dialogue:
                         level_4_dialogue_2_once=True
+                    level_4_player_boss_dialogue=False
+                    if player_lose_level_4_dialogue:
+                        level_4_dialogue_3_once=True
                     level_4_player_boss_dialogue=False
                     self.level_4_dialogue_length[0]=0 ;  dialogue_move_condition=False 
                     
@@ -1808,9 +1829,9 @@ class Player(Game):
     def defeat(self):
         global player_death,player_idle_right,player_idle_left,player_death_final, level_screen, level_1,reset_enemy_position,level_1_enemy_fight_condition
         global level_1_dialogue_part_two, end_level_1_dialogue,level_one_dialogue_part_three,end_level_1_dialogue,dialogue_move_condition, level_2_part_2,level_3_part_2
-        global level_3,level_3_part_3
+        global level_3,level_3_part_3,level_4,level_4_part_2
         self.player_fallen=player_fallen ; self.player_fallen_flip=player_fallen_flip ; self.player_fallen_number=player_fallen_number ; self.defeat_blur=defeat_blur
-        if level_1 or level_2_part_2 or level_3 or level_3_part_2 or level_3_part_3:
+        if level_1 or level_2_part_2 or level_3 or level_3_part_2 or level_3_part_3 or level_4 or level_4_part_2:
             if self.player_current_health[0]<=0:
                 player_death=True # ; level_1_enemy_fight_condition=False
                 if player_death:
@@ -1839,29 +1860,26 @@ class Player(Game):
                     
                 if pygame.Rect.collidepoint(rectangle_main_menu,pygame.mouse.get_pos()) and event.type==pygame.MOUSEBUTTONDOWN:
                     level_selection=False ; level_1=False ; level_screen=False ; self.player_current_health[0]=1000 ; player_death=False ; reset_enemy_position=True; 
-                    level_1_enemy_fight_condition=False ; level_3_part_2=False ; level_3=False
+                    level_1_enemy_fight_condition=False ; level_3_part_2=False ; level_3=False ; level_4=False ; level_4_part_2=False
                     
     def reset_position(self):
-        global level_1, reset_enemy_position,level_one_x_border,level_3_part_2,level_3_dialogue_boss_fight,level_3_dialogue_part_7_once
-        if (level_1 and reset_enemy_position) or (level_2_part_2 and reset_enemy_position) or (level_3_part_2 and reset_enemy_position):
+        global level_1, reset_enemy_position,level_one_x_border,level_3_part_2,level_3_dialogue_boss_fight,level_3_dialogue_part_7_once,level_4_beginning_dialogue,level_4_dialogue_1_once
+        global level_4_player_boss_dialogue,level_4_dialogue_2_once,level_4,level_4_part_2
+        if (level_1 and reset_enemy_position) or (level_2_part_2 and reset_enemy_position) or (level_3_part_2 and reset_enemy_position) or (level_4 and reset_enemy_position) or (level_4_part_2 and reset_enemy_position):
             level_one_x_border=False
             if level_1 and reset_enemy_position:
                 self.player_rect.x=100
             if level_2 and reset_enemy_position:
-                self.player_rect.x=210
-                self.player_rect.y=500
+                self.player_rect.x=210 ; self.player_rect.y=500
             if level_2_part_2 and reset_enemy_position:
-                self.player_rect.x=210
-                self.player_rect.y=500
-                self.player_current_health[0]=1000
+                self.player_rect.x=210 ; self.player_rect.y=500 ; self.player_current_health[0]=1000
             if level_3_part_2 and reset_enemy_position:
-                print("HERE")
-                level_3_dialogue_boss_fight=False
-                level_3_dialogue_part_7_once=False
-                self.player_rect.x=210
-                self.player_rect.y=200
-                self.player_current_health[0]=1000
-               # reset_enemy_position=False
+                level_3_dialogue_boss_fight=False ; level_3_dialogue_part_7_once=False ; self.player_rect.x=210 ; self.player_rect.y=200 ; self.player_current_health[0]=1000
+            if level_4 and reset_enemy_position:
+                level_4_beginning_dialogue=False ; level_4_dialogue_1_once=False ; self.player_rect.x=20 ; self.player_rect.y=200 ; self.player_current_health[0]=1000
+            if level_4_part_2 and reset_enemy_position:
+                level_4_player_boss_dialogue=False ; level_4_dialogue_2_once=False ; self.player_rect.x=40 ; self.player_rect.y=400 ;  self.player_current_health[0]=1000
+                reset_enemy_position=False
 
     def collision_with_object(self,tile_level_1_rect,tile_level_2_rect,tile_level_3_rect,level_3_tile_set_part_2_rect,level_4_tile_set_rect,level_4_tile_set_part_2_rect):
         global level_2_part_2, level_3,level_3_part_2,level_3_part_3,level_4,level_4_part_2
@@ -2684,9 +2702,9 @@ class MainBoss(Player):
                 if self.main_boss_attack_number[0]>8:
                     self.main_boss_attack_number[0]=0
                     if self.main_boss_health[0]>500:
-                        self.player_current_health[0]-=50
+                        self.player_current_health[0]-=1000 #50
                     else:
-                        self.player_current_health[0]-=100
+                        self.player_current_health[0]-=1000 #100
                     self.main_boss_attack_type[0]=random.randint(1,2)
 
     def dash(self):
