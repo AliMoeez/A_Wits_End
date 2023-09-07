@@ -994,34 +994,40 @@ class Game:
                 
     def level_one_win(self):
         self.enemy_1_health_list=enemy_1_health_list ; self.enemy_two_health=enemy_two_health ; self.win_blur=win_blur ; self.boss_1_health=boss_1_health
-        self.enemy_1_x_movement=enemy_1_x_movement
-        global level_1,level_win, level_2, level_3, reset_enemy_position,level_2_part_2,level_2_dialogue_part_two_once,level_3_part_3
-        if level_1 and all(idx<=0 for idx in self.enemy_1_health_list) and all(idx<=0 for idx in self.enemy_two_health) and self.player_rect.x>=6050:
+        self.enemy_1_x_movement=enemy_1_x_movement ; self.main_boss_health=main_boss_health
+        global level_1,level_win, level_2, level_3, reset_enemy_position,level_2_part_2,level_2_dialogue_part_two_once,level_3_part_3,level_4_dialogue_4_once,level_4_part_2
+        if level_1 and all(idx<=0 for idx in self.enemy_1_health_list) and all(idx<=0 for idx in self.enemy_two_health) and self.player_rect.x>=6050 :
             level_win=True
         if level_2_part_2 and self.boss_1_health[0]<=0 and self.player_rect.x>=6050:
             level_win=True
         if level_3_part_3 and all(idx<=0 for idx in self.enemy_1_health_list) and self.player_rect.x>=5250:
             level_win=True
+        if level_4_part_2 and self.main_boss_health[0]<=0 and level_4_dialogue_4_once and self.player_rect.x>=3800:
+            level_win=True
         if level_win:
             self.win_blur[0]+=5
             rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT)) ; rectangle_blur.set_alpha(self.win_blur[0]) ; rectangle_blur.fill((0,0,0))  ; SCREEN.blit(rectangle_blur,(0,0))
             if self.win_blur[0]>280: self.win_blur[0]=280
-            font_game=pygame.font.SysFont("Impact",48) ; show_font_defeat=font_game.render("LEVEL COMPLETED",1,(255,70,71))  ; show_font_defeat_rect=show_font_defeat.get_rect(center=(SCREEN_WIDTH/2,200))  ; SCREEN.blit(show_font_defeat,show_font_defeat_rect)           
-            rectangle_retry=pygame.Surface((100,30)) ; rectangle_retry.set_alpha(0)  ; rectangle_retry.fill((200,200,200)) ; rectangle_retry=SCREEN.blit(rectangle_retry,(SCREEN_WIDTH/2-150,387))
-            font_game=pygame.font.SysFont("Impact",30) ; show_font_defeat=font_game.render("NEXT LEVEL",1,(255,70,71)) ; show_font_defeat_rect=show_font_defeat.get_rect(center=(SCREEN_WIDTH/2-100,400))  ; SCREEN.blit(show_font_defeat,show_font_defeat_rect)
-            rectangle_main_menu=pygame.Surface((150,30))  ; rectangle_main_menu.set_alpha(0) ; rectangle_main_menu.fill((200,200,200))  ; rectangle_main_menu=SCREEN.blit(rectangle_main_menu,(SCREEN_WIDTH/2+25,387))
-            font_game=pygame.font.SysFont("Impact",30) ; show_font_defeat=font_game.render("MAIN MENU",1,(255,70,71)) ; show_font_defeat_rect=show_font_defeat.get_rect(center=(SCREEN_WIDTH/2+100,400)) ; SCREEN.blit(show_font_defeat,show_font_defeat_rect)
-            level_1_dialogue_part_two=False ; end_level_1_dialogue=False ; level_one_dialogue_part_three=False ; end_level_1_dialogue=False
-            dialogue_move_condition=False
-            
-            if pygame.Rect.collidepoint(rectangle_retry,pygame.mouse.get_pos()) and event.type==pygame.MOUSEBUTTONDOWN:
-                level_1=False ; level_2=False ; level_3=False ; reset_enemy_position=True ; level_2_part_2=False ; level_2_dialogue_part_two_once=False
-                self.player_current_health[0]=1000  ; level_1_enemy_fight_condition=False ; level_win=False ; level_3_part_3=False
-
+            if not level_4_part_2:
+                font_game=pygame.font.SysFont("Impact",48) ; show_font_defeat=font_game.render("LEVEL COMPLETED",1,(255,70,71))  ; show_font_defeat_rect=show_font_defeat.get_rect(center=(SCREEN_WIDTH/2,200))  ; SCREEN.blit(show_font_defeat,show_font_defeat_rect)           
+                rectangle_retry=pygame.Surface((100,30)) ; rectangle_retry.set_alpha(0)  ; rectangle_retry.fill((200,200,200)) ; rectangle_retry=SCREEN.blit(rectangle_retry,(SCREEN_WIDTH/2-150,387))
+                font_game=pygame.font.SysFont("Impact",30) ; show_font_defeat=font_game.render("NEXT LEVEL",1,(255,70,71)) ; show_font_defeat_rect=show_font_defeat.get_rect(center=(SCREEN_WIDTH/2-100,400))  ; SCREEN.blit(show_font_defeat,show_font_defeat_rect)
+                rectangle_main_menu=pygame.Surface((150,30))  ; rectangle_main_menu.set_alpha(0) ; rectangle_main_menu.fill((200,200,200))  ; rectangle_main_menu=SCREEN.blit(rectangle_main_menu,(SCREEN_WIDTH/2+25,387))
+                font_game=pygame.font.SysFont("Impact",30) ; show_font_defeat=font_game.render("MAIN MENU",1,(255,70,71)) ; show_font_defeat_rect=show_font_defeat.get_rect(center=(SCREEN_WIDTH/2+100,400)) ; SCREEN.blit(show_font_defeat,show_font_defeat_rect)
+                level_1_dialogue_part_two=False ; end_level_1_dialogue=False ; level_one_dialogue_part_three=False ; end_level_1_dialogue=False
+                dialogue_move_condition=False
+            if level_4_part_2:
+                font_game=pygame.font.SysFont("Impact",48) ; show_font_defeat=font_game.render("GAME COMPLETED",1,(255,70,71))  ; show_font_defeat_rect=show_font_defeat.get_rect(center=(SCREEN_WIDTH/2,200))  ; SCREEN.blit(show_font_defeat,show_font_defeat_rect)           
+                rectangle_main_menu=pygame.Surface((150,30)) ; rectangle_main_menu.set_alpha(0) ; rectangle_main_menu.fill((200,200,200))  ; rectangle_main_menu=SCREEN.blit(rectangle_main_menu,(SCREEN_WIDTH/2-75,387))
+                font_game=pygame.font.SysFont("Impact",30) ; show_font_defeat=font_game.render("MAIN MENU",1,(255,70,71)) ; show_font_defeat_rect=show_font_defeat.get_rect(center=(SCREEN_WIDTH/2,400)) ; SCREEN.blit(show_font_defeat,show_font_defeat_rect)
+            if not level_4_part_2:
+                if pygame.Rect.collidepoint(rectangle_retry,pygame.mouse.get_pos()) and event.type==pygame.MOUSEBUTTONDOWN:
+                    level_1=False ; level_2=False ; level_3=False ; reset_enemy_position=True ; level_2_part_2=False ; level_2_dialogue_part_two_once=False
+                    self.player_current_health[0]=1000  ; level_1_enemy_fight_condition=False ; level_win=False ; level_3_part_3=False
             if pygame.Rect.collidepoint(rectangle_main_menu,pygame.mouse.get_pos()) and event.type==pygame.MOUSEBUTTONDOWN:
                 level_selection=False ; level_1=False ; level_screen=False ; self.player_current_health[0]=1000 ; player_death=False ; reset_enemy_position=True
                 level_1_enemy_fight_condition=False ; level_2_dialogue_part_two_once=False         
-                level_2=False ; level_3=False  ; level_2_part_2=False ; level_win=False; level_3_part_3=False
+                level_2=False ; level_3=False  ; level_2_part_2=False ; level_win=False; level_3_part_3=False ; level_4_part_2=False
                 
     def level_two(self):
         global level_2,level_screen,level_2_passive_condition,level_2_part_2,level_2_dialogue_part_two,level_2_dialogue_once_two,level_2_part_2_boss_dialogue,level_2_dialogue_part_two_once
@@ -1559,8 +1565,9 @@ class Game:
 
     def level_four(self):
         self.camera_x_y=camera_x_y ; self.enemy_two_health=enemy_two_health ; self.level_4_fade_level=level_4_fade_level  ; self.player_current_health=player_current_health
+        self.main_boss_health=main_boss_health
 
-        global level_4,level_4_dialogue_1_once,level_4_begin_dialogue,level_4_part_2,level_screen,player_lose_level_4_dialogue,level_4_dialogue_3_once
+        global level_4,level_4_dialogue_1_once,level_4_begin_dialogue,level_4_part_2,level_screen,player_lose_level_4_dialogue,level_4_dialogue_3_once,player_win_level_4_dialogue,level_4_dialogue_4_once,level_win
         if level_4 and not level_4_part_2:
             level_screen=False
             self.player_rect.width=31
@@ -1630,6 +1637,9 @@ class Game:
             if self.player_current_health[0]<=0 and not level_4_dialogue_3_once:
                 player_lose_level_4_dialogue=True
 
+            if self.main_boss_health[0]<=0 and not level_4_dialogue_4_once:
+                player_win_level_4_dialogue=True
+
         if level_4 or level_4_part_2:
             health_icons=pygame.draw.rect(SCREEN,(165,42,42),pygame.Rect(10,10,self.player_current_health[0]/self.health_bar_ratio,25))
             SCREEN.blit(self.health_icon,(15,12))
@@ -1637,7 +1647,7 @@ class Game:
 
     def level_four_dialogue(self):
         global level_4,level_4_dialogue_1_once,change_dialogue,change_dialogue_cond_1,dialogue_move_condition,level_4_begin_dialogue,level_4_dialogue_2_once,level_4_player_boss_dialogue
-        global player_lose_level_4_dialogue,level_4_dialogue_3_once
+        global player_lose_level_4_dialogue,level_4_dialogue_3_once,player_win_level_4_dialogue,level_4_dialogue_4_once
         self.player_icon=player_icon ; self.main_boss_icon=main_boss_icon ; self.level_4_dialogue_length=level_4_dialogue_length ; self.player_current_health=player_current_health
         
         self.level_4_beginning_dialogue=[
@@ -1661,7 +1671,6 @@ class Game:
 
         self.player_boss_win=[
             ("You have made a grave mist--","Kornos",self.main_boss_icon),
-            ("You have made a grave mist--","Kornos",self.main_boss_icon),
             ("So be it","You",self.player_icon)
         ]
                                          
@@ -1674,7 +1683,10 @@ class Game:
         if player_lose_level_4_dialogue:
             level_4_dialogue=self.player_boss_lose ; colour_box=(48,25,52) ; colour_font=(177,156,217)
 
-        if level_4_begin_dialogue and not level_4_dialogue_1_once or level_4_player_boss_dialogue and not level_4_dialogue_2_once or player_lose_level_4_dialogue and not level_4_dialogue_3_once :
+        if player_win_level_4_dialogue:
+            level_4_dialogue=self.player_boss_win ; colour_box=(48,25,52) ; colour_font=(177,156,217)
+
+        if level_4_begin_dialogue and not level_4_dialogue_1_once or level_4_player_boss_dialogue and not level_4_dialogue_2_once or player_lose_level_4_dialogue and not level_4_dialogue_3_once or player_win_level_4_dialogue and not level_4_dialogue_4_once:
             dialogue_move_condition=True ; rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  ; rectangle_blur.set_alpha(100) ; rectangle_blur.fill((0,0,0))  ; SCREEN.blit(rectangle_blur,(0,0)) 
             rectangle_box_1=pygame.Surface((SCREEN_WIDTH,200))  ; rectangle_box_1.fill(colour_box)  ; rectangle_box_1.set_alpha(75)  ; SCREEN.blit(rectangle_box_1,(0,500))
                 
@@ -1695,6 +1707,9 @@ class Game:
                     if player_lose_level_4_dialogue:
                         level_4_dialogue_3_once=True
                     level_4_player_boss_dialogue=False
+                    if player_win_level_4_dialogue:
+                        level_4_dialogue_4_once=True
+                    player_win_level_4_dialogue=False
                     self.level_4_dialogue_length[0]=0 ;  dialogue_move_condition=False 
                     
             if event.type==pygame.MOUSEBUTTONDOWN:  change_dialogue_cond_1=True
@@ -1865,7 +1880,7 @@ class Player(Game):
                     
     def reset_position(self):
         global level_1, reset_enemy_position,level_one_x_border,level_3_part_2,level_3_dialogue_boss_fight,level_3_dialogue_part_7_once,level_4_beginning_dialogue,level_4_dialogue_1_once
-        global level_4_player_boss_dialogue,level_4_dialogue_2_once,level_4,level_4_part_2,level_4_dialogue_3_once , player_lose_level_4_dialogue
+        global level_4_player_boss_dialogue,level_4_dialogue_2_once,level_4,level_4_part_2,level_4_dialogue_3_once , player_lose_level_4_dialogue,level_4_dialogue_4_once,player_win_level_4_dialogue
         if (level_1 and reset_enemy_position) or (level_2_part_2 and reset_enemy_position) or (level_3_part_2 and reset_enemy_position) or (level_4 and reset_enemy_position) or (level_4_part_2 and reset_enemy_position):
             level_one_x_border=False
             if level_1 and reset_enemy_position:
@@ -1880,7 +1895,7 @@ class Player(Game):
                 level_4_beginning_dialogue=False ; level_4_dialogue_1_once=False ; self.player_rect.x=20 ; self.player_rect.y=200 ; self.player_current_health[0]=1000
             if level_4_part_2 and reset_enemy_position:
                 level_4_player_boss_dialogue=False ; level_4_dialogue_2_once=False ; self.player_rect.x=40 ; self.player_rect.y=400 ;  self.player_current_health[0]=1000
-                level_4_dialogue_3_once=False ; player_lose_level_4_dialogue=False
+                level_4_dialogue_3_once=False ; player_lose_level_4_dialogue=False ; player_win_level_4_dialogue=False ; level_4_dialogue_4_once=False
 
     def collision_with_object(self,tile_level_1_rect,tile_level_2_rect,tile_level_3_rect,level_3_tile_set_part_2_rect,level_4_tile_set_rect,level_4_tile_set_part_2_rect):
         global level_2_part_2, level_3,level_3_part_2,level_3_part_3,level_4,level_4_part_2
@@ -2710,9 +2725,9 @@ class MainBoss(Player):
                 if self.main_boss_attack_number[0]>8:
                     self.main_boss_attack_number[0]=0
                     if self.main_boss_health[0]>500:
-                        self.player_current_health[0]-=1000 #50
+                        self.player_current_health[0]-=50 #50
                     else:
-                        self.player_current_health[0]-=1000 #100
+                        self.player_current_health[0]-=100 #100
                     self.main_boss_attack_type[0]=random.randint(1,2)
 
     def dash(self):
@@ -2746,9 +2761,9 @@ class MainBoss(Player):
             SCREEN.blit(self.health_icon,(605,12))
             health_border=pygame.draw.rect(SCREEN,(220,220,220),pygame.Rect(590,10,self.health_bar_length,25),4) 
             if attack and player_idle_left and self.player_rect.x>=self.main_boss_rect_level_4_part_2.x:
-                self.main_boss_health[0]-=50
+                self.main_boss_health[0]-=1000 #50
             elif attack and player_idle_right and self.player_rect.x<self.main_boss_rect_level_4_part_2.x:
-                self.main_boss_health[0]-=50
+                self.main_boss_health[0]-=1000 #50
 
     def fall(self):
         global fall_type_right,fall_type_left
