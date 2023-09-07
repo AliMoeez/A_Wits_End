@@ -810,6 +810,7 @@ level_4_tile_set_part_2_rect=[]
 hit_ground=False ; level_4_dialogue_1_once=False ; level_4_begin_dialogue=False ; level_4_dialogue_length=[0] ; level_4_part_2=False
 level_4_fade_level=[0] ; level_4_dialogue_2_once=False ; level_4_player_boss_dialogue=False ; fall_type_right=False ; fall_type_left=False
 player_lose_level_4_dialogue=False ; player_win_level_4_dialogue=False ; level_4_dialogue_3_once=False ; level_4_dialogue_4_once=False
+level_4_change=False
 
 class Menu:
     def __init__(self,camera_x_y_bg):
@@ -1568,6 +1569,7 @@ class Game:
         self.main_boss_health=main_boss_health
 
         global level_4,level_4_dialogue_1_once,level_4_begin_dialogue,level_4_part_2,level_screen,player_lose_level_4_dialogue,level_4_dialogue_3_once,player_win_level_4_dialogue,level_4_dialogue_4_once,level_win
+        global level_4_change
         if level_4 and not level_4_part_2:
             level_screen=False
             self.player_rect.width=31
@@ -1592,21 +1594,23 @@ class Game:
             if level_4 and not level_4_dialogue_1_once:
                 level_4_begin_dialogue=True
 
-           # if self.player_rect.x>=3500 and all(idx<=0 for idx in self.enemy_two_health):
-
-            if self.player_rect.x>=100:
+            if self.player_rect.x>=3500 and all(idx<=0 for idx in self.enemy_two_health):
                 self.level_4_fade_level[0]+=10 
                 rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  
                 rectangle_blur.set_alpha(self.level_4_fade_level[0])  
                 rectangle_blur.fill((0,0,0))   
                 SCREEN.blit(rectangle_blur,(0,0))
+                print("THIS")
                 if self.level_4_fade_level[0]>=200:
                     level_4_part_2=True 
+                    level_4_change=True
+                    print("HERE")
                     self.player_rect.x=40
                     self.player_rect.y=400
 
         if level_4_part_2:
             level_4=False
+            level_4_change=False
             SCREEN.fill((39,38,56))
             if self.player_rect.x>=220 and self.player_rect.x<4850: self.camera_x_y[0]+=self.player_rect.x-self.camera_x_y[0]-210
             if self.player_rect.x<220: 
@@ -1644,6 +1648,8 @@ class Game:
             health_icons=pygame.draw.rect(SCREEN,(165,42,42),pygame.Rect(10,10,self.player_current_health[0]/self.health_bar_ratio,25))
             SCREEN.blit(self.health_icon,(15,12))
             health_border=pygame.draw.rect(SCREEN,(220,220,220),pygame.Rect(10,10,self.health_bar_length,25),4) 
+            if self.player_rect.y>500:
+                self.player_current_health[0]-=200
 
     def level_four_dialogue(self):
         global level_4,level_4_dialogue_1_once,change_dialogue,change_dialogue_cond_1,dialogue_move_condition,level_4_begin_dialogue,level_4_dialogue_2_once,level_4_player_boss_dialogue
@@ -1736,7 +1742,6 @@ class Player(Game):
             if key[pygame.K_SPACE] and not crouch:
                 jump=True
                 attack=False
-                
             if jump and jump_condition and not attack and not dialogue_move_condition:
                 self.player_y_movement[0]=+0
                 if self.player_jump_length[0]>=-17:
@@ -1879,8 +1884,8 @@ class Player(Game):
                     level_1_enemy_fight_condition=False ; level_3_part_2=False ; level_3=False ; level_4=False ; level_4_part_2=False
                     
     def reset_position(self):
-        global level_1, reset_enemy_position,level_one_x_border,level_3_part_2,level_3_dialogue_boss_fight,level_3_dialogue_part_7_once,level_4_beginning_dialogue,level_4_dialogue_1_once
-        global level_4_player_boss_dialogue,level_4_dialogue_2_once,level_4,level_4_part_2,level_4_dialogue_3_once , player_lose_level_4_dialogue,level_4_dialogue_4_once,player_win_level_4_dialogue
+        global level_1, reset_enemy_position,level_one_x_border,level_3_part_2,level_3_dialogue_boss_fight,level_3_dialogue_part_7_once,level_4_begin_dialogue,level_4_dialogue_1_once
+        global level_4_player_boss_dialogue,level_4_dialogue_2_once,level_4,level_4_part_2,level_4_dialogue_3_once , player_lose_level_4_dialogue,level_4_dialogue_4_once,player_win_level_4_dialogue,level_4_begin_dialogue
         if (level_1 and reset_enemy_position) or (level_2_part_2 and reset_enemy_position) or (level_3_part_2 and reset_enemy_position) or (level_4 and reset_enemy_position) or (level_4_part_2 and reset_enemy_position):
             level_one_x_border=False
             if level_1 and reset_enemy_position:
@@ -1892,7 +1897,8 @@ class Player(Game):
             if level_3_part_2 and reset_enemy_position:
                 level_3_dialogue_boss_fight=False ; level_3_dialogue_part_7_once=False ; self.player_rect.x=210 ; self.player_rect.y=200 ; self.player_current_health[0]=1000
             if level_4 and reset_enemy_position:
-                level_4_beginning_dialogue=False ; level_4_dialogue_1_once=False ; self.player_rect.x=20 ; self.player_rect.y=200 ; self.player_current_health[0]=1000
+                level_4_begin_dialogue=False ; level_4_dialogue_1_once=False ; self.player_rect.x=20 ; self.player_rect.y=200 ; self.player_current_health[0]=1000
+                self.camera_x_y[0]=0
             if level_4_part_2 and reset_enemy_position:
                 level_4_player_boss_dialogue=False ; level_4_dialogue_2_once=False ; self.player_rect.x=40 ; self.player_rect.y=400 ;  self.player_current_health[0]=1000
                 level_4_dialogue_3_once=False ; player_lose_level_4_dialogue=False ; player_win_level_4_dialogue=False ; level_4_dialogue_4_once=False
@@ -2250,14 +2256,15 @@ class EnemyTwo(Player):
         super().__init__(player_x_movement,player_y_movement,player_rect,player_current_health)
     
     def movement(self):
-        global level_1, level_1_enemy_fight_condition,level_4,level_screen,jump,hit_ground
+        global level_1, level_1_enemy_fight_condition,level_4,level_screen,jump,level_4_change
         self.enemy_two_idle=enemy_two_idle ; self.enemy_two_idle_flip=enemy_two_idle_flip ; self.enemy_two_idle_number=enemy_two_idle_number ; self.enemy_two_run=enemy_two_run 
         self.enemy_two_run_flip=enemy_two_run_flip ; self.enemy_two_run_number=enemy_two_run_number ; self.enemy_two_level_1_x=enemy_two_level_1_x ; self.enemy_two_fall_number=enemy_two_fall_number
         self.enemy_two_fall_direction_set=enemy_two_fall_direction_set
         if level_screen:
             self.enemy_two_distance_list.clear() ; self.enemy_two_rect_list.clear() ; self.enemy_two_x_movement.clear() ; self.enemy_two_health.clear()
             self.enemy_two_fall_number.clear() ; self.enemy_two_fall_direction_set.clear()
-        if self.level_4_fade_level[0]>0:
+        if level_4_change:
+            print("HERE")
             self.enemy_two_distance_list.clear() ; self.enemy_two_rect_list.clear() ; self.enemy_two_x_movement.clear() ; self.enemy_two_health.clear()
             self.enemy_two_fall_number.clear() ; self.enemy_two_fall_direction_set.clear()
 
@@ -2437,6 +2444,7 @@ class EnemyTwo(Player):
                 knight_rect=self.enemy_two_level_1_rect ; knight_x=self.enemy_two_level_1_x
             if level_4:
                 knight_rect=self.enemy_two_level_4_rect_1 ; knight_x=self.enemy_two_level_4_x_1
+                reset_enemy_position=False
             if level_4_part_2:
                 knight_rect=self.enemy_two_level_4_rect_2 ; knight_x=self.enemy_two_level_4_x_2
             self.enemy_two_fall_number.clear() ; self.enemy_two_distance_list.clear() ; self.enemy_two_fall_direction_set.clear()
