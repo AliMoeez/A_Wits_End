@@ -445,7 +445,7 @@ enemy_1_level_2_rect=[pygame.Rect(enemy_1_level_2_x[0],enemy_1_level_2_y[0],45,5
                       pygame.Rect(enemy_1_level_2_x[6],enemy_1_level_2_y[6],45,55),pygame.Rect(enemy_1_level_2_x[7],enemy_1_level_2_y[7],45,55)]
 
 
-enemy_1_level_3_x=[800,900,1200,1800,1900,2700,2900,3000,3100,3400,3500,3700]
+enemy_1_level_3_x=[1100,1150,1200,1800,1900,2700,2900,3000,3100,3400,3500,3700]
 
 enemy_1_level_3_y=[575,575,575,575,575,575,575,575,575,575,575,575,575]
 
@@ -507,7 +507,7 @@ enemy_two_level_1_x=[2700,3000] ; enemy_two_level_1_y=[557,557]
 
 enemy_two_level_4_x_1=[1700,1900,2100,2400,2700,3200,3400] ; enemy_two_level_4_y_1=[300,300,300,300,300,300,300]
 
-enemy_two_level_4_x_2=[800,900,1100,1300,1500,2500,2700,2900] ; enemy_two_level_4_y_2=[300,300,300,300,300,300,300,300]
+enemy_two_level_4_x_2=[800,900,1100,1300,1500,2500,2700,2900] ; enemy_two_level_4_y_2=[350,350,350,350,350,350,350,350]
 
 
 enemy_two_level_4_rect_1=[] ; enemy_two_level_4_rect_2=[]
@@ -843,14 +843,19 @@ class Menu:
             self.camera_x_y[0]=0
             if key[pygame.K_q]:
                 level_screen=False
-            rectangle_level_1=pygame.Surface((60,90))  
-            """rectangle_level_1.set_alpha(0)""" ; rectangle_level_1.fill((200,200,200))  ; rectangle_level_1=SCREEN.blit(rectangle_level_1,(SCREEN_WIDTH//2-250,SCREEN_HEIGHT//2-50))
-            rectangle_level_2=pygame.Surface((60,90))  
-            """rectangle_level_1.set_alpha(0)""" ; rectangle_level_2.fill((100,100,100))  ; rectangle_level_2=SCREEN.blit(rectangle_level_2,(SCREEN_WIDTH//2-50,SCREEN_HEIGHT//2-50))  
-            rectangle_level_3=pygame.Surface((60,90))    
-            """rectangle_level_1.set_alpha(0)""" ; rectangle_level_3.fill((50,50,50))  ; rectangle_level_3=SCREEN.blit(rectangle_level_3,(SCREEN_WIDTH//2+150,SCREEN_HEIGHT//2-50))    
-            rectangle_level_4=pygame.Surface((60,90))    
-            """rectangle_level_1.set_alpha(0)""" ; rectangle_level_4.fill((20,20,20))  ; rectangle_level_4=SCREEN.blit(rectangle_level_4,(SCREEN_WIDTH//2+250,SCREEN_HEIGHT//2-50))           
+            font_game=pygame.font.SysFont("Impact",28)  ; show_font_knight=font_game.render("LEVEL SELECTION",1,(120,159,179)) ; SCREEN.blit(show_font_knight,(SCREEN_WIDTH//2-75,SCREEN_HEIGHT//2-250))  
+            rectangle_level_1_bg=pygame.draw.rect(SCREEN,(176,196,222),pygame.Rect(SCREEN_WIDTH//2-300,SCREEN_HEIGHT//2-50,60,90))
+            rectangle_level_1=pygame.draw.rect(SCREEN,(120,159,179),pygame.Rect(SCREEN_WIDTH//2-300,SCREEN_HEIGHT//2-50,60,90),width=10)
+            font_game=pygame.font.SysFont("Impact",28)  ; show_font_knight=font_game.render("1",1,(120,159,179)) ; SCREEN.blit(show_font_knight,(SCREEN_WIDTH//2-275,SCREEN_HEIGHT//2-25))  
+            rectangle_level_2_bg=pygame.draw.rect(SCREEN,(176,196,222),pygame.Rect(SCREEN_WIDTH//2-100,SCREEN_HEIGHT//2-50,60,90))
+            rectangle_level_2=pygame.draw.rect(SCREEN,(120,159,179),pygame.Rect(SCREEN_WIDTH//2-100,SCREEN_HEIGHT//2-50,60,90),width=10)
+            font_game=pygame.font.SysFont("Impact",28)  ; show_font_knight=font_game.render("2",1,(120,159,179)) ; SCREEN.blit(show_font_knight,(SCREEN_WIDTH//2-75,SCREEN_HEIGHT//2-25)) 
+            rectangle_level_3_bg=pygame.draw.rect(SCREEN,(176,196,222),pygame.Rect(SCREEN_WIDTH//2+100,SCREEN_HEIGHT//2-50,60,90))
+            rectangle_level_3=pygame.draw.rect(SCREEN,(120,159,179),pygame.Rect(SCREEN_WIDTH//2+100,SCREEN_HEIGHT//2-50,60,90),width=10) 
+            font_game=pygame.font.SysFont("Impact",28)  ; show_font_knight=font_game.render("3",1,(120,159,179)) ; SCREEN.blit(show_font_knight,(SCREEN_WIDTH//2+125,SCREEN_HEIGHT//2-25))   
+            rectangle_level_4_bg=pygame.draw.rect(SCREEN,(176,196,222),pygame.Rect(SCREEN_WIDTH//2+300,SCREEN_HEIGHT//2-50,60,90))
+            rectangle_level_4=pygame.draw.rect(SCREEN,(120,159,179),pygame.Rect(SCREEN_WIDTH//2+300,SCREEN_HEIGHT//2-50,60,90),width=10)
+            font_game=pygame.font.SysFont("Impact",28)  ; show_font_knight=font_game.render("4",1,(120,159,179)) ; SCREEN.blit(show_font_knight,(SCREEN_WIDTH//2+325,SCREEN_HEIGHT//2-25))        
             if pygame.Rect.collidepoint(rectangle_level_1,pygame.mouse.get_pos()) and event.type==pygame.MOUSEBUTTONDOWN:
                 level_scren=False ; level_1=True ; level_2=False ; level_3=False ; level_4=False
             if pygame.Rect.collidepoint(rectangle_level_2,pygame.mouse.get_pos()) and event.type==pygame.MOUSEBUTTONDOWN:
@@ -859,7 +864,7 @@ class Menu:
                 level_scren=False ; level_1=False ; level_2=False ; level_3=True ; level_4=False
             if pygame.Rect.collidepoint(rectangle_level_4,pygame.mouse.get_pos()) and event.type==pygame.MOUSEBUTTONDOWN:
                 level_scren=False ; level_1=False ; level_2=False ; level_3=False ; level_4=True
-                self.player_rect.x=20 ; self.player_rect.y=200
+                self.player_rect.x=20 ; self.player_rect.y=310
         if level_1:
             level_screen=False
             if key[pygame.K_r]:
@@ -1095,7 +1100,6 @@ class Game:
                             level_2_part_2=True
                         
             if level_2_part_2:
-               # self.player_rect.y=200
                 if self.player_rect.x<210:
                     self.player_rect.x=210
                 if self.player_rect.x>=210 and self.player_rect.x<=5300:
@@ -1108,7 +1112,6 @@ class Game:
                 self.level_2_blur_list_2[0]-=10 #50
                 if self.level_2_blur_list_2[0]<0:
                     self.level_2_blur_list_2[0]=0
-              #  rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT)) ; rectangle_blur.set_alpha(self.level_2_blur_list_2[0]) ; rectangle_blur.fill((0,0,0))  ; SCREEN.blit(rectangle_blur,(0,0))
                 y_1=0
                 for row in self.tile_level_2:
                     x_1=0
@@ -1297,10 +1300,10 @@ class Game:
                 self.level_3_fade_level[0]+=10 ; rectangle_blur=pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT))  ; rectangle_blur.set_alpha(self.level_3_fade_level[0])  ; rectangle_blur.fill((0,0,0))   ; SCREEN.blit(rectangle_blur,(0,0))
                 if self.level_3_fade_level[0]>=200:
                     self.level_3_fade_level[0]=200
-                    level_3_part_2=True
                     self.player_rect.x=200
                     self.camera_x_y[0]=0
                     self.player_rect.y=600
+                    level_3_part_2=True
 
         if level_3_part_2 and not level_3_part_3: 
             self.player_rect.height=64
@@ -2152,9 +2155,9 @@ class EnemyOne(Player):
                 for idx,knight in enumerate(enemy_1_rect):
                     if self.enemy_1_distance_list[idx]<50:
                         if player_idle_right and self.player_rect.x<=enemy_1_rect[idx].x:
-                            self.enemy_1_health_list[idx]-=100 #25
+                            self.enemy_1_health_list[idx]-=40 #25
                         if player_idle_left and self.player_rect.x>enemy_1_rect[idx].x:
-                            self.enemy_1_health_list[idx]-=100
+                            self.enemy_1_health_list[idx]-=40
                         attack_done=False
                     if self.enemy_1_health_list[idx]<0:
                         self.enemy_1_x_movement[idx]=0
@@ -2163,9 +2166,12 @@ class EnemyOne(Player):
         global reset_enemy_position
         self.enemy_1_fall=enemy_1_fall ; self.enemy_1_fall_flip=enemy_1_fall_flip ; self.enemy_one_fall_number=enemy_one_fall_number
         if (level_1 or level_2_part_2 or level_3_part_3) and not reset_enemy_position:
-            if level_1: enemy_1_rect=self.enemy_level_1_rect
-            if level_2_part_2 : enemy_1_rect=self.enemy_1_level_2_rect ; self.cam_y_1=10 ; self.cam_y_2=45
-            if level_3_part_3 : enemy_1_rect=self.enemy_1_level_3_rect ; self.cam_y_1=25 ; self.cam_y_2=60
+            if level_1: 
+                enemy_1_rect=self.enemy_level_1_rect ; self.cam_y_1=10 ; self.cam_y_2=45
+            if level_2_part_2 : 
+                enemy_1_rect=self.enemy_1_level_2_rect ; self.cam_y_1=10 ; self.cam_y_2=45
+            if level_3_part_3 : 
+                enemy_1_rect=self.enemy_1_level_3_rect ; self.cam_y_1=25 ; self.cam_y_2=60
             for idx,knight in enumerate(enemy_1_rect):
                 if self.enemy_1_health_list[idx]<=0:
                     self.enemy_1_x_movement[idx]=0
@@ -2265,39 +2271,27 @@ class EnemyTwo(Player):
             level_4_change=False
 
         if level_1 or level_4 or level_4_part_2:
-            if level_1:
-                enemy_rect=self.enemy_two_level_1_rect
-            if level_4:
-                enemy_rect=self.enemy_two_level_4_rect_1
-            if level_4_part_2:
-                enemy_rect=self.enemy_two_level_4_rect_2
-              #  print(self.enemy_two_health)
+            if level_1: enemy_rect=self.enemy_two_level_1_rect
+            if level_4: enemy_rect=self.enemy_two_level_4_rect_1
+            if level_4_part_2: enemy_rect=self.enemy_two_level_4_rect_2
             for idx,enemy_knight in enumerate(enemy_rect):
                 enemy_two_player_distance=math.sqrt(math.pow(self.player_rect.x-enemy_knight.x,2)+math.pow(self.player_rect.y-enemy_knight.y,2))
                 self.enemy_two_distance_list.append(enemy_two_player_distance) ; self.enemy_two_rect_list.append(pygame.Rect(enemy_knight.x,enemy_knight.y,45,55)) 
                 self.enemy_two_x_movement.append(0) ; self.enemy_two_health.append(100), self.enemy_two_fall_number.append(0) ; self.enemy_two_fall_direction_set.append(0)
                 self.enemy_two_idle_number.append(0)
-                #150
-                if self.enemy_two_x_movement[idx]>0:
-                    self.enemy_two_fall_direction_set[idx]=1
-                if self.enemy_two_x_movement[idx]<0:
-                    self.enemy_two_fall_direction_set[idx]=2
+                if self.enemy_two_x_movement[idx]>0: self.enemy_two_fall_direction_set[idx]=1
+                if self.enemy_two_x_movement[idx]<0: self.enemy_two_fall_direction_set[idx]=2
                     
                 if len(self.enemy_two_distance_list)>len(enemy_rect):
-                    del self.enemy_two_x_movement[-1]
-                    del self.enemy_two_distance_list[0]
-                    del self.enemy_two_health[-1]
-                    del self.enemy_two_fall_number[-1]
-                    del self.enemy_two_fall_direction_set[-1]
-                    del self.enemy_two_idle_number[-1]
+                    del self.enemy_two_x_movement[-1] ; del self.enemy_two_distance_list[0] ; del self.enemy_two_health[-1]
+                    del self.enemy_two_fall_number[-1] ; del self.enemy_two_fall_direction_set[-1]  ; del self.enemy_two_idle_number[-1]
         if level_1: 
             if not level_1_enemy_fight_condition:
                 for idx,enemy_knight in enumerate(self.enemy_two_level_1_rect):
                     self.enemy_two_x_movement[idx]=0
                     SCREEN.blit(self.enemy_two_idle_flip[int(self.enemy_two_idle_number[0]//2)],(enemy_knight.x-self.camera_x_y[0]-25,enemy_knight.y-self.camera_x_y[1]-25))
                     self.enemy_two_idle_number[0]+=0.10
-                    if self.enemy_two_idle_number[0]>4:
-                        self.enemy_two_idle_number[0]=0
+                    if self.enemy_two_idle_number[0]>4: self.enemy_two_idle_number[0]=0
             if level_1_enemy_fight_condition:
                 for idx,enemy_knight in enumerate(self.enemy_two_level_1_rect):
                     if self.player_rect.x>=enemy_knight.x and self.enemy_two_distance_list[idx]>30 and self.enemy_two_health[idx]>0:
@@ -2307,8 +2301,7 @@ class EnemyTwo(Player):
                         SCREEN.blit(self.enemy_two_run_flip[int(self.enemy_two_run_number[0]//2)],(enemy_knight.x-self.camera_x_y[0]-25,enemy_knight.y-self.camera_x_y[1]-25))
                         self.enemy_two_x_movement[idx]=-4
                     self.enemy_two_run_number[0]+=0.35
-                    if self.enemy_two_run_number[0]>10:
-                        self.enemy_two_run_number[0]=0
+                    if self.enemy_two_run_number[0]>10: self.enemy_two_run_number[0]=0
             self.enemy_two_y_movement[0]=8
             
         if level_4 or level_4_part_2:
@@ -2325,8 +2318,7 @@ class EnemyTwo(Player):
                         if self.player_rect.x>=enemy_knight.x:
                             SCREEN.blit(self.enemy_two_idle[int(self.enemy_two_idle_number[idx]//2)],(enemy_knight.x-self.camera_x_y[0],enemy_knight.y-self.camera_x_y[1]-15))
                         self.enemy_two_idle_number[idx]+=0.25
-                        if self.enemy_two_idle_number[idx]>4:
-                            self.enemy_two_idle_number[idx]=0
+                        if self.enemy_two_idle_number[idx]>4: self.enemy_two_idle_number[idx]=0
 
                     if self.player_rect.x>=enemy_knight.x and self.enemy_two_distance_list[idx]<=700 and self.enemy_two_health[idx]>0 and self.enemy_two_distance_list[idx]>30  and self.player_rect.y-enemy_knight.y<=12:
                         SCREEN.blit(self.enemy_two_run[int(self.enemy_two_run_number[0]//2)],(enemy_knight.x-self.camera_x_y[0],enemy_knight.y-self.camera_x_y[1]-15))
@@ -2336,8 +2328,7 @@ class EnemyTwo(Player):
                         self.enemy_two_x_movement[idx]=-4
 
                     self.enemy_two_run_number[0]+=0.35
-                    if self.enemy_two_run_number[0]>10:
-                        self.enemy_two_run_number[0]=0
+                    if self.enemy_two_run_number[0]>10: self.enemy_two_run_number[0]=0
                     
     def attack(self):
         global level_1, level_1_enemy_fight_condition,level_4,hit_ground,level_4_part_2
@@ -2398,13 +2389,13 @@ class EnemyTwo(Player):
                 enemy_rect=self.enemy_two_level_4_rect_1
             if level_4_part_2:
                 enemy_rect=self.enemy_two_level_4_rect_2
-          #  if attack_done:
-            for idx,knight in enumerate(enemy_rect):
-                    if self.enemy_two_distance_list[idx]<50:
-                        if player_idle_right and self.player_rect.x<=enemy_rect[idx].x:
-                            self.enemy_two_health[idx]-=25
-                        if player_idle_left and self.player_rect.x>enemy_rect[idx].x:
-                            self.enemy_two_health[idx]-=25
+            if attack_done:
+                for idx,knight in enumerate(enemy_rect):
+                        if self.enemy_two_distance_list[idx]<50:
+                            if player_idle_right and self.player_rect.x<=enemy_rect[idx].x:
+                                self.enemy_two_health[idx]-=25
+                            if player_idle_left and self.player_rect.x>enemy_rect[idx].x:
+                                self.enemy_two_health[idx]-=25
                         attack_done=False    
     
     def fall(self):
@@ -2766,9 +2757,9 @@ class MainBoss(Player):
             SCREEN.blit(self.health_icon,(605,12))
             health_border=pygame.draw.rect(SCREEN,(220,220,220),pygame.Rect(590,10,self.health_bar_length,25),4) 
             if attack and player_idle_left and self.player_rect.x>=self.main_boss_rect_level_4_part_2.x:
-                self.main_boss_health[0]-=1000 #50
+                self.main_boss_health[0]-=10 #50
             elif attack and player_idle_right and self.player_rect.x<self.main_boss_rect_level_4_part_2.x:
-                self.main_boss_health[0]-=1000 #50
+                self.main_boss_health[0]-=10 #50
 
     def fall(self):
         global fall_type_right,fall_type_left
@@ -2911,7 +2902,7 @@ class BossOne(Player):
             health_border=pygame.draw.rect(SCREEN,(220,220,220),pygame.Rect(590,10,self.health_bar_length,25),4) 
             if attack and self.player_boss_1_distance<100 and self.boss_1_attack_timer[0]>0:
                 if player_idle_right and self.player_rect.x<self.boss_1_rect.x or player_idle_left and self.player_rect.x>=self.boss_1_rect.x:
-                    self.boss_1_health[0]-=100    #5
+                    self.boss_1_health[0]-=10   #5
             if boss_1_attack_timer[0]<=0:
                 self.boss_1_health[0]+=1  
             if self.boss_1_health[0]>1000:
@@ -3037,9 +3028,9 @@ class BossTwo(Player):
             if self.boss_2_attack_number[0]>9:
                 self.boss_2_attack_number[0]=0
                 if not enemy_stage_two:
-                    self.player_current_health[0]-=550   #50
+                    self.player_current_health[0]-=50   #50
                 if enemy_stage_two:
-                    self.player_current_health[0]-=550  #150
+                    self.player_current_health[0]-=150  #150
 
     def health(self):
         global attack,player_idle_right,player_idle_left,boss_one_fall_once,boss_2_fall_right,boss_2_fall_left
@@ -3052,10 +3043,10 @@ class BossTwo(Player):
             health_border=pygame.draw.rect(SCREEN,(220,220,220),pygame.Rect(590,10,self.health_bar_length,25),4) 
             if attack:
                 if player_idle_right and self.player_rect.x<=self.boss_2_level_3_rect.x and self.player_boss_two_distance<75:
-                    self.boss_2_level_3_health[0]-=1000 #50
+                    self.boss_2_level_3_health[0]-=15 #50
                     boss_2_fall_right=True ; boss_2_fall_left=False
                 if player_idle_left and self.player_rect.x>self.boss_2_level_3_rect.x and self.player_boss_two_distance<75:
-                    self.boss_2_level_3_health[0]-=1000 #50
+                    self.boss_2_level_3_health[0]-=15 #50
                     boss_2_fall_right=False ; boss_2_fall_left=True
                 if self.boss_2_level_3_health[0]<=0 and not boss_one_fall_once:
                     boss_one_fall_once=True
