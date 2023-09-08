@@ -1600,17 +1600,14 @@ class Game:
                 rectangle_blur.set_alpha(self.level_4_fade_level[0])  
                 rectangle_blur.fill((0,0,0))   
                 SCREEN.blit(rectangle_blur,(0,0))
-                print("THIS")
                 if self.level_4_fade_level[0]>=200:
                     level_4_part_2=True 
                     level_4_change=True
-                    print("HERE")
                     self.player_rect.x=40
                     self.player_rect.y=400
 
         if level_4_part_2:
             level_4=False
-            level_4_change=False
             SCREEN.fill((39,38,56))
             if self.player_rect.x>=220 and self.player_rect.x<4850: self.camera_x_y[0]+=self.player_rect.x-self.camera_x_y[0]-210
             if self.player_rect.x<220: 
@@ -1996,7 +1993,6 @@ class EnemyOne(Player):
                 self.npc_direction_choice.append(random.randint(1,2))
                 if len(self.npc_walk_length)>len(enemy_1_rect):
                     del self.npc_walk_length[-1], self.npc_direction_choice[-1]
-               
 
             for idx,enemy_knight in enumerate(enemy_1_rect): 
                 if self.enemy_1_level_1_rect[idx].y>575:
@@ -2264,9 +2260,9 @@ class EnemyTwo(Player):
             self.enemy_two_distance_list.clear() ; self.enemy_two_rect_list.clear() ; self.enemy_two_x_movement.clear() ; self.enemy_two_health.clear()
             self.enemy_two_fall_number.clear() ; self.enemy_two_fall_direction_set.clear()
         if level_4_change:
-            print("HERE")
             self.enemy_two_distance_list.clear() ; self.enemy_two_rect_list.clear() ; self.enemy_two_x_movement.clear() ; self.enemy_two_health.clear()
             self.enemy_two_fall_number.clear() ; self.enemy_two_fall_direction_set.clear()
+            level_4_change=False
 
         if level_1 or level_4 or level_4_part_2:
             if level_1:
@@ -2275,6 +2271,7 @@ class EnemyTwo(Player):
                 enemy_rect=self.enemy_two_level_4_rect_1
             if level_4_part_2:
                 enemy_rect=self.enemy_two_level_4_rect_2
+              #  print(self.enemy_two_health)
             for idx,enemy_knight in enumerate(enemy_rect):
                 enemy_two_player_distance=math.sqrt(math.pow(self.player_rect.x-enemy_knight.x,2)+math.pow(self.player_rect.y-enemy_knight.y,2))
                 self.enemy_two_distance_list.append(enemy_two_player_distance) ; self.enemy_two_rect_list.append(pygame.Rect(enemy_knight.x,enemy_knight.y,45,55)) 
