@@ -1,5 +1,6 @@
 import pygame,sys,json,random, math
 from pytmx.util_pygame import load_pygame
+from pygame import mixer
 
 pygame.init()
 
@@ -260,6 +261,9 @@ level_3_bg_part_2_list=[level_3_bg_1_1,level_3_bg_2_1,level_3_bg_3_1,level_3_bg_
 
 
 level_3_part_2=False ; level_3_transition_1=False
+
+
+
 
 mouse_button_left_image=pygame.image.load(r"A_Wit's_End\Menu Design\Buttons Pack\Buttons Pack\MOUSE\MOUSEBUTTONLEFT.png")
 mouse_button_left_image=pygame.transform.scale(mouse_button_left_image,(40,40)) 
@@ -812,6 +816,9 @@ level_4_fade_level=[0] ; level_4_dialogue_2_once=False ; level_4_player_boss_dia
 player_lose_level_4_dialogue=False ; player_win_level_4_dialogue=False ; level_4_dialogue_3_once=False ; level_4_dialogue_4_once=False
 level_4_change=False
 
+main_music=mixer.music.load(r"A_Wit's_End\Music\main_song.mp3")
+mixer.music.play(loops=-1)
+
 class Menu:
     def __init__(self,camera_x_y_bg):
         self.camera_x_y_bg=camera_x_y_bg
@@ -843,7 +850,7 @@ class Menu:
             self.camera_x_y[0]=0
             if key[pygame.K_q]:
                 level_screen=False
-            font_game=pygame.font.SysFont("Impact",28)  ; show_font_knight=font_game.render("LEVEL SELECTION",1,(120,159,179)) ; SCREEN.blit(show_font_knight,(SCREEN_WIDTH//2-75,SCREEN_HEIGHT//2-250))  
+            font_game=pygame.font.SysFont("Impact",28)  ; show_font_knight=font_game.render("SELECT YOUR LEVEL",1,(120,159,179)) ; SCREEN.blit(show_font_knight,(SCREEN_WIDTH//2-75,SCREEN_HEIGHT//2-250))  
             rectangle_level_1_bg=pygame.draw.rect(SCREEN,(176,196,222),pygame.Rect(SCREEN_WIDTH//2-300,SCREEN_HEIGHT//2-50,60,90))
             rectangle_level_1=pygame.draw.rect(SCREEN,(120,159,179),pygame.Rect(SCREEN_WIDTH//2-300,SCREEN_HEIGHT//2-50,60,90),width=10)
             font_game=pygame.font.SysFont("Impact",28)  ; show_font_knight=font_game.render("1",1,(120,159,179)) ; SCREEN.blit(show_font_knight,(SCREEN_WIDTH//2-275,SCREEN_HEIGHT//2-25))  
@@ -881,7 +888,7 @@ class Menu:
             level_screen=False
             if key[pygame.K_r]:
                 level_3=False ; level_2_part_2=False ; level_screen=True ; level_1=False ; level_2=False ; reset_enemy_position=True ; level_4=False
-                
+
 class Game:
     def __init__(self,level_1_bg,tile_level_1,camera_x_y,tile_level_1_rect,tile_level_2,tile_level_2_rect,tile_level_3,tile_level_3_rect,level_3_tile_set_part_2,
                  level_3_tile_set_part_2_rect,level_4_tile_set,level_4_tile_set_rect,level_4_tile_set_part_2,level_4_tile_set_part_2_rect):
@@ -1731,7 +1738,8 @@ class Player(Game):
         self.player_x_movement=player_x_movement ; self.player_y_movement=player_y_movement ; self.player_current_health=player_current_health
         self.player_rect=player_rect
         super().__init__(level_1_bg,tile_level_1,camera_x_y,tile_level_1_rect,tile_level_2,tile_level_2_rect,tile_level_3,
-                         tile_level_3_rect,level_3_tile_set_part_2,level_3_tile_set_part_2_rect,level_4_tile_set,level_4_tile_set_rect,level_4_tile_set_part_2,level_4_tile_set_part_2_rect)
+                         tile_level_3_rect,level_3_tile_set_part_2,level_3_tile_set_part_2_rect,level_4_tile_set,level_4_tile_set_rect,level_4_tile_set_part_2,
+                         level_4_tile_set_part_2_rect)
     
     def movement(self,player_idle,player_idle_flip,player_run,player_run_flip,player_jump,player_jump_flip):
         global level_1,jump,jump_condition,player_idle_right,player_idle_left,attack,crouch,dialogue_move_condition,player_death,level_2,level_3,level_3_part_2,level_4,level_4_part_2
@@ -3144,7 +3152,9 @@ while run:
     menu.home(level_3_bg_1,level_3_bg_2)
     menu.level_selection()
     
-    game=Game(level_1_bg,tile_level_1,camera_x_y,tile_level_1_rect,tile_level_2,tile_level_2_rect,tile_level_3,tile_level_3_rect,level_3_tile_set_part_2,level_3_tile_set_part_2_rect,level_4_tile_set,level_4_tile_set_rect,level_4_tile_set_part_2,level_4_tile_set_part_2_rect)
+    game=Game(level_1_bg,tile_level_1,camera_x_y,tile_level_1_rect,tile_level_2,tile_level_2_rect,
+              tile_level_3,tile_level_3_rect,level_3_tile_set_part_2,level_3_tile_set_part_2_rect,level_4_tile_set,level_4_tile_set_rect,
+              level_4_tile_set_part_2,level_4_tile_set_part_2_rect)
     game.level_one(tile_level_1_ground,tile_level_1_dirt)
     game.level_two()
     game.level_three()
